@@ -4,7 +4,7 @@ import { FormPropsType } from '../types/userAuth.types';
 
 
 
-const Form = ({ title, nameField, forgotPassword, doesHaveAccount, onChange, handleSubmit }: FormPropsType) => {
+const Form = ({ title, nameField, forgotPassword, doesHaveAccount, onChange, handleSubmit, phoneField }: FormPropsType) => {
 
     return (
         <>
@@ -41,6 +41,21 @@ const Form = ({ title, nameField, forgotPassword, doesHaveAccount, onChange, han
                                         className="input input-bordered"
                                     />
                                 </div>
+
+                                {
+                                    phoneField && <div className="form-control">
+                                        <label className="label">
+                                            <span className="label-text">Phone</span>
+                                        </label>
+                                        <input
+                                            onChange={onChange}
+                                            name='phone'
+                                            type="text"
+                                            placeholder="Phone"
+                                            className="input input-bordered"
+                                        />
+                                    </div>
+                                }
 
                                 <div className="form-control">
                                     <label className="label">

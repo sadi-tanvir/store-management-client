@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
-import { LOGIN_USER_MUTATION } from '../../../gql/mutations/userAuthMutations';
+import { USER_LOGIN_MUTATION } from '../../../gql/mutations/userAuthMutations';
 import Form from '../Form';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
     })
 
     // signIn mutation
-    const [loginReducer, { data, loading, error }] = useMutation(LOGIN_USER_MUTATION);
+    const [loginMutation, { data, loading, error }] = useMutation(USER_LOGIN_MUTATION);
 
     // handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ const Login = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        loginReducer({
+        loginMutation({
             variables: {
                 info: {
                     email: user.email,

@@ -1,13 +1,53 @@
-import React from 'react';
+import { useMutation } from '@apollo/client';
+import React, { useState } from 'react';
+import { USER_REGISTER_MUTATION } from '../../../gql/mutations/userAuthMutations';
 import Form from '../Form';
 
 const Register = () => {
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        password: '',
+        phone: ''
+    })
+
+    // signIn mutation
+    const [registerMutation, { data, loading, error }] = useMutation(USER_REGISTER_MUTATION);
+
+    // handle input change
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setUser({ ...user, [name]: value });
+    }
+
+    console.log(data);
+
+
+    // handle form submit
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        registerMutation({
+            variables: {
+                info: {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    phone: user.phone
+                }
+            }
+        })
+    }
+
     return (
         <>
             <Form
                 title="Register"
                 nameField={true}
+                phoneField={true}
                 doesHaveAccount={{ path: '/login', label: 'Don\'t have an account?' }}
+                onChange={(e) => handleChange(e)}
+                handleSubmit={(e) => handleSubmit(e)}
             />
         </>
     );

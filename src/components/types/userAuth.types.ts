@@ -2,6 +2,7 @@ export interface FormPropsType {
     title: string;
     nameField?: boolean;
     forgotPassword?: boolean;
+    phoneField?: boolean;
     doesHaveAccount: {
         path: string;
         label: string;
