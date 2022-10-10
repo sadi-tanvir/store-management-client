@@ -1,4 +1,6 @@
 import React from 'react';
+import { DarkModePropsType } from '../../types/global.types';
+import DarkMode from './DarkMode';
 
 const ProfileNav = () => {
     return (
@@ -9,15 +11,21 @@ const ProfileNav = () => {
                         <img src="https://placeimg.com/80/80/people" />
                     </div>
                 </label>
-                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 dark:bg-darkSecondary rounded-box w-52">
                     <li>
-                        <a className="justify-between">
+                        <a className="flex justify-between dark:text-darkNeutral">
+                            Dark Mode
+                            <DarkMode />
+                        </a>
+                    </li>
+                    <li>
+                        <a className="justify-between dark:text-darkNeutral">
                             Profile
                             <span className="badge">New</span>
                         </a>
                     </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
+                    <li className="dark:text-darkNeutral"><a>Settings</a></li>
+                    <li className="dark:text-darkNeutral"><a>Logout</a></li>
                 </ul>
             </div>
         </>

@@ -11,5 +11,10 @@ export const NavList: NavListType[] = [
         key: 2,
         title: 'About',
         path: '/about'
+    },
+    {
+        key: 2,
+        title: 'Login',
+        path: '/login'
     }
 ]

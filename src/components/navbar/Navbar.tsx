@@ -3,7 +3,7 @@ import ProfileNav from './components/ProfileNav';
 import NotificationNav from './components/NotificationNav';
 import { NavLink } from "react-router-dom"
 import { ActiveStyleType, LinkType, NavListType } from '../types/navbar.types';
-import { activeStyle, nonActiveStyle } from './components/StyleObject';
+import { ActiveNavProps } from './components/StyleNav';
 import { NavList } from "./components/NavList";
 
 const Navbar = () => {
@@ -12,9 +12,11 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-100 dark:bg-darkSecondary">
                 <div className="navbar-start hidden md:block">
-                    <a className="btn btn-ghost normal-case text-xl">Store</a>
+                    <a className="btn btn-ghost normal-case text-xl">
+                        <img src="/logo.png" alt="site-logo" />
+                    </a>
                 </div>
                 <SmallDeviceNav />
 
@@ -23,7 +25,7 @@ const Navbar = () => {
                         {
                             NavList.map((link: NavListType) => {
                                 return (
-                                    <NavLink key={link.key} to={link.path} style={({ isActive }: LinkType) => isActive ? activeStyle : nonActiveStyle}>
+                                    <NavLink key={link.key} to={link.path} style={ActiveNavProps}>
                                         {link.title}
                                     </NavLink>
                                 )
