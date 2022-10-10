@@ -7,7 +7,7 @@ const Register = () => {
             <Form
                 title="Register"
                 nameField={true}
-                dontHaveAccount={{ path: '/login', label: 'Don\'t have an account?' }}
+                doesHaveAccount={{ path: '/login', label: 'Don\'t have an account?' }}
             />
         </>
     );

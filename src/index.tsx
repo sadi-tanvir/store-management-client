@@ -4,8 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux"
+import { Provider } from "react-redux";
 import { store } from './redux/store';
+import { InMemoryCache, ApolloProvider, NormalizedCacheObject, ApolloClient } from '@apollo/client';
+
+const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache()
+});
 
 
 const root = ReactDOM.createRoot(
@@ -13,11 +19,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ApolloProvider>
   </React.StrictMode>
 );
 
