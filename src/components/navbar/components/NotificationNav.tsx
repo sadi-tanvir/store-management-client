@@ -15,18 +15,18 @@ const NotificationNav = () => {
                         </div>
                     </button>
                 </label>
-                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-64">
-                    <li className="bg-neutral mt-1">
+                <ul tabIndex={0} className="dark:bg-darkSecondary menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 rounded-b-2xl rounded-t-lg w-64 ml-60">
+                    <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
                         <a className="text-secondary font-bold">
                             purchase order
                         </a>
                     </li>
-                    <li className="bg-neutral mt-1">
+                    <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                         <a className="text-secondary font-bold">
                             purchase order
                         </a>
                     </li>
-                    <li className="bg-neutral mt-1">
+                    <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                         <a className="text-secondary font-bold">
                             some one is created a account
                         </a>

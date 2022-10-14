@@ -1,14 +1,8 @@
+import LargeDeviceNav from './LargeDeviceNav';
 import SmallDeviceNav from './SmallDeviceNav';
-import ProfileNav from './components/ProfileNav';
-import NotificationNav from './components/NotificationNav';
-import { NavLink } from "react-router-dom"
-import { ActiveStyleType, LinkType, NavListType } from '../types/navbar.types';
-import { ActiveNavProps } from './components/StyleNav';
-import { NavList } from "./components/NavList";
+
 
 const Navbar = () => {
-
-
 
     return (
         <>
@@ -19,22 +13,8 @@ const Navbar = () => {
                     </a>
                 </div>
                 <SmallDeviceNav />
+                <LargeDeviceNav />
 
-                <div className="navbar-end">
-                    <div className="hidden md:block">
-                        {
-                            NavList.map((link: NavListType) => {
-                                return (
-                                    <NavLink key={link.key} to={link.path} style={ActiveNavProps}>
-                                        {link.title}
-                                    </NavLink>
-                                )
-                            })
-                        }
-                    </div>
-                    <NotificationNav />
-                    <ProfileNav />
-                </div>
             </div>
         </>
     );

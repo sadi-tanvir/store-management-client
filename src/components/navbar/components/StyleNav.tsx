@@ -1,29 +1,29 @@
-import { ActiveStyleType, LinkType } from "../../types/navbar.types";
+import { ActiveStyleType, LinkType } from "../../../types/navbar.types";
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks/hooks'
 
 export const ActiveNavProps = ({ isActive }: LinkType) => {
-    const { dark } = useAppSelector(state => state.globalReducer);
+    const { darkMode } = useAppSelector(state => state.globalReducer);
     return isActive ?
         {
             ...activeStyle,
-            color: `${dark ? '#cbd5e1' : '#fff'}`,
-            backgroundColor: `${dark ? '#475569' : '#37cdbe'}`
+            color: `${darkMode ? '#cbd5e1' : '#fff'}`,
+            backgroundColor: `${darkMode ? '#475569' : '#37cdbe'}`
         }
         : {
             ...nonActiveStyle,
-            color: `${dark ? '#cbd5e1' : '#64748b'}`,
+            color: `${darkMode ? '#cbd5e1' : '#64748b'}`,
         }
 }
 export const ActiveMobileNavProps = ({ isActive }: LinkType) => {
-    const { dark } = useAppSelector(state => state.globalReducer);
+    const { darkMode } = useAppSelector(state => state.globalReducer);
     return isActive ?
         {
             ...activeStyleMobile,
-            color: `${dark ? '#cbd5e1' : '#fff'}`,
-            backgroundColor: `${dark ? '#475569' : '#37cdbe'}`
+            color: `${darkMode ? '#cbd5e1' : '#fff'}`,
+            backgroundColor: `${darkMode ? '#475569' : '#37cdbe'}`
         } : {
             ...nonActiveStyleMobile,
-            color: `${dark ? '#cbd5e1' : '#64748b'}`,
+            color: `${darkMode ? '#cbd5e1' : '#64748b'}`,
         }
 };
 

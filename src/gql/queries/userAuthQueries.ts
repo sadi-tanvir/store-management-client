@@ -1,19 +1,8 @@
-import { gql } from "@apollo/client"
+import { gql } from '@apollo/client';
 
 
-
-export const CREATE_JOB_MUTATION = gql`
-mutation createJob($info:JobInput!) {
-    createJob(jobInfo:$info){
-      message
-    }
+export const SET_DARK_MODE = gql`
+  query setDarkMode{
+    darkMode
   }
-`
-
-export const DELETE_JOB = gql`
-mutation deleteJobById($id:ID!) {
-  deleteJob(id:$id){
-    message
-  }
-}
-`
+`;

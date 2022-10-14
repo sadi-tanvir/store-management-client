@@ -6,6 +6,7 @@ export const USER_LOGIN_MUTATION = gql`
         signInUser(userData:$info){
             status
             message
+            token
             user {
                 _id
                 name
@@ -14,6 +15,7 @@ export const USER_LOGIN_MUTATION = gql`
                 image
                 role
                 accountStatus
+                darkMode
             }
         }
     }

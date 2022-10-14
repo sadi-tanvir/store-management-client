@@ -3,17 +3,22 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 
 interface CounterState {
-    dark: boolean
+    darkMode: boolean;
+    cart: boolean;
 }
 
 const initialState = {
-    dark: false,
+    darkMode: false,
+    cart: false,
 } as CounterState
 
 const globalReducer = createReducer(initialState, {
-    dark: (state, action) => {
-        state.dark = !state.dark
-    }
+    setDarkMode: (state, action: PayloadAction<boolean>) => {
+        state.darkMode = action.payload
+    },
+    setCart: (state, action) => {
+        state.cart = !state.cart
+    },
 })
 
 

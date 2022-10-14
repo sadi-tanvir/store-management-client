@@ -1,8 +1,17 @@
 import React from 'react';
-import { DarkModePropsType } from '../../types/global.types';
+import { useAppDispatch } from '../../../redux/hooks/hooks';
 import DarkMode from './DarkMode';
 
 const ProfileNav = () => {
+    // redux
+    const dispatch = useAppDispatch()
+
+    // handle logout
+    const handleLogout = () => {
+        dispatch({ type: 'logOutUser' })
+        localStorage.clear()
+    }
+
     return (
         <>
             <div className="dropdown dropdown-end">
@@ -11,7 +20,7 @@ const ProfileNav = () => {
                         <img src="https://placeimg.com/80/80/people" />
                     </div>
                 </label>
-                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 dark:bg-darkSecondary rounded-box w-52">
+                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 dark:bg-darkSecondary rounded-b-2xl rounded-t-lg w-52">
                     <li>
                         <a className="flex justify-between dark:text-darkNeutral">
                             Dark Mode
@@ -25,7 +34,7 @@ const ProfileNav = () => {
                         </a>
                     </li>
                     <li className="dark:text-darkNeutral"><a>Settings</a></li>
-                    <li className="dark:text-darkNeutral"><a>Logout</a></li>
+                    <li onClick={handleLogout} className="dark:text-darkNeutral"><a>Logout</a></li>
                 </ul>
             </div>
         </>

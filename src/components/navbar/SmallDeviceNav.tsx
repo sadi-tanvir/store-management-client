@@ -1,11 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { BarIcon } from '../shared/icons/icons';
-import { LinkType, NavListType } from '../types/navbar.types';
-import { NavList } from './components/NavList';
+import { NavListType } from '../../types/navbar.types';
+import { AuthorizedNavList, UnauthorizedNavList } from './components/NavList';
 import { ActiveMobileNavProps } from './components/StyleNav';
+import { useAppSelector } from '../../redux/hooks/hooks';
+import { Link } from 'react-router-dom';
 
 const SmallDeviceNav = () => {
+    // redux
+    const { isAuthenticate } = useAppSelector(state => state.authReducer);
 
     return (
         <>
@@ -15,22 +19,40 @@ const SmallDeviceNav = () => {
                         <BarIcon iconClass="h-5 w-5 text-secondary dark:text-darkNeutral" />
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 dark:bg-darkSecondary rounded-box w-52">
-                        {
-                            NavList.map((link: NavListType) => {
-                                return (
-                                    <li key={link.key}>
-                                        <NavLink to={link.path} style={ActiveMobileNavProps}>
-                                            {link.title}
-                                        </NavLink>
-                                    </li>
-                                )
-                            })
+                        {isAuthenticate ?
+                            <>
+                                {AuthorizedNavList.map((link: NavListType) => {
+                                    return (
+                                        <li key={link.key}>
+                                            <NavLink to={link.path} style={ActiveMobileNavProps}>
+                                                {link.title}
+                                            </NavLink>
+                                        </li>
+                                    )
+                                })
+                                }
+                            </>
+                            :
+                            <>
+                                {UnauthorizedNavList.map((link: NavListType) => {
+                                    return (
+                                        <li key={link.key}>
+                                            <NavLink to={link.path} style={ActiveMobileNavProps}>
+                                                {link.title}
+                                            </NavLink>
+                                        </li>
+                                    )
+                                })
+                                }
+                            </>
                         }
                     </ul>
                 </div>
             </div>
             <div className="navbar-center md:hidden">
-                <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                <Link to="/" className="btn btn-ghost normal-case text-xl">
+                    <img width={90} src="/logo.png" alt="site-logo" />
+                </Link>
             </div>
         </>
     );

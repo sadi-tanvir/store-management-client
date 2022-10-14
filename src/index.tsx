@@ -6,14 +6,31 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from './redux/store';
-import { InMemoryCache, ApolloProvider, NormalizedCacheObject, ApolloClient } from '@apollo/client';
+import { InMemoryCache, ApolloProvider, ApolloClient, createHttpLink, } from '@apollo/client/';
+import { setContext } from '@apollo/client/link/context';
 
-const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+// graphql authentication setup
+const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql',
+});
+const authLink = setContext((_, { headers }) => {
+  const token = JSON.parse(localStorage.getItem('accessToken') as string);
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? token : "",
+    }
+  }
+});
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
 
+
+
+// react app setup
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
