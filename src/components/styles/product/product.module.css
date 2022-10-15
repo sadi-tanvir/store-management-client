@@ -1,0 +1,11 @@
+.productMenu {
+  display: none;
+  margin-top: 5px;
+  margin-right: -5px;
+}
+
+.cardBody:hover .productMenu {
+  display: block;
+  display: flex;
+  flex-direction: column;
+}/*# sourceMappingURL=product.module.css.map */
