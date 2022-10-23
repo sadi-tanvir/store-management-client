@@ -4,6 +4,11 @@ import { NavListType } from "../../../types/navbar.types";
 export const AuthorizedNavList: NavListType[] = [
     {
         key: 1,
+        title: 'Dashboard',
+        path: '/dashboard'
+    },
+    {
+        key: 1,
         title: 'Home',
         path: '/'
     },

@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { BarIcon } from '../shared/icons/icons';
 import { NavListType } from '../../types/navbar.types';
 import { AuthorizedNavList, UnauthorizedNavList } from './components/NavList';
-import { ActiveMobileNavProps } from './components/StyleNav';
+import { ActiveMobileNavProps, activeStyle } from './components/StyleNav';
 import { useAppSelector } from '../../redux/hooks/hooks';
 import { Link } from 'react-router-dom';
+import StockMenu from './components/StockMenu';
 
 const SmallDeviceNav = () => {
     // redux
@@ -29,8 +30,7 @@ const SmallDeviceNav = () => {
                                             </NavLink>
                                         </li>
                                     )
-                                })
-                                }
+                                })}
                             </>
                             :
                             <>
@@ -42,12 +42,21 @@ const SmallDeviceNav = () => {
                                             </NavLink>
                                         </li>
                                     )
-                                })
-                                }
+                                })}
                             </>
                         }
+                        <li>
+                            <StockMenu
+                                style={{
+                                    display: 'md:hidden',
+                                    activeStyle: 'bg-darkNeutral',
+                                    position: '-mr-20 mt-64'
+                                }}
+                            />
+                        </li>
                     </ul>
                 </div>
+
             </div>
             <div className="navbar-center md:hidden">
                 <Link to="/" className="btn btn-ghost normal-case text-xl">

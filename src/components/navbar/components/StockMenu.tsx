@@ -1,69 +1,71 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { NotificationIcon } from '../../shared/icons/icons';
+import { ActiveNavProps, activeStyle, activeStyleMobile } from './StyleNav';
 
-const NotificationNav = () => {
+
+const StockMenu = ({ style }: any) => {
     return (
         <>
-            <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                    <button className="btn btn-ghost btn-circle">
-                        <div className="indicator">
-                            <NotificationIcon
-                                iconClass="h-5 w-5 dark:text-darkNeutral"
-                            />
-                            <span className="badge badge-xs badge-primary indicator-item"></span>
-                        </div>
-                    </button>
+            <div className={`dropdown dropdown-end ${style.display} ${style.activeStyle}`}>
+                <label tabIndex={0} className="">
+                    {style.display.split(" ")[0] == 'hidden' ? <NavLink to='#' style={activeStyle}>
+                        Stock
+                    </NavLink> :
+                        <NavLink to='#' style={{ color: '#475569', fontWeight: 'bold' }}>
+                            Stock
+                        </NavLink>
+                    }
                 </label>
-                <ul tabIndex={0} className="flex flex-row dark:bg-darkSecondary menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 rounded-b-2xl rounded-t-lg w-72 -mr-10">
+                <ul tabIndex={0} className={`border flex flex-row dark:bg-darkSecondary menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 rounded-b-2xl rounded-t-lg w-72 ${style.position}`}>
                     <div>
                         <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
                             <a className="text-secondary font-bold">
-                                purchase order
+                                Broiler Feed
                             </a>
                         </li>
                         <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                             <a className="text-secondary font-bold">
-                                purchase order
+                                layer Feed
                             </a>
                         </li>
                         <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                             <a className="text-secondary font-bold">
-                                some one is created a account
+                                Sonali Feed
                             </a>
                         </li>
                     </div>
                     <div>
                         <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
                             <a className="text-secondary font-bold">
-                                purchase order
+                                Fish Feed
                             </a>
                         </li>
                         <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                             <a className="text-secondary font-bold">
-                                purchase order
+                                Animal Feed
                             </a>
                         </li>
                         <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                             <a className="text-secondary font-bold">
-                                some one is created a account
+                                Birds Feed
                             </a>
                         </li>
                     </div>
                     <div>
                         <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
                             <a className="text-secondary font-bold">
-                                purchase order
+                                Medicines
                             </a>
                         </li>
                         <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                             <a className="text-secondary font-bold">
-                                purchase order
+                                Vaccines
                             </a>
                         </li>
                         <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
                             <a className="text-secondary font-bold">
-                                some one is created a account
+                                Others Products
                             </a>
                         </li>
                     </div>
@@ -73,4 +75,4 @@ const NotificationNav = () => {
     );
 };
 
-export default NotificationNav;
+export default StockMenu;

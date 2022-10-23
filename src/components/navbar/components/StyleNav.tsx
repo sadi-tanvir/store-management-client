@@ -14,6 +14,7 @@ export const ActiveNavProps = ({ isActive }: LinkType) => {
             color: `${darkMode ? '#cbd5e1' : '#64748b'}`,
         }
 }
+
 export const ActiveMobileNavProps = ({ isActive }: LinkType) => {
     const { darkMode } = useAppSelector(state => state.globalReducer);
     return isActive ?
@@ -30,10 +31,10 @@ export const ActiveMobileNavProps = ({ isActive }: LinkType) => {
 
 
 export let activeStyle: ActiveStyleType = {
-    color: 'red',
+    color: '#475569',
     fontWeight: 'bold',
     margin: '0px 10px',
-    backgroundColor: '#fee2e2',
+    backgroundColor: '#cbd5e1',
     padding: '5px 30px',
     borderRadius: '5px',
     boxShadow: '0px 0px 6px -5px black',

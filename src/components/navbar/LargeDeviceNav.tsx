@@ -6,6 +6,7 @@ import { ActiveNavProps } from './components/StyleNav';
 import { AuthorizedNavList, UnauthorizedNavList } from "./components/NavList";
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
 import { CartIcon } from '../shared/icons/icons';
+import StockMenu from './components/StockMenu';
 
 
 const LargeDeviceNav = () => {
@@ -38,7 +39,11 @@ const LargeDeviceNav = () => {
                             })}
                         </>
                     }
+
                 </div>
+                <StockMenu
+                    style={{ display: 'hidden md:block', position: '-mr-10', activeStyle: '' }}
+                />
 
 
                 {isAuthenticate && <>
