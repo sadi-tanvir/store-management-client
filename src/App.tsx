@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Users from "./components/Dashboard/manage-users/components/Users";
+import UserProfile from "./components/Dashboard/manage-users/UserProfile";
+import Users from "./components/Dashboard/manage-users/Users";
 import Home from "./components/home/Home";
 import Navbar from "./components/navbar/Navbar";
 import Stock from "./components/products/Stock/Stock";
@@ -54,6 +55,7 @@ function App() {
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<Users />} />
         </Route>
+        <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />
         <Route path="/users" element={<Users />} />
         <Route path="/login" element={<CheckAuth><Login /></CheckAuth>} />

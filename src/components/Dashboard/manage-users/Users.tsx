@@ -1,14 +1,12 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
-import { GET_USERS } from '../../../../gql/queries/userAuthQueries';
-import { DashboardUserType } from '../../../../types/dashboard/users.types';
+import { GET_USERS } from '../../../gql/queries/userAuthQueries';
+import { DashboardUserType } from '../../../types/dashboard/users.types';
 import UserCard from './UserCard';
 
 const Users = () => {
 
     const { loading, error, data } = useQuery(GET_USERS);
-
-    console.log(`i am from dashboard at users component`, data?.users);
 
 
     return (

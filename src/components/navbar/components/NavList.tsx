@@ -8,18 +8,18 @@ export const AuthorizedNavList: NavListType[] = [
         path: '/dashboard'
     },
     {
-        key: 1,
+        key: 2,
         title: 'Home',
         path: '/'
     },
     {
-        key: 2,
+        key: 3,
         title: 'About',
         path: '/about'
     }
     ,
     {
-        key: 3,
+        key: 4,
         title: 'Stocks',
         path: '/stocks'
     }

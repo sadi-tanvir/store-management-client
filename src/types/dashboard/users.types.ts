@@ -1,5 +1,6 @@
 export type DashboardUserType = {
     _id: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
 }

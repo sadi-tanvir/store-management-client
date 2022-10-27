@@ -1,11 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState } from 'react';
-import { DashboardUserType } from '../../../../types/dashboard/users.types';
+import { DashboardUserType } from '../../../types/dashboard/users.types';
+import { useNavigate } from "react-router-dom"
 
 const UserCard = ({ user }: { user: DashboardUserType }) => {
-    let userName2 = '2.2KW Auto Start Sakura Engine Generator LG2700EX-AT'
-    let userEmail2 = 'programmingcommunity100@gmail.com'
+
+    // router
+    const navigate = useNavigate();
+
+
+    const fullName = `${user.firstName} ${user.lastName}`;
 
     return (
         <>
@@ -22,7 +27,7 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-1 p-2 shadow bg-base-100 dark:bg-darkPrimary rounded-b-2xl rounded-t-lg w-52">
                             <li><a className="dark:text-darkNeutral">edit</a></li>
-                            <li><a className="dark:text-darkNeutral">Details</a></li>
+                            <li onClick={() => navigate(`/user/${user?._id}`)}><a className="dark:text-darkNeutral">Details</a></li>
                             <li><a className="text-red-400">Delete</a></li>
                         </ul>
                     </div>
@@ -36,12 +41,12 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                     />
                     <div className="flex flex-col items-start ml-2">
                         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white cursor-not-allowed">
-                            <div className="tooltip tooltip-primary" data-tip={userEmail2}>
-                                {user.name.length > 15 ? `${user.name.substring(0, 15)}...` : user.name}
+                            <div className="tooltip tooltip-primary" data-tip={fullName}>
+                                {fullName.length > 15 ? `${fullName.substring(0, 15)}...` : fullName}
                             </div>
                         </h5>
                         <span className="text-sm text-gray-500 dark:text-gray-400 cursor-not-allowed">
-                            <div className="tooltip tooltip-primary" data-tip={userEmail2}>
+                            <div className="tooltip tooltip-primary" data-tip={user.email}>
                                 {user.email.length > 20 ? `${user.email.substring(0, 20)}...` : user.email}
                             </div>
                         </span>

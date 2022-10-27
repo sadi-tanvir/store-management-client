@@ -8,6 +8,7 @@ import { AuthReducerStateType, AuthReducerUserType } from '../../types/redux-typ
 const initialState = {
     isLoading: false,
     isAuthenticate: false,
+    role: '',
     isAdmin: false,
     isManager: false,
     isUser: false,
@@ -15,10 +16,15 @@ const initialState = {
     accountStatus: '',
     userInfo: {
         _id: "",
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         phone: '',
-        image: ''
+        image: '',
+        gender: '',
+        currentAddress: '',
+        permanentAddress: '',
+        dateOfBirth: '',
     },
 } as AuthReducerStateType
 
@@ -39,10 +45,19 @@ const authReducer = createReducer(initialState, {
     },
     setUserInfo: (state, action: PayloadAction<AuthReducerUserType>) => {
         state.userInfo._id = action.payload._id
-        state.userInfo.name = action.payload.name
+        state.userInfo.firstName = action.payload.firstName
+        state.userInfo.lastName = action.payload.lastName
         state.userInfo.email = action.payload.email
         state.userInfo.phone = action.payload.phone
         state.userInfo.image = action.payload.image
+        state.userInfo.gender = action.payload.gender
+        state.userInfo.currentAddress = action.payload.currentAddress
+        state.userInfo.permanentAddress = action.payload.permanentAddress
+        state.userInfo.dateOfBirth = action.payload.dateOfBirth
+
+        // account status
+        state.accountStatus = action.payload.accountStatus
+        state.role = action.payload.role
     },
     accessToken: (state, action: PayloadAction<string>) => {
         state.accessToken = action.payload
@@ -55,10 +70,15 @@ const authReducer = createReducer(initialState, {
         state.isUser = false;
         state.userInfo = {
             _id: "",
-            name: '',
+            firstName: '',
+            lastName: '',
             email: '',
             phone: '',
-            image: ''
+            image: '',
+            gender: '',
+            currentAddress: '',
+            permanentAddress: '',
+            dateOfBirth: ''
         };
         state.accessToken = "";
     },

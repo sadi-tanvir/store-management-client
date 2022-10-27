@@ -42,7 +42,11 @@ const LargeDeviceNav = () => {
 
                 </div>
                 <StockMenu
-                    style={{ display: 'hidden md:block', position: '-mr-10', activeStyle: '' }}
+                    style={{
+                        display: 'hidden md:block',
+                        position: '-mr-10',
+                        activeStyle: ''
+                    }}
                 />
 
 

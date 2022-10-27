@@ -9,13 +9,18 @@ export const USER_LOGIN_MUTATION = gql`
             token
             user {
                 _id
-                name
+                firstName
+                lastName
                 email
                 phone
                 image
                 role
                 accountStatus
                 darkMode
+                gender
+                currentAddress
+                permanentAddress
+                dateOfBirth
             }
         }
     }
@@ -27,11 +32,22 @@ export const USER_REGISTER_MUTATION = gql`
             status
             message
             user {
-            name
+                firstName
+                lastName
                 email
                 password
                 phone
             }
         }
     }
+`
+
+
+export const USER_UPDATE_By_ADMIN_MUTATION = gql`
+    mutation updateUserByAdmin($info:updateUserByAdminInput!) {
+        updateUserByAdmin(userData:$info){
+            status
+            message
+    }
+}
 `

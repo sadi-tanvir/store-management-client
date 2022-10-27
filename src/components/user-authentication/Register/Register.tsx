@@ -5,7 +5,8 @@ import Form from '../Form';
 
 const Register = () => {
     const [user, setUser] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         phone: ''
@@ -30,7 +31,8 @@ const Register = () => {
         registerMutation({
             variables: {
                 info: {
-                    name: user.name,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     email: user.email,
                     password: user.password,
                     phone: user.phone

@@ -16,7 +16,6 @@ const Login = () => {
 
     // signIn mutation
     const [loginMutation, { data, loading, error }] = useMutation(USER_LOGIN_MUTATION);
-    console.log(`login errors`, error);
 
     // handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,10 +47,16 @@ const Login = () => {
             localStorage.setItem('userInfo', JSON.stringify(
                 {
                     _id: data.signInUser.user._id,
-                    name: data.signInUser.user.name,
+                    firstName: data.signInUser.user.firstName,
+                    lastName: data.signInUser.user.lastName,
                     email: data.signInUser.user.email,
                     phone: data.signInUser.user.phone,
-                    image: data.signInUser.user.image
+                    image: data.signInUser.user.image,
+                    gender: data.signInUser.user.gender,
+                    currentAddress: data.signInUser.user.currentAddress,
+                    permanentAddress: data.signInUser.user.permanentAddress,
+                    dateOfBirth: data.signInUser.user.dateOfBirth,
+                    accountStatus: data.signInUser.user.accountStatus
                 }
             ));
 

@@ -15,18 +15,33 @@ const Form = ({ title, nameField, forgotPassword, doesHaveAccount, onChange, han
                             <h1 className="text-3xl font-bold text-primary">{title}</h1>
                             <form onSubmit={handleSubmit}>
                                 {
-                                    nameField && <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Name</span>
-                                        </label>
-                                        <input
-                                            onChange={onChange}
-                                            name='name'
-                                            type="text"
-                                            placeholder="Name"
-                                            className="input input-bordered"
-                                        />
-                                    </div>
+                                    nameField &&
+                                    <>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">First Name</span>
+                                            </label>
+                                            <input
+                                                onChange={onChange}
+                                                name='firstName'
+                                                type="text"
+                                                placeholder="First Name"
+                                                className="input input-bordered"
+                                            />
+                                        </div>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Last Name</span>
+                                            </label>
+                                            <input
+                                                onChange={onChange}
+                                                name='lastName'
+                                                type="text"
+                                                placeholder="Last Name"
+                                                className="input input-bordered"
+                                            />
+                                        </div>
+                                    </>
                                 }
 
                                 <div className="form-control">

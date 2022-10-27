@@ -1,10 +1,8 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { NotificationIcon } from '../../shared/icons/icons';
-import { ActiveNavProps, activeStyle, activeStyleMobile } from './StyleNav';
+import { activeStyle } from './StyleNav';
 
 
-const StockMenu = ({ style }: any) => {
+const StockMenu = ({ style }: { style: { display: string; position: string; activeStyle: string; } }) => {
     return (
         <>
             <div className={`dropdown dropdown-end ${style.display} ${style.activeStyle}`}>
