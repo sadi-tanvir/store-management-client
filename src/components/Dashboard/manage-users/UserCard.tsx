@@ -3,12 +3,33 @@
 import React, { useState } from 'react';
 import { DashboardUserType } from '../../../types/dashboard/users.types';
 import { useNavigate } from "react-router-dom"
+import { useMutation } from '@apollo/client';
+import { GET_USERS } from '../../../gql/queries/userAuthQueries';
+import Swal from 'sweetalert2';
+import { USER_DELETE_BY_ID_MUTATION } from '../../../gql/mutations/userAuthMutations';
 
 const UserCard = ({ user }: { user: DashboardUserType }) => {
+    // gql
+    const [deleteUserMutation, { data, loading, error }] = useMutation(USER_DELETE_BY_ID_MUTATION, {
+        refetchQueries: [GET_USERS],
+    });
 
     // router
     const navigate = useNavigate();
 
+    // handle delete user
+    const handleDeleteUser = () => {
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    deleteUserMutation({
+                        variables: {
+                            id: user._id
+                        }
+                    })
+                }
+            })
+    }
 
     const fullName = `${user.firstName} ${user.lastName}`;
 
@@ -26,9 +47,8 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                             </button>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-1 p-2 shadow bg-base-100 dark:bg-darkPrimary rounded-b-2xl rounded-t-lg w-52">
-                            <li><a className="dark:text-darkNeutral">edit</a></li>
                             <li onClick={() => navigate(`/user/${user?._id}`)}><a className="dark:text-darkNeutral">Details</a></li>
-                            <li><a className="text-red-400">Delete</a></li>
+                            <li onClick={handleDeleteUser}><a className="text-red-400">Delete</a></li>
                         </ul>
                     </div>
                 </div> {/* drop down end */}

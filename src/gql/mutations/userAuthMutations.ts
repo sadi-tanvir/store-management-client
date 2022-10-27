@@ -51,3 +51,11 @@ export const USER_UPDATE_By_ADMIN_MUTATION = gql`
     }
 }
 `
+
+export const USER_DELETE_BY_ID_MUTATION = gql`
+    mutation deleteUserById($id:ID!) {
+        deleteUserById(id:$id) {
+            status
+        }
+    }
+`
