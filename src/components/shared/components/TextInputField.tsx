@@ -8,8 +8,9 @@ export type TextInputType = {
     className?: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    rest?: any;
 }
-const TextInputField = ({ label, name, type, placeholder, className, onChange, value }: TextInputType) => {
+const TextInputField = ({ label, name, type, placeholder, className, onChange, value, rest }: TextInputType) => {
     return (
         <div>
             <div className="form-control justify-around">
@@ -19,6 +20,7 @@ const TextInputField = ({ label, name, type, placeholder, className, onChange, v
                     </label>
                 }
                 <input
+                    {...rest}
                     onChange={onChange}
                     value={value}
                     name={name}

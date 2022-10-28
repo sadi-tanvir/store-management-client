@@ -44,6 +44,7 @@ const Login = () => {
             localStorage.setItem('accessToken', JSON.stringify(data.signInUser.token));
             localStorage.setItem('darkMode', JSON.stringify(data.signInUser.user.darkMode));
             localStorage.setItem('role', JSON.stringify(data.signInUser.user.role));
+            localStorage.setItem('accountStatus', JSON.stringify(data.signInUser.user.accountStatus));
             localStorage.setItem('userInfo', JSON.stringify(
                 {
                     _id: data.signInUser.user._id,
@@ -56,7 +57,8 @@ const Login = () => {
                     currentAddress: data.signInUser.user.currentAddress,
                     permanentAddress: data.signInUser.user.permanentAddress,
                     dateOfBirth: data.signInUser.user.dateOfBirth,
-                    accountStatus: data.signInUser.user.accountStatus
+                    createdAt: data.signInUser.user.createdAt,
+                    updatedAt: data.signInUser.user.updatedAt,
                 }
             ));
 
@@ -64,6 +66,8 @@ const Login = () => {
             dispatch({ type: 'setUserInfo', payload: data.signInUser.user });
             dispatch({ type: 'loginUser' });
             dispatch({ type: 'accessToken', payload: data.signInUser.token });
+            dispatch({ type: 'accountStatus', payload: data.signInUser.user.accountStatus });
+            dispatch({ type: 'userRole', payload: data.signInUser.user.role });
             dispatch({ type: 'setDarkMode', payload: data.signInUser.user.darkMode });
             if (data.signInUser.user.role === "admin") {
                 dispatch({ type: 'accessAdmin' });

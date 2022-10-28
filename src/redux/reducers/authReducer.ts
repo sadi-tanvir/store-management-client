@@ -8,7 +8,7 @@ import { AuthReducerStateType, AuthReducerUserType } from '../../types/redux-typ
 const initialState = {
     isLoading: false,
     isAuthenticate: false,
-    role: '',
+    role: "",
     isAdmin: false,
     isManager: false,
     isUser: false,
@@ -25,6 +25,8 @@ const initialState = {
         currentAddress: '',
         permanentAddress: '',
         dateOfBirth: '',
+        createdAt: '',
+        updatedAt: ''
     },
 } as AuthReducerStateType
 
@@ -43,6 +45,12 @@ const authReducer = createReducer(initialState, {
     accessUser: (state, action) => {
         state.isUser = true;
     },
+    accountStatus: (state, action) => {
+        state.accountStatus = action.payload
+    },
+    userRole: (state, action) => {
+        state.role = action.payload
+    },
     setUserInfo: (state, action: PayloadAction<AuthReducerUserType>) => {
         state.userInfo._id = action.payload._id
         state.userInfo.firstName = action.payload.firstName
@@ -54,10 +62,8 @@ const authReducer = createReducer(initialState, {
         state.userInfo.currentAddress = action.payload.currentAddress
         state.userInfo.permanentAddress = action.payload.permanentAddress
         state.userInfo.dateOfBirth = action.payload.dateOfBirth
-
-        // account status
-        state.accountStatus = action.payload.accountStatus
-        state.role = action.payload.role
+        state.userInfo.createdAt = action.payload.createdAt
+        state.userInfo.updatedAt = action.payload.updatedAt
     },
     accessToken: (state, action: PayloadAction<string>) => {
         state.accessToken = action.payload
@@ -66,6 +72,7 @@ const authReducer = createReducer(initialState, {
         state.isAuthenticate = false;
         state.isLoading = false;
         state.isAdmin = false;
+        state.role = "";
         state.isManager = false;
         state.isUser = false;
         state.userInfo = {
@@ -78,8 +85,11 @@ const authReducer = createReducer(initialState, {
             gender: '',
             currentAddress: '',
             permanentAddress: '',
-            dateOfBirth: ''
+            dateOfBirth: '',
+            createdAt: '',
+            updatedAt: ''
         };
+        state.accountStatus = "";
         state.accessToken = "";
     },
 })

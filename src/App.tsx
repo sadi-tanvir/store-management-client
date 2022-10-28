@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
-import UserProfile from "./components/Dashboard/manage-users/UserProfile";
+import DashboardUserProfile from "./components/Dashboard/manage-users/UserProfile";
 import Users from "./components/Dashboard/manage-users/Users";
 import Home from "./components/home/Home";
 import Navbar from "./components/navbar/Navbar";
@@ -11,6 +11,7 @@ import RequireAuth from "./components/user-authentication/authentication/Require
 import Login from "./components/user-authentication/Login/Login";
 import Register from "./components/user-authentication/Register/Register";
 import { useAppSelector, useAppDispatch } from './redux/hooks/hooks'
+import UserProfile from "./components/user-authentication/User-Profile/UserProfile"
 
 function App() {
   // redux
@@ -27,6 +28,8 @@ function App() {
       if (localStorage.getItem('userInfo')) {
         dispatch({ type: 'setUserInfo', payload: JSON.parse(localStorage.getItem('userInfo') || '') });
         dispatch({ type: 'loginUser' });
+        dispatch({ type: 'accountStatus', payload: JSON.parse(localStorage.getItem('accountStatus') || '') });
+        dispatch({ type: 'userRole', payload: JSON.parse(localStorage.getItem('role') || '') });
       }
       // dispatch user role type access
       if (localStorage.getItem('role')) {
@@ -55,9 +58,10 @@ function App() {
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<Users />} />
         </Route>
-        <Route path="/user/:id" element={<UserProfile />} />
+        <Route path="/user/:id" element={<DashboardUserProfile />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />
         <Route path="/users" element={<Users />} />
+        <Route path="/user-profile" element={<RequireAuth><UserProfile /></RequireAuth>} />
         <Route path="/login" element={<CheckAuth><Login /></CheckAuth>} />
         <Route path="/register" element={<CheckAuth><Register /></CheckAuth>} />
       </Routes>

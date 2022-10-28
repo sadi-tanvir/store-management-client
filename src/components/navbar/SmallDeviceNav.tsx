@@ -50,7 +50,7 @@ const SmallDeviceNav = () => {
                                 style={{
                                     display: 'md:hidden',
                                     activeStyle: 'bg-darkNeutral',
-                                    position: '-mr-20 mt-64'
+                                    position: '-mr-20 mt-[256px]'
                                 }}
                             />
                         </li>

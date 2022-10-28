@@ -100,20 +100,15 @@ const EditUser = () => {
                             onChange={handleChange}
                             value={userInfo.email}
                             label="Email"
-                            name="lastName"
+                            name="email"
                             type="email"
                             placeholder="info@example.com"
                             className="input-sm sm:input-md"
+                            rest={{
+                                // readOnly: true,
+                                autoComplete: "off"
+                            }}
                         />
-                        {/* <TextInputField
-                            onChange={handleChange}
-                            value={userInfo.password}
-                            label="Password"
-                            name="password"
-                            type="password"
-                            placeholder="password"
-                            className="input-sm sm:input-md"
-                        /> */}
                         <TextInputField
                             onChange={handleChange}
                             value={userInfo.phone}

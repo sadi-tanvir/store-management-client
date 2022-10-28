@@ -21,6 +21,8 @@ export const USER_LOGIN_MUTATION = gql`
                 currentAddress
                 permanentAddress
                 dateOfBirth
+                createdAt
+                updatedAt
             }
         }
     }

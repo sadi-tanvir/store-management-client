@@ -18,6 +18,8 @@ export interface AuthReducerStateType {
         currentAddress?: string;
         permanentAddress?: string;
         dateOfBirth?: string;
+        createdAt?: string;
+        updatedAt?: string;
     };
 }
 
@@ -34,6 +36,8 @@ export interface AuthReducerUserType {
     dateOfBirth?: string;
     accountStatus: string;
     role: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export type UserEditReducerType = {

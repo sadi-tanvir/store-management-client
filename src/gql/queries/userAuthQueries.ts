@@ -39,3 +39,22 @@ query getUserById($id:ID!) {
     }
   }
 `;
+
+export const GET_MY_PROFILE = gql`
+  query myProfile ($id:ID!){
+  user (id:$id){
+      _id
+      firstName
+      lastName
+      email
+      phone
+      image
+      gender
+      currentAddress
+      permanentAddress
+      dateOfBirth
+      createdAt
+      updatedAt
+    }
+  }
+`
