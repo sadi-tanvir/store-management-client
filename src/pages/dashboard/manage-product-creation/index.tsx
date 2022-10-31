@@ -39,6 +39,8 @@ const ProductCreation = () => {
             modalComponent: <CreateProductModal
                 header="Create Product"
                 modalId="create-product-modal"
+                categories={categoryResponse?.data?.categories}
+                brands={brandResponse?.data?.brands}
             />
         },
         {
@@ -89,7 +91,7 @@ const ProductCreation = () => {
                     {
                         ProductCreateList.map((elem, index) =>
                             <>
-                                <ProductButton key={index} modalId={elem.modalId} label={elem.label}>
+                                <ProductButton key={index + 1} modalId={elem.modalId} label={elem.label}>
                                     {elem.icon}
                                 </ProductButton>
                                 {elem.modalComponent}

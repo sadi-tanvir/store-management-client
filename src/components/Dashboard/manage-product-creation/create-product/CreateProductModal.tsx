@@ -7,54 +7,62 @@ import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
 import DataListInputField from '../../../shared/components/DataListInputField';
+import { ProductModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
 
-const CreateProductModal = ({ modalId, header }: { modalId: string; header: string; }) => {
 
-
-    // redux
-    const { } = useAppSelector(state => state.userEditReducer);
+const CreateProductModal = ({ modalId, header, categories, brands }: ProductModalPropsType) => {
+    // gql
+    const [createProductMutation, { data, loading, error }] = useMutation(CREATE_PRODUCT_MUTATION, {
+        // refetchQueries: [GET_STOCKS],
+    });
 
     // state
-
     const modalRef: React.MutableRefObject<any> = useRef()
-
+    const [product, setProduct] = useState({
+        name: "",
+        description: "",
+        unit: "",
+        imageUrl: "",
+        categoryName: "",
+        categoryId: "",
+        brandName: "",
+        brandId: "",
+    })
 
     // handle text input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+        setProduct({ ...product, [e.target.name]: e.target.value })
     }
 
     // handle select input change
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-
+        setProduct({ ...product, [e.target.name]: e.target.value })
     }
 
     // update User
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Update it!' })
+        const { name, description, unit, imageUrl, categoryId, categoryName, brandId, brandName } = product;
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Create it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    // editUserMutation({
-                    //     variables: {
-                    //         info: {
-                    //             _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
-                    //         }
-                    //     }
-                    // })
-                    Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+                    createProductMutation({
+                        variables: {
+                            info: {
+                                name, description, unit, imageUrl,
+                                category: { id: categoryId, name: categoryName },
+                                brand: { id: brandId, name: brandName },
+                            }
+                        }
+                    })
+                    Swal.fire('Created!', 'Your product has been created.', 'success')
                         .then(() => {
                             modalRef.current.checked = false;
                         })
                 }
             })
     }
-
-    useEffect(() => {
-        // setUserInfo({
-        //     _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
-        // })
-    }, [])
 
     return (
         <>
@@ -68,25 +76,22 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                     <form onSubmit={handleSubmit}>
                         <TextInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Product Name"
-                            name="productName"
+                            name="name"
                             type="text"
                             placeholder="Product Name"
                             className="input-sm sm:input-md"
                         />
                         <TextInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Description"
-                            name="productDescription"
+                            name="description"
                             type="text"
                             placeholder="Product Description"
                             className="input-sm sm:input-md"
                         />
                         <SelectInput
                             onChange={handleSelectChange}
-                            // value={userInfo.role}
                             label="Unit Type"
                             name="unit"
                             options="kg litre pcs bag"
@@ -94,9 +99,8 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                         />
                         <TextInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Image Url"
-                            name="productImageUrl"
+                            name="imageUrl"
                             type="text"
                             placeholder="Product Image"
                             className="input-sm sm:input-md"
@@ -104,7 +108,6 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Category Name"
                                 name="categoryName"
                                 type="text"
@@ -112,19 +115,15 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                                 className="input-sm sm:input-md"
                                 dataListId='categoryName'
                                 dataList={
-                                    [
-                                        {
-                                            value: "food",
-                                        },
-                                        {
-                                            value: "medicine",
+                                    categories?.map((category) => {
+                                        return {
+                                            value: category?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Category Id"
                                 name="categoryId"
                                 type="text"
@@ -132,16 +131,12 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                                 className="input-sm sm:input-md"
                                 dataListId='categoryId'
                                 dataList={
-                                    [
-                                        {
-                                            value: "633f1a868429455fe441f661",
-                                            name: "food"
-                                        },
-                                        {
-                                            value: "633f1ab18429455fe441f664",
-                                            name: "medicine"
+                                    categories?.map((category) => {
+                                        return {
+                                            value: category?._id,
+                                            name: category?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                         </div>
@@ -149,7 +144,6 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Brand Name"
                                 name="brandName"
                                 type="text"
@@ -157,19 +151,15 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                                 className="input-sm sm:input-md"
                                 dataListId='brandName'
                                 dataList={
-                                    [
-                                        {
-                                            value: "advanced chemical industries ltd."
-                                        },
-                                        {
-                                            value: "advanced chemical industries ltd.-2"
+                                    brands?.map((brand) => {
+                                        return {
+                                            value: brand?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Brand Id"
                                 name="brandId"
                                 type="text"
@@ -177,21 +167,17 @@ const CreateProductModal = ({ modalId, header }: { modalId: string; header: stri
                                 className="input-sm sm:input-md"
                                 dataListId='brandId'
                                 dataList={
-                                    [
-                                        {
-                                            value: "633f1018c0c0bd5dd0bf9fee",
-                                            name: "advanced chemical industries ltd."
-                                        },
-                                        {
-                                            value: "633f132e3fbb2edae2fcedbf",
-                                            name: "advanced chemical industries ltd.-2"
+                                    brands?.map((brand) => {
+                                        return {
+                                            value: brand?._id,
+                                            name: brand?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary text-teal-700 font-bold btn-sm sm:btn-md w-full mx-auto mt-5 px-5">Update</button>
+                        <button type="submit" className="btn btn-primary text-teal-700 font-bold btn-sm sm:btn-md w-full mx-auto mt-5 px-5">CREATE</button>
                     </form>
                 </div>
             </div>

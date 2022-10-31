@@ -18,9 +18,6 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
         refetchQueries: [GET_STOCKS],
     });
 
-    console.log(data);
-
-
     // state
     const modalRef: React.MutableRefObject<any> = useRef()
     const [stock, setStock] = useState({
@@ -285,7 +282,7 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary text-teal-700 font-bold btn-sm sm:btn-md w-full mx-auto mt-5 px-5">Update</button>
+                        <button type="submit" className="btn btn-primary text-teal-700 font-bold btn-sm sm:btn-md w-full mx-auto mt-5 px-5">CREATE</button>
                     </form>
                 </div>
             </div>
