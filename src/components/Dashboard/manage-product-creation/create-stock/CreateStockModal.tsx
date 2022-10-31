@@ -7,54 +7,76 @@ import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
 import DataListInputField from '../../../shared/components/DataListInputField';
+import { StockModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { CREATE_STOCK_MUTATION } from '../../../../gql/mutations/stockMutation';
+import { GET_STOCKS } from '../../../../gql/queries/stockQueries';
 
-const CreateStockModal = ({ modalId, header }: { modalId: string; header: string; }) => {
 
+const CreateStockModal = ({ modalId, header, products, categories, brands, suppliers }: StockModalPropsType) => {
+    // gql
+    const [createStockMutation, { data, loading, error }] = useMutation(CREATE_STOCK_MUTATION, {
+        refetchQueries: [GET_STOCKS],
+    });
 
-    // redux
-    const { } = useAppSelector(state => state.userEditReducer);
+    console.log(data);
+
 
     // state
-
     const modalRef: React.MutableRefObject<any> = useRef()
+    const [stock, setStock] = useState({
+        productId: "",
+        name: "",
+        description: "",
+        unit: "",
+        status: "",
+        imageUrl: "",
+        price: "",
+        quantity: "",
+        categoryName: "",
+        categoryId: "",
+        brandName: "",
+        brandId: "",
+        supplierName: "",
+        supplierId: "",
+    })
 
 
     // handle text input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+        const { name, value } = e.target;
+        setStock({ ...stock, [name]: value })
     }
 
     // handle select input change
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-
+        const { name, value } = e.target;
+        setStock({ ...stock, [name]: value })
     }
 
     // update User
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Update it!' })
+        const { productId, name, description, unit, imageUrl, price, quantity, status, categoryId, categoryName, brandId, brandName, supplierId, supplierName } = stock;
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Create it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    // editUserMutation({
-                    //     variables: {
-                    //         info: {
-                    //             _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
-                    //         }
-                    //     }
-                    // })
-                    Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+                    createStockMutation({
+                        variables: {
+                            info: {
+                                productId, name, description, unit, imageUrl, price: Number(price), quantity: Number(quantity), status,
+                                category: { id: categoryId, name: categoryName },
+                                brand: { id: brandId, name: brandName },
+                                suppliedBy: { id: supplierId, name: supplierName }
+                            }
+                        }
+                    })
+                    Swal.fire('Created!', 'Your stock has been created.', 'success')
                         .then(() => {
                             modalRef.current.checked = false;
                         })
                 }
             })
     }
-
-    useEffect(() => {
-        // setUserInfo({
-        //     _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
-        // })
-    }, [])
 
     return (
         <>
@@ -68,61 +90,38 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                     <form onSubmit={handleSubmit}>
                         <DataListInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Product Id"
                             name="productId"
                             type="text"
                             placeholder="product id"
                             className="input-sm sm:input-md"
                             dataListId='productId'
-                            dataList={
-                                [
-                                    {
-                                        value: "6354c5eb7bee4357d30a1e60",
-                                        name: "rrp starter"
-                                    },
-                                    {
-                                        value: "6354c5b37bee4357d30a1e5d",
-                                        name: "rrp grower"
-                                    },
-                                    {
-                                        value: "6354c5b37bee4357d30a1e5e",
-                                        name: "rrp pre-starter"
-                                    }
-                                ]
-                            }
+                            dataList={products?.map((product) => {
+                                return {
+                                    value: product._id,
+                                    name: product.name
+                                }
+                            })}
                         />
                         <DataListInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Product Name"
-                            name="productName"
+                            name="name"
                             type="text"
                             placeholder="product Name"
                             className="input-sm sm:input-md"
-                            dataListId='productName'
-                            dataList={
-                                [
-                                    {
-                                        value: "starter",
-                                        name: "RRP Feed"
-                                    },
-                                    {
-                                        value: "grower",
-                                        name: "RRP Feed"
-                                    },
-                                    {
-                                        value: "pre-starter",
-                                        name: "RRP Feed"
-                                    }
-                                ]
-                            }
+                            dataListId='name'
+                            dataList={products?.map((product) => {
+                                return {
+                                    value: product.name,
+                                    name: product.brand.name
+                                }
+                            })}
                         />
                         <TextInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Description"
-                            name="productDescription"
+                            name="description"
                             type="text"
                             placeholder="Product Description"
                             className="input-sm sm:input-md"
@@ -130,7 +129,6 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <SelectInput
                                 onChange={handleSelectChange}
-                                // value={userInfo.role}
                                 label="Unit Type"
                                 name="unit"
                                 options="kg litre pcs bag"
@@ -138,7 +136,6 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                             />
                             <SelectInput
                                 onChange={handleSelectChange}
-                                // value={userInfo.role}
                                 label="Stock Status"
                                 name="status"
                                 options="in-stock out-of-stock discontinued"
@@ -148,36 +145,26 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
 
                         <DataListInputField
                             onChange={handleChange}
-                            // value={userInfo.email}
                             label="Image Url"
-                            name="productImageUrl"
+                            name="imageUrl"
                             type="text"
                             placeholder="Product Image Url"
                             className="input-sm sm:input-md"
-                            dataListId='productImageUrl'
+                            dataListId='imageUrl'
                             dataList={
-                                [
-                                    {
-                                        value: "http://imageurl-1.jpg",
-                                        name: "starter"
-                                    },
-                                    {
-                                        value: "http://imageurl-2.jpg",
-                                        name: "grower"
-                                    },
-                                    {
-                                        value: "http://imageurl-3.jpg",
-                                        name: "pre-starter"
+                                products?.map((product) => {
+                                    return {
+                                        value: product?.imageUrl,
+                                        name: product?.name
                                     }
-                                ]
+                                })
                             }
                         />
 
                         <TextInputField
                             onChange={handleChange}
-                            // value={userInfo.dateOfBirth}
                             label="Price"
-                            name="productPrice"
+                            name="price"
                             type="number"
                             placeholder="Product Price"
                             className="input-sm sm:input-md"
@@ -185,9 +172,8 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
 
                         <TextInputField
                             onChange={handleChange}
-                            // value={userInfo.dateOfBirth}
                             label="Quantity"
-                            name="productQuantity"
+                            name="quantity"
                             type="number"
                             placeholder="Product Quantity"
                             className="input-sm sm:input-md"
@@ -195,7 +181,6 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Category Name"
                                 name="categoryName"
                                 type="text"
@@ -203,19 +188,15 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                                 className="input-sm sm:input-md"
                                 dataListId='categoryName'
                                 dataList={
-                                    [
-                                        {
-                                            value: "food",
-                                        },
-                                        {
-                                            value: "medicine",
+                                    categories?.map((category) => {
+                                        return {
+                                            value: category?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Category Id"
                                 name="categoryId"
                                 type="text"
@@ -223,23 +204,18 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                                 className="input-sm sm:input-md"
                                 dataListId='categoryId'
                                 dataList={
-                                    [
-                                        {
-                                            value: "633f1a868429455fe441f661",
-                                            name: "food"
-                                        },
-                                        {
-                                            value: "633f1ab18429455fe441f664",
-                                            name: "medicine"
+                                    categories?.map((category) => {
+                                        return {
+                                            value: category?._id,
+                                            name: category?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                         </div>
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Brand Name"
                                 name="brandName"
                                 type="text"
@@ -247,19 +223,15 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                                 className="input-sm sm:input-md"
                                 dataListId='brandName'
                                 dataList={
-                                    [
-                                        {
-                                            value: "advanced chemical industries ltd."
-                                        },
-                                        {
-                                            value: "advanced chemical industries ltd.-2"
+                                    brands?.map((brand) => {
+                                        return {
+                                            value: brand?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Brand Id"
                                 name="brandId"
                                 type="text"
@@ -267,16 +239,12 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                                 className="input-sm sm:input-md"
                                 dataListId='brandId'
                                 dataList={
-                                    [
-                                        {
-                                            value: "633f1018c0c0bd5dd0bf9fee",
-                                            name: "advanced chemical industries ltd."
-                                        },
-                                        {
-                                            value: "633f132e3fbb2edae2fcedbf",
-                                            name: "advanced chemical industries ltd.-2"
+                                    brands?.map((brand) => {
+                                        return {
+                                            value: brand?._id,
+                                            name: brand?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                         </div>
@@ -284,7 +252,6 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Supplier Name"
                                 name="supplierName"
                                 type="text"
@@ -292,19 +259,15 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                                 className="input-sm sm:input-md"
                                 dataListId='supplierName'
                                 dataList={
-                                    [
-                                        {
-                                            value: "shakil hossain"
-                                        },
-                                        {
-                                            value: "sobuj hossain"
+                                    suppliers?.map((supplier) => {
+                                        return {
+                                            value: supplier?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                             <DataListInputField
                                 onChange={handleChange}
-                                // value={userInfo.email}
                                 label="Supplier Id"
                                 name="supplierId"
                                 type="text"
@@ -312,16 +275,12 @@ const CreateStockModal = ({ modalId, header }: { modalId: string; header: string
                                 className="input-sm sm:input-md"
                                 dataListId='supplierId'
                                 dataList={
-                                    [
-                                        {
-                                            value: "633f1018c0c0bd5dd0bf9fee",
-                                            name: "shakil hossain"
-                                        },
-                                        {
-                                            value: "633f132e3fbb2edae2fcedbf",
-                                            name: "sobuj hossain"
+                                    suppliers?.map((supplier) => {
+                                        return {
+                                            value: supplier?._id,
+                                            name: supplier?.name
                                         }
-                                    ]
+                                    })
                                 }
                             />
                         </div>

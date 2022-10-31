@@ -5,7 +5,7 @@ import UserProfile from "./components/Dashboard/manage-users/UserProfile";
 import Users from "./pages/dashboard/manage-users/Users";
 import Home from "./pages/home";
 import Navbar from "./pages/Navbar";
-import Stock from "./pages/products";
+import Stock from "./pages/stocks";
 import CheckAuth from "./components/authentication/CheckAuth";
 import RequireAuth from "./components/authentication/RequireAuth";
 import Login from "./pages/Login/Login";

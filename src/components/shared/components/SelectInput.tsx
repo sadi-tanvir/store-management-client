@@ -19,6 +19,7 @@ const SelectInput = ({ label, name, options, className, value, onChange }: Selec
                     </label>
                 }
                 <select onChange={onChange} value={value} name={name} className={`select select-bordered ${className}`}>
+                    <option disabled selected>Pick one</option>
                     {
                         options?.split(" ").map((option, index) => <option value={option} key={index}>{option}</option>)
                     }

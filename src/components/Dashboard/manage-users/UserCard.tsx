@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { USER_DELETE_BY_ID_MUTATION } from '../../../gql/mutations/userAuthMutations';
 import { ApiBaseUrl } from '../../utilities/ApiBaseUrl';
 import { CheckCircleIcon } from '../../shared/icons/icons';
-import { DashboardUserType } from "../../../types/dashboard/users.types";
+import { DashboardUserType } from "../../../types/dashboard/mangeUsers.types";
 
 const UserCard = ({ user }: { user: DashboardUserType }) => {
     // gql

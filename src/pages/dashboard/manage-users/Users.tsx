@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { GET_USERS } from '../../../gql/queries/userAuthQueries';
-import { DashboardUserType } from '../../../types/dashboard/users.types';
+import { DashboardUserType } from '../../../types/dashboard/mangeUsers.types';
 import UserCard from '../../../components/Dashboard/manage-users/UserCard';
 import { useAppSelector } from '../../../redux/hooks/hooks';
 

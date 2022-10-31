@@ -2,17 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import classes from "../styles/product/product.module.css";
 import { CartIcon, EyeIcon } from '../shared/icons/icons';
+import { StocksType } from '../../types/stocks.types';
 
-const ProductCard = () => {
+const StockCard = ({ stock }: { stock: StocksType }) => {
     const [productName, setProductName] = useState<boolean>(false)
-    let productName2 = '2.2KW Auto Start Sakura Engine Generator LG2700EX-AT'
-
 
     return (
         <>
             <div className={`${classes.cardBody} card bg-base-100 shadow-xl`}>
                 <figure className="px-10 pt-10">
-                    <img src="https://placeimg.com/400/225/arch" alt="Shoes" className="rounded-xl" />
+                    <img src={stock.imageUrl} alt={stock.name} className="rounded-xl" />
                 </figure>
                 <div className="card-body items-start text-start">
 
@@ -25,22 +24,22 @@ const ProductCard = () => {
                         <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                     </div>
                     <h2 className="card-title">
-                        {productName2.length > 20 ?
+                        {stock.name.length > 20 ?
                             <span>
-                                {productName ? productName2 : `${productName2.substring(0, 20)}...`}
+                                {productName ? stock.name : `${stock.name.substring(0, 20)}...`}
                                 <a onClick={() => setProductName(!productName)}
                                     href="#"
                                     className='text-sm text-red-400'>
                                     {productName ? ' less' : ' more'}
                                 </a>
                             </span>
-                            : productName2}
+                            : stock.name}
                     </h2>
                     <div className="w-full flex justify-between pr-6">
                         <p className="text-red-400 font-semibold">
-                            BDT 45,000
+                            BDT {stock?.price}
                         </p>
-                        <div className="badge badge-secondary">fish/feed</div>
+                        <div className="badge badge-secondary">stock/{stock.category.name}</div>
                     </div>
                     {/* <div className={`${mousePointer ? "block" : "hidden"} flex flex-col justify-center items-center absolute right-5 top-16`}> */}
                     <div className={`${classes.productMenu} absolute right-5 bottom-5 border-2 border-secondary rounded px-1 py-3`}>
@@ -62,4 +61,4 @@ const ProductCard = () => {
     );
 };
 
-export default React.memo(ProductCard);
+export default React.memo(StockCard);
