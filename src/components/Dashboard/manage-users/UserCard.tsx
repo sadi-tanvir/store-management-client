@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useState } from 'react';
-import { DashboardUserType } from '../../../types/dashboard/users.types';
 import { useNavigate } from "react-router-dom"
 import { useMutation } from '@apollo/client';
 import { GET_USERS } from '../../../gql/queries/userAuthQueries';
 import Swal from 'sweetalert2';
 import { USER_DELETE_BY_ID_MUTATION } from '../../../gql/mutations/userAuthMutations';
+import { ApiBaseUrl } from '../../utilities/ApiBaseUrl';
+import { CheckCircleIcon } from '../../shared/icons/icons';
+import { DashboardUserType } from "../../../types/dashboard/users.types";
 
 const UserCard = ({ user }: { user: DashboardUserType }) => {
     // gql
@@ -24,7 +25,7 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                 if (result.isConfirmed) {
                     deleteUserMutation({
                         variables: {
-                            id: user._id
+                            id: user?._id
                         }
                     })
                 }
@@ -56,14 +57,17 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                 <div className="flex items-center -mt-5 pb-5">
                     <img
                         className="mb-3 w-12 h-12 rounded-full shadow-lg"
-                        src="https://placeimg.com/400/225/arch"
+                        src={`${ApiBaseUrl}/profile-pic/${user?.image}`}
                         alt="User image"
                     />
                     <div className="flex flex-col items-start ml-2">
-                        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white cursor-not-allowed">
-                            <div className="tooltip tooltip-primary" data-tip={fullName}>
-                                {fullName.length > 15 ? `${fullName.substring(0, 15)}...` : fullName}
+                        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white cursor-not-allowed flex items-center">
+                            <div className="tooltip tooltip-primary mr-1" data-tip={fullName}>
+                                {fullName.length > 15 ? `${fullName.substring(0, 15)}... ` : fullName}
                             </div>
+                            {user?.role === 'manager' || user?.role === 'admin' ?
+                                <CheckCircleIcon /> : null
+                            }
                         </h5>
                         <span className="text-sm text-gray-500 dark:text-gray-400 cursor-not-allowed">
                             <div className="tooltip tooltip-primary" data-tip={user.email}>

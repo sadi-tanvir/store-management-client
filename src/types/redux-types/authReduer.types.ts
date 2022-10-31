@@ -7,7 +7,7 @@ export interface AuthReducerStateType {
     isUser?: boolean;
     accessToken?: string;
     accountStatus: string;
-    userInfo: {
+    ownerInfo: {
         _id: string;
         firstName?: string;
         lastName?: string;

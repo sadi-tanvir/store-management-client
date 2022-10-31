@@ -61,3 +61,12 @@ export const USER_DELETE_BY_ID_MUTATION = gql`
         }
     }
 `
+
+export const UPDATE_OWNER_PROFILE = gql`
+    mutation updateOwnerProfile($info:updateOwnerProfileInput!) {
+        updateOwnerProfile(userData:$info){
+            status
+            message
+        }
+    }
+`

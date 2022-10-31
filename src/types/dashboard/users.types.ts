@@ -3,4 +3,6 @@ export type DashboardUserType = {
     firstName: string;
     lastName: string;
     email: string;
+    image: string;
+    role: string;
 }

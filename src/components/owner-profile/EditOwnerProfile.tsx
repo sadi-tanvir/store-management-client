@@ -1,25 +1,26 @@
 import { useMutation } from '@apollo/client';
 import React, { useState, useEffect, useRef } from 'react';
-import { USER_UPDATE_By_ADMIN_MUTATION } from '../../../gql/mutations/userAuthMutations';
-import { GET_USER_BY_ID } from '../../../gql/queries/userAuthQueries';
-import { useAppSelector } from '../../../redux/hooks/hooks';
-import SelectInput from '../../shared/components/SelectInput';
-import TextInputField from '../../shared/components/TextInputField';
 import Swal from "sweetalert2"
+import { UPDATE_OWNER_PROFILE } from '../../gql/mutations/userAuthMutations';
+import { GET_OWNER_PROFILE } from '../../gql/queries/userAuthQueries';
+import { useAppSelector } from '../../redux/hooks/hooks';
+import SelectInput from '../shared/components/SelectInput';
+import TextInputField from '../shared/components/TextInputField';
 
-const EditUser = () => {
+const EditOwnerProfile = () => {
     // gql
-    const [editUserMutation, { data, loading, error }] = useMutation(USER_UPDATE_By_ADMIN_MUTATION, {
-        refetchQueries: [GET_USER_BY_ID],
+    const [editOwnerMutation, { data, loading, error }] = useMutation(UPDATE_OWNER_PROFILE, {
+        refetchQueries: [GET_OWNER_PROFILE],
     });
 
     // redux
+    const { isAdmin } = useAppSelector(state => state.authReducer);
     const {
         _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
     } = useAppSelector(state => state.userEditReducer);
 
     // state
-    const [userInfo, setUserInfo] = useState({
+    const [ownerInfo, setOwnerInfo] = useState({
         _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
     });
     const modalRef: React.MutableRefObject<any> = useRef()
@@ -28,24 +29,25 @@ const EditUser = () => {
     // handle text input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setUserInfo({ ...userInfo, [name]: value });
+        setOwnerInfo({ ...ownerInfo, [name]: value });
     }
 
     // handle select input change
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setUserInfo({ ...userInfo, [name]: value });
+        setOwnerInfo({ ...ownerInfo, [name]: value });
     }
 
     // update User
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress } = userInfo;
+        const { _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress } = ownerInfo;
+
         // update User Information
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Update it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    editUserMutation({
+                    editOwnerMutation({
                         variables: {
                             info: {
                                 _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
@@ -61,25 +63,26 @@ const EditUser = () => {
     }
 
     useEffect(() => {
-        setUserInfo({
+        setOwnerInfo({
             _id, firstName, lastName, email, phone, role, accountStatus, gender, dateOfBirth, currentAddress, permanentAddress
         })
     }, [_id])
 
+
     return (
         <>
             {/* Put this part before </body> tag */}
-            <input ref={modalRef} type="checkbox" id="Edit-User-Modal" className="modal-toggle" />
+            <input ref={modalRef} type="checkbox" id="Edit-sadi-Modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative px-5 sm:px-10">
-                    <label htmlFor="Edit-User-Modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor="Edit-sadi-Modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold mb-5">Edit Information</h3>
 
                     <form onSubmit={handleSubmit}>
                         <div className="form-control flex sm:flex-row justify-around">
                             <TextInputField
                                 onChange={handleChange}
-                                value={userInfo.firstName}
+                                value={ownerInfo.firstName}
                                 label="First Name"
                                 name="firstName"
                                 type="text"
@@ -88,7 +91,7 @@ const EditUser = () => {
                             />
                             <TextInputField
                                 onChange={handleChange}
-                                value={userInfo.lastName}
+                                value={ownerInfo.lastName}
                                 label="Last Name"
                                 name="lastName"
                                 type="text"
@@ -98,20 +101,21 @@ const EditUser = () => {
                         </div>
                         <TextInputField
                             onChange={handleChange}
-                            value={userInfo.email}
+                            value={ownerInfo.email}
                             label="Email"
                             name="email"
                             type="email"
                             placeholder="info@example.com"
                             className="input-sm sm:input-md"
                             rest={{
-                                // readOnly: true,
+                                // readOnly: isAdmin ? false : true,
+                                disabled: isAdmin ? false : true,
                                 autoComplete: "off"
                             }}
                         />
                         <TextInputField
                             onChange={handleChange}
-                            value={userInfo.phone}
+                            value={ownerInfo.phone}
                             label="Phone"
                             name="phone"
                             type="number"
@@ -120,18 +124,18 @@ const EditUser = () => {
                         />
 
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
-                            <SelectInput
+                            {isAdmin && <SelectInput
                                 onChange={handleSelectChange}
-                                value={userInfo.role}
+                                value={ownerInfo.role}
                                 label="Role"
                                 name="role"
                                 options="admin user manager"
                                 className="select-sm sm:select-md"
-                            />
+                            />}
 
                             <SelectInput
                                 onChange={handleSelectChange}
-                                value={userInfo.accountStatus}
+                                value={ownerInfo.accountStatus}
                                 label="Account Status"
                                 name="accountStatus"
                                 options="active inactive"
@@ -139,7 +143,7 @@ const EditUser = () => {
                             />
                             <SelectInput
                                 onChange={handleSelectChange}
-                                value={userInfo.gender}
+                                value={ownerInfo.gender}
                                 label="Gender"
                                 name="gender"
                                 options="male female other N/A"
@@ -148,7 +152,7 @@ const EditUser = () => {
                         </div>
                         <TextInputField
                             onChange={handleChange}
-                            value={userInfo.dateOfBirth}
+                            value={ownerInfo.dateOfBirth}
                             label="Date Of Birth"
                             name="dateOfBirth"
                             type="text"
@@ -157,7 +161,7 @@ const EditUser = () => {
                         />
                         <TextInputField
                             onChange={handleChange}
-                            value={userInfo.currentAddress}
+                            value={ownerInfo.currentAddress}
                             label="Current Address"
                             name="currentAddress"
                             type="text"
@@ -166,7 +170,7 @@ const EditUser = () => {
                         />
                         <TextInputField
                             onChange={handleChange}
-                            value={userInfo.permanentAddress}
+                            value={ownerInfo.permanentAddress}
                             label="Permanent Address"
                             name="permanentAddress"
                             type="text"
@@ -181,4 +185,5 @@ const EditUser = () => {
     );
 };
 
-export default EditUser;
+export default EditOwnerProfile
+    ;

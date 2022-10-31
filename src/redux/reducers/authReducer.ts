@@ -14,7 +14,7 @@ const initialState = {
     isUser: false,
     accessToken: "",
     accountStatus: '',
-    userInfo: {
+    ownerInfo: {
         _id: "",
         firstName: '',
         lastName: '',
@@ -51,19 +51,19 @@ const authReducer = createReducer(initialState, {
     userRole: (state, action) => {
         state.role = action.payload
     },
-    setUserInfo: (state, action: PayloadAction<AuthReducerUserType>) => {
-        state.userInfo._id = action.payload._id
-        state.userInfo.firstName = action.payload.firstName
-        state.userInfo.lastName = action.payload.lastName
-        state.userInfo.email = action.payload.email
-        state.userInfo.phone = action.payload.phone
-        state.userInfo.image = action.payload.image
-        state.userInfo.gender = action.payload.gender
-        state.userInfo.currentAddress = action.payload.currentAddress
-        state.userInfo.permanentAddress = action.payload.permanentAddress
-        state.userInfo.dateOfBirth = action.payload.dateOfBirth
-        state.userInfo.createdAt = action.payload.createdAt
-        state.userInfo.updatedAt = action.payload.updatedAt
+    setOwnerInfo: (state, action: PayloadAction<AuthReducerUserType>) => {
+        state.ownerInfo._id = action.payload._id
+        state.ownerInfo.firstName = action.payload.firstName
+        state.ownerInfo.lastName = action.payload.lastName
+        state.ownerInfo.email = action.payload.email
+        state.ownerInfo.phone = action.payload.phone
+        state.ownerInfo.image = action.payload.image
+        state.ownerInfo.gender = action.payload.gender
+        state.ownerInfo.currentAddress = action.payload.currentAddress
+        state.ownerInfo.permanentAddress = action.payload.permanentAddress
+        state.ownerInfo.dateOfBirth = action.payload.dateOfBirth
+        state.ownerInfo.createdAt = action.payload.createdAt
+        state.ownerInfo.updatedAt = action.payload.updatedAt
     },
     accessToken: (state, action: PayloadAction<string>) => {
         state.accessToken = action.payload
@@ -75,7 +75,7 @@ const authReducer = createReducer(initialState, {
         state.role = "";
         state.isManager = false;
         state.isUser = false;
-        state.userInfo = {
+        state.ownerInfo = {
             _id: "",
             firstName: '',
             lastName: '',

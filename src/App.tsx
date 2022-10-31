@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard/Dashboard";
-import DashboardUserProfile from "./components/Dashboard/manage-users/UserProfile";
-import Users from "./components/Dashboard/manage-users/Users";
-import Home from "./components/home/Home";
-import Navbar from "./components/navbar/Navbar";
-import Stock from "./components/products/Stock/Stock";
-import CheckAuth from "./components/user-authentication/authentication/CheckAuth";
-import RequireAuth from "./components/user-authentication/authentication/RequireAuth";
-import Login from "./components/user-authentication/Login/Login";
-import Register from "./components/user-authentication/Register/Register";
+import Dashboard from "./pages/dashboard";
+import UserProfile from "./components/Dashboard/manage-users/UserProfile";
+import Users from "./pages/dashboard/manage-users/Users";
+import Home from "./pages/home";
+import Navbar from "./pages/Navbar";
+import Stock from "./pages/products";
+import CheckAuth from "./components/authentication/CheckAuth";
+import RequireAuth from "./components/authentication/RequireAuth";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import { useAppSelector, useAppDispatch } from './redux/hooks/hooks'
-import UserProfile from "./components/user-authentication/User-Profile/UserProfile"
+import OwnerProfile from "./pages/owner-profile/OwnerProfile"
+import ProductCreation from "./pages/dashboard/manage-product-creation"
 
 function App() {
   // redux
@@ -25,8 +26,8 @@ function App() {
       // dispatch accessToken
       dispatch({ type: 'accessToken', payload: JSON.parse(localStorage.getItem('accessToken') || '') });
       // dispatch user information
-      if (localStorage.getItem('userInfo')) {
-        dispatch({ type: 'setUserInfo', payload: JSON.parse(localStorage.getItem('userInfo') || '') });
+      if (localStorage.getItem('ownerInfo')) {
+        dispatch({ type: 'setOwnerInfo', payload: JSON.parse(localStorage.getItem('ownerInfo') || '') });
         dispatch({ type: 'loginUser' });
         dispatch({ type: 'accountStatus', payload: JSON.parse(localStorage.getItem('accountStatus') || '') });
         dispatch({ type: 'userRole', payload: JSON.parse(localStorage.getItem('role') || '') });
@@ -47,8 +48,6 @@ function App() {
         dispatch({ type: 'setDarkMode', payload: JSON.parse(localStorage.getItem('darkMode') || '') });
       }
     }
-    console.log(accessToken);
-
   }, [])
   return (
     <div className={`${darkMode && 'dark'}`}>
@@ -57,11 +56,11 @@ function App() {
         <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<Users />} />
+          <Route path="manage-product-creation" element={<ProductCreation />} />
         </Route>
-        <Route path="/user/:id" element={<DashboardUserProfile />} />
+        <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/user-profile" element={<RequireAuth><UserProfile /></RequireAuth>} />
+        <Route path="/user-profile" element={<RequireAuth><OwnerProfile /></RequireAuth>} />
         <Route path="/login" element={<CheckAuth><Login /></CheckAuth>} />
         <Route path="/register" element={<CheckAuth><Register /></CheckAuth>} />
       </Routes>

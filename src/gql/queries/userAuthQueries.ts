@@ -8,19 +8,21 @@ export const SET_DARK_MODE = gql`
 `;
 
 export const GET_USERS = gql`
-  query findUsers {
+  query getUsers {
     users {
       _id
       firstName
       lastName
       email
+      image
+      role
     }
   }
 `;
 
 export const GET_USER_BY_ID = gql`
 query getUserById($id:ID!) {
-  user(id:$id) {
+  userById(id:$id) {
       _id
       firstName
       lastName
@@ -40,21 +42,26 @@ query getUserById($id:ID!) {
   }
 `;
 
-export const GET_MY_PROFILE = gql`
-  query myProfile ($id:ID!){
-  user (id:$id){
-      _id
-      firstName
-      lastName
-      email
-      phone
-      image
-      gender
-      currentAddress
-      permanentAddress
-      dateOfBirth
-      createdAt
-      updatedAt
+export const GET_OWNER_PROFILE = gql`
+  query ownerProfile ($id:ID!){
+    ownerProfile(id:$id){
+      owner {
+        _id
+        firstName
+        lastName
+        email
+        password
+        image
+        phone
+        role
+        gender
+        currentAddress
+        permanentAddress
+        dateOfBirth
+        accountStatus
+        createdAt
+        updatedAt
+      }
     }
   }
 `
