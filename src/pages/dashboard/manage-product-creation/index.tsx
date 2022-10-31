@@ -1,5 +1,6 @@
 import React from 'react';
-import CreateStockModal from '../../../components/Dashboard/manage-product-creation/CreateStockModal';
+import CreateProductModal from '../../../components/Dashboard/manage-product-creation/create-product/CreateProductModal';
+import CreateStockModal from '../../../components/Dashboard/manage-product-creation/create-stock/CreateStockModal';
 import ProductButton from '../../../components/Dashboard/manage-product-creation/ProuductButton';
 import { BrandIcon, CategoryIcon, ProductIcon, StockIcon, SupplierIcon } from '../../../components/shared/icons/icons';
 
@@ -9,27 +10,47 @@ const ProductCreation = () => {
         {
             modalId: "create-stock-modal",
             label: 'Create Stock',
-            icon: <StockIcon />
+            icon: <StockIcon />,
+            modalComponent: <CreateStockModal
+                header="Create Stock"
+                modalId="create-stock-modal"
+            />
         },
         {
             modalId: "create-product-modal",
             label: 'Create Product',
-            icon: <ProductIcon />
+            icon: <ProductIcon />,
+            modalComponent: <CreateProductModal
+                header="Create Product"
+                modalId="create-product-modal"
+            />
         },
         {
             modalId: "create-brand-modal",
             label: 'Create Brand',
-            icon: <BrandIcon />
+            icon: <BrandIcon />,
+            modalComponent: <CreateStockModal
+                header="Create Stock"
+                modalId="create-stock-modal"
+            />
         },
         {
             modalId: "create-category-modal",
             label: 'Create Category',
-            icon: <CategoryIcon />
+            icon: <CategoryIcon />,
+            modalComponent: <CreateStockModal
+                header="Create Stock"
+                modalId="create-stock-modal"
+            />
         },
         {
             modalId: "create-supplier-modal",
             label: 'Create Supplier',
-            icon: <SupplierIcon />
+            icon: <SupplierIcon />,
+            modalComponent: <CreateStockModal
+                header="Create Stock"
+                modalId="create-stock-modal"
+            />
         },
     ]
 
@@ -39,14 +60,17 @@ const ProductCreation = () => {
                 <div className="w-full mx-auto grid sm:grid-cols-3 md:grid-cols-4 gap-4 px-3 sm:px-5 mt-20 lg:mt-10">
                     {
                         productCreateList.map((elem, index) =>
-                            <ProductButton key={index} modalId={elem.modalId} label={elem.label}>
-                                {elem.icon}
-                            </ProductButton>
+                            <>
+                                <ProductButton key={index} modalId={elem.modalId} label={elem.label}>
+                                    {elem.icon}
+                                </ProductButton>
+                                {elem.modalComponent}
+                            </>
                         )
                     }
                 </div>
             </div>
-            {
+            {/* {
                 productCreateList.map((elem, index) =>
                     <CreateStockModal
                         key={index}
@@ -54,7 +78,7 @@ const ProductCreation = () => {
                         modalId={elem.modalId}
                     />
                 )
-            }
+            } */}
         </>
     );
 };

@@ -14,8 +14,8 @@ export type TextInputType = {
 }
 const DataListInputField = ({ label, name, type, placeholder, className, onChange, value, rest, dataListId, dataList }: TextInputType) => {
     return (
-        <div>
-            <div className="form-control justify-around">
+        <>
+            <div className="form-control justify-around w-full">
                 {label &&
                     <label className="label">
                         <span className="label-text">{label}</span>
@@ -39,7 +39,7 @@ const DataListInputField = ({ label, name, type, placeholder, className, onChang
                     ))}
                 </datalist>
             </div>
-        </div>
+        </>
     );
 };
 
