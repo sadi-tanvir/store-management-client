@@ -25,7 +25,7 @@ export type BrandModalPropsType = {
 
 const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPropsType) => {
     // gql
-    const [createStockMutation, { data, loading, error }] = useMutation(CREATE_BRAND_MUTATION, {
+    const [createBrandMutation, { data, loading, error }] = useMutation(CREATE_BRAND_MUTATION, {
         // refetchQueries: [GET_STOCKS],
     });
 
@@ -46,7 +46,6 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
         email: "",
         phone: "",
         website: "",
-        status: "",
         location: "",
         products: [] as ProductType[],
         suppliers: [] as SupplierType[]
@@ -54,12 +53,6 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
 
     // handle text input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setBrand({ ...brand, [name]: value })
-    }
-
-    // handle select input change
-    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         setBrand({ ...brand, [name]: value })
     }
@@ -120,11 +113,11 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // const { productId, name, description, unit, imageUrl, price, quantity, status, categoryId, categoryName, brandId, brandName, supplierId, supplierName } = brand;
-        const { name, description, email, phone, website, status, location, products, suppliers } = brand;
+        const { name, description, email, phone, website, location, products, suppliers } = brand;
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Create it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    createStockMutation({
+                    createBrandMutation({
                         variables: {
                             info: {
                                 name, description, email, phone, website, location,
