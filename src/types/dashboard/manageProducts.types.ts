@@ -25,3 +25,20 @@ export type ProductModalPropsType = {
     categories: commonType[];
     brands: commonType[];
 }
+
+export type BrandSupplierType = {
+    _id: string;
+    name: string;
+    email: string;
+    contactNumber?: string;
+}
+export type BrandProductType = {
+    _id: string;
+    name: string;
+}
+export type BrandModalPropsType = {
+    modalId: string;
+    header: string;
+    products: BrandProductType[];
+    suppliers: BrandSupplierType[];
+}

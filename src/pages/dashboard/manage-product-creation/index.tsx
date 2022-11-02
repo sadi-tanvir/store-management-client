@@ -10,6 +10,7 @@ import { GET_BRANDS } from '../../../gql/queries/brandQueries';
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
 import CreateBrandModal from '../../../components/Dashboard/manage-product-creation/create-brand/CreateBrandModal';
 import CreateCategoryModal from '../../../components/Dashboard/manage-product-creation/create-category/CreateCategoryModal';
+import CreateSupplierModal from '../../../components/Dashboard/manage-product-creation/create-supplier/CreateSupplierModal';
 
 const ProductCreation = () => {
 
@@ -69,13 +70,10 @@ const ProductCreation = () => {
             modalId: "create-supplier-modal",
             label: 'Create Supplier',
             icon: <SupplierIcon />,
-            modalComponent: <CreateStockModal
-                header="Create Stock"
-                modalId="create-stock-modal"
-                products={productResponse?.data?.products}
-                categories={categoryResponse?.data?.categories}
+            modalComponent: <CreateSupplierModal
+                header="Create Supplier"
+                modalId="create-supplier-modal"
                 brands={brandResponse?.data?.brands}
-                suppliers={supplierResponse?.data?.suppliers}
             />
         },
     ];
