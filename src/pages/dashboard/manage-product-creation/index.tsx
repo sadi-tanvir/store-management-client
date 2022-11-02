@@ -8,6 +8,7 @@ import { BrandIcon, CategoryIcon, ProductIcon, StockIcon, SupplierIcon } from ".
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { GET_BRANDS } from '../../../gql/queries/brandQueries';
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
+import CreateBrandModal from '../../../components/Dashboard/manage-product-creation/create-brand/CreateBrandModal';
 
 const ProductCreation = () => {
 
@@ -47,12 +48,10 @@ const ProductCreation = () => {
             modalId: "create-brand-modal",
             label: 'Create Brand',
             icon: <BrandIcon />,
-            modalComponent: <CreateStockModal
-                header="Create Stock"
-                modalId="create-stock-modal"
+            modalComponent: <CreateBrandModal
+                header="Create Brand"
+                modalId="create-brand-modal"
                 products={productResponse?.data?.products}
-                categories={categoryResponse?.data?.categories}
-                brands={brandResponse?.data?.brands}
                 suppliers={supplierResponse?.data?.suppliers}
             />
         },

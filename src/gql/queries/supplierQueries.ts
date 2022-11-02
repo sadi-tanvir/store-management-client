@@ -6,5 +6,7 @@ export const GET_SUPPLIERS = gql`
     suppliers {
         _id
         name
+        email
+        contactNumber
     }
 }`;

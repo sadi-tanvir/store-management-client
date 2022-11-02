@@ -1,8 +1,5 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, useEffect, useRef } from 'react';
-import { USER_UPDATE_By_ADMIN_MUTATION } from '../../../../gql/mutations/userAuthMutations';
-import { GET_USER_BY_ID } from '../../../../gql/queries/userAuthQueries';
-import { useAppSelector } from '../../../../redux/hooks/hooks';
+import React, { useState, useRef } from 'react';
 import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
