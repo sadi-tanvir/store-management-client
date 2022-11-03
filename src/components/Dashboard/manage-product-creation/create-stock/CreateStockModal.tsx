@@ -1,23 +1,42 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
 import DataListInputField from '../../../shared/components/DataListInputField';
-import { StockModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { StockModalPropsType, StockProductType } from '../../../../types/dashboard/manageProducts.types';
 import { CREATE_STOCK_MUTATION } from '../../../../gql/mutations/stockMutation';
 import { GET_STOCKS } from '../../../../gql/queries/stockQueries';
+import SingleSelectOption from '../../../shared/components/SingleSelectOption';
 
 
-const CreateStockModal = ({ modalId, header, products, categories, brands, suppliers }: StockModalPropsType) => {
+const CreateStockModal = ({ modalId, header, products, suppliers }: StockModalPropsType) => {
+
     // gql
     const [createStockMutation, { data, loading, error }] = useMutation(CREATE_STOCK_MUTATION, {
         refetchQueries: [GET_STOCKS],
     });
 
+    // for brand state
+    const [remainingProducts, setRemainingProducts] = useState<StockProductType[]>([])
+    const [productVisibility, setProductVisibility] = useState(false)
+
     // state
     const modalRef: React.MutableRefObject<any> = useRef()
     const [stock, setStock] = useState({
+        productInfo: {
+            productId: "",
+            name: "",
+            imageUrl: "",
+            brand: {
+                id: "",
+                name: ""
+            },
+            category: {
+                id: "",
+                name: ""
+            }
+        },
         productId: "",
         name: "",
         description: "",
@@ -26,10 +45,6 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
         imageUrl: "",
         price: "",
         quantity: "",
-        categoryName: "",
-        categoryId: "",
-        brandName: "",
-        brandId: "",
         supplierName: "",
         supplierId: "",
     })
@@ -47,19 +62,77 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
         setStock({ ...stock, [name]: value })
     }
 
+    // handle select product
+    const handleSelectProduct = (id: string) => {
+        const select = products.filter((product) => {
+            return product._id === id
+        })
+        setStock({
+            ...stock,
+            productInfo: {
+                productId: select[0]._id,
+                name: select[0].name,
+                imageUrl: select[0].imageUrl,
+                brand: {
+                    id: select[0].brand.id._id,
+                    name: select[0].brand.id.name
+                },
+                category: {
+                    id: select[0].category.id._id,
+                    name: select[0].category.id.name
+                }
+            }
+        })
+    }
+
+    // handle remove from selected product
+    const handleRemoveProduct = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setStock({
+            ...stock,
+            productInfo: {
+                productId: "",
+                name: "",
+                imageUrl: "",
+                brand: {
+                    id: "",
+                    name: ""
+                },
+                category: {
+                    id: "",
+                    name: ""
+                }
+            }
+        })
+    }
+
+    useEffect(() => {
+        setRemainingProducts(() => {
+            return products?.filter((product) => product._id !== stock.productInfo.productId)
+        })
+    }, [products, stock.productInfo.productId])
+
     // update User
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { productId, name, description, unit, imageUrl, price, quantity, status, categoryId, categoryName, brandId, brandName, supplierId, supplierName } = stock;
+        const { productInfo, description, unit, price, quantity, status, supplierId, supplierName } = stock;
+        const { productId, name, imageUrl, brand, category } = productInfo;
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Create it!' })
             .then((result) => {
                 if (result.isConfirmed) {
                     createStockMutation({
                         variables: {
                             info: {
-                                productId, name, description, unit, imageUrl, price: Number(price), quantity: Number(quantity), status,
-                                category: { id: categoryId, name: categoryName },
-                                brand: { id: brandId, name: brandName },
+                                productId,
+                                name,
+                                description,
+                                unit,
+                                imageUrl,
+                                price: Number(price),
+                                quantity: Number(quantity),
+                                status,
+                                category: { id: category.id, name: category.name },
+                                brand: { id: brand.id, name: brand.name },
                                 suppliedBy: { id: supplierId, name: supplierName }
                             }
                         }
@@ -82,35 +155,19 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
                     <h3 className="text-lg font-bold mb-5">{header}</h3>
 
                     <form onSubmit={handleSubmit}>
-                        <DataListInputField
-                            onChange={handleChange}
-                            label="Product Id"
-                            name="productId"
-                            type="text"
-                            placeholder="product id"
-                            className="input-sm sm:input-md"
-                            dataListId='productId'
-                            dataList={products?.map((product) => {
-                                return {
-                                    value: product._id,
-                                    name: product.name
-                                }
-                            })}
-                        />
-                        <DataListInputField
-                            onChange={handleChange}
-                            label="Product Name"
-                            name="name"
-                            type="text"
-                            placeholder="product Name"
-                            className="input-sm sm:input-md"
-                            dataListId='name'
-                            dataList={products?.map((product) => {
-                                return {
-                                    value: product.name,
-                                    name: product.brand.name
-                                }
-                            })}
+                        <SingleSelectOption
+                            header="Add a product to create stock"
+                            visibility={{
+                                visibility: productVisibility,
+                                setVisibility: setProductVisibility
+                            }}
+                            mainStateValue={{
+                                id: stock.productInfo.productId,
+                                name: stock.productInfo.name
+                            }}
+                            remainingStateValue={remainingProducts}
+                            handleRemoveValue={handleRemoveProduct}
+                            handleSelectValue={handleSelectProduct}
                         />
                         <TextInputField
                             onChange={handleChange}
@@ -137,23 +194,6 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
                             />
                         </div>
 
-                        <DataListInputField
-                            onChange={handleChange}
-                            label="Image Url"
-                            name="imageUrl"
-                            type="text"
-                            placeholder="Product Image Url"
-                            className="input-sm sm:input-md"
-                            dataListId='imageUrl'
-                            dataList={
-                                products?.map((product) => {
-                                    return {
-                                        value: product?.imageUrl,
-                                        name: product?.name
-                                    }
-                                })
-                            }
-                        />
 
                         <TextInputField
                             onChange={handleChange}
@@ -172,76 +212,6 @@ const CreateStockModal = ({ modalId, header, products, categories, brands, suppl
                             placeholder="Product Quantity"
                             className="input-sm sm:input-md"
                         />
-                        <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Category Name"
-                                name="categoryName"
-                                type="text"
-                                placeholder="Category Name"
-                                className="input-sm sm:input-md"
-                                dataListId='categoryName'
-                                dataList={
-                                    categories?.map((category) => {
-                                        return {
-                                            value: category?.name
-                                        }
-                                    })
-                                }
-                            />
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Category Id"
-                                name="categoryId"
-                                type="text"
-                                placeholder="Category Id"
-                                className="input-sm sm:input-md"
-                                dataListId='categoryId'
-                                dataList={
-                                    categories?.map((category) => {
-                                        return {
-                                            value: category?._id,
-                                            name: category?.name
-                                        }
-                                    })
-                                }
-                            />
-                        </div>
-                        <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Brand Name"
-                                name="brandName"
-                                type="text"
-                                placeholder="Brand Name"
-                                className="input-sm sm:input-md"
-                                dataListId='brandName'
-                                dataList={
-                                    brands?.map((brand) => {
-                                        return {
-                                            value: brand?.name
-                                        }
-                                    })
-                                }
-                            />
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Brand Id"
-                                name="brandId"
-                                type="text"
-                                placeholder="Brand Id"
-                                className="input-sm sm:input-md"
-                                dataListId='brandId'
-                                dataList={
-                                    brands?.map((brand) => {
-                                        return {
-                                            value: brand?._id,
-                                            name: brand?.name
-                                        }
-                                    })
-                                }
-                            />
-                        </div>
 
                         <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
                             <DataListInputField

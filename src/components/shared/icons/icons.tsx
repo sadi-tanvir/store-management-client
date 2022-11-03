@@ -132,10 +132,10 @@ const CategoryIcon = () => {
     );
 }
 
-const BrandIcon = () => {
+const BrandIcon = ({ iconClass }: iconClassType) => {
     return (
         <>
-            <svg className="h-8 w-8 text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M27.5 162.2L9 187.1h90.5l6.9-130.7-78.9 105.8zM396.3 45.7L267.7 32l135.7 147.2-7.1-133.5zM112.2 218.3l-11.2-22H9.9L234.8 458zm2-31.2h284l-81.5-88.5L256.3 33zm297.3 9.1L277.6 458l224.8-261.7h-90.9zM415.4 69L406 56.4l.9 17.3 6.1 113.4h90.3zM113.5 93.5l-4.6 85.6L244.7 32 116.1 45.7zm287.7 102.7h-290l42.4 82.9L256.3 480l144.9-283.8z" /></svg>
+            <svg className={iconClass} fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M27.5 162.2L9 187.1h90.5l6.9-130.7-78.9 105.8zM396.3 45.7L267.7 32l135.7 147.2-7.1-133.5zM112.2 218.3l-11.2-22H9.9L234.8 458zm2-31.2h284l-81.5-88.5L256.3 33zm297.3 9.1L277.6 458l224.8-261.7h-90.9zM415.4 69L406 56.4l.9 17.3 6.1 113.4h90.3zM113.5 93.5l-4.6 85.6L244.7 32 116.1 45.7zm287.7 102.7h-290l42.4 82.9L256.3 480l144.9-283.8z" /></svg>
         </>
     );
 }
@@ -181,6 +181,7 @@ const CrossIcon = ({ iconClass, onClick }: { iconClass: string; onClick: (e: Rea
         </>
     );
 }
+
 const PlusIcon = () => {
     return (
         <>
@@ -191,8 +192,50 @@ const PlusIcon = () => {
     );
 }
 
+const EmailIcon = ({ iconClass }: iconClassType) => {
+    return (
+        <>
+            <svg className={iconClass} fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z" /></svg>
+        </>
+    );
+}
+
+
+const EyesIcon = () => {
+    return (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+        </>
+    );
+}
+
+const TableEditIcon = () => {
+    return (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+        </>
+    );
+}
+
+const TableDeleteIcon = () => {
+    return (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+        </>
+    );
+}
 
 
 
 
-export { NotificationIcon, BarIcon, DarkModeSunIcon, DarkModeMoonIcon, CartIcon, EyeIcon, ContactIcon, ExperienceIcon, EducationIcon, EditIcon, CheckCircleIcon, DrawerOpenIcon, CategoryIcon, BrandIcon, ProductIcon, StockIcon, SupplierIcon, StarIcon, CrossIcon, PlusIcon };
+
+
+
+export { NotificationIcon, BarIcon, DarkModeSunIcon, DarkModeMoonIcon, CartIcon, EyeIcon, ContactIcon, ExperienceIcon, EducationIcon, EditIcon, CheckCircleIcon, DrawerOpenIcon, CategoryIcon, BrandIcon, ProductIcon, StockIcon, SupplierIcon, StarIcon, CrossIcon, PlusIcon, EmailIcon, EyesIcon, TableEditIcon, TableDeleteIcon };

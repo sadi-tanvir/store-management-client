@@ -8,7 +8,16 @@ export const GET_PRODUCTS = gql`
             name
             imageUrl
             brand {
-                name
+                id {
+                  _id
+                  name
+                }
+            }
+            category {
+                id {
+                  _id
+                  name
+                }
             }
         }
     }

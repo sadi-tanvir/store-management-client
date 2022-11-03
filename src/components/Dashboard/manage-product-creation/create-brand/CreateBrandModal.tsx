@@ -2,10 +2,9 @@ import { useMutation } from '@apollo/client';
 import React, { useState, useEffect, useRef } from 'react';
 import Swal from "sweetalert2"
 import { CREATE_BRAND_MUTATION } from '../../../../gql/mutations/brandMutation';
-import { BrandModalPropsType, BrandProductType, BrandSupplierType } from '../../../../types/dashboard/manageProducts.types';
-import SelectInput from '../../../shared/components/SelectInput';
+import { BrandModalPropsType, BrandCommonType, BrandSupplierType } from '../../../../types/dashboard/manageProducts.types';
 import TextInputField from '../../../shared/components/TextInputField';
-import { CrossIcon, PlusIcon } from '../../../shared/icons/icons';
+import { CrossIcon } from '../../../shared/icons/icons';
 
 
 
@@ -21,8 +20,8 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
     const [remainingSupplier, setRemainingSupplier] = useState<BrandSupplierType[]>([])
     const [supplierState, setSupplierState] = useState(false)
     // for product state
-    const [selectedProducts, setSelectedProducts] = useState<BrandProductType[]>([])
-    const [remainingProducts, setRemainingProducts] = useState<BrandProductType[]>([])
+    const [selectedProducts, setSelectedProducts] = useState<BrandCommonType[]>([])
+    const [remainingProducts, setRemainingProducts] = useState<BrandCommonType[]>([])
     const [productState, setProductState] = useState(false)
     // state
     const modalRef: React.MutableRefObject<any> = useRef()
@@ -33,7 +32,7 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
         phone: "",
         website: "",
         location: "",
-        products: [] as BrandProductType[],
+        products: [] as BrandCommonType[],
         suppliers: [] as BrandSupplierType[]
     })
 
@@ -77,11 +76,11 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
         if (selectedProducts.length > 0) {
             for (let i = 0; i < selectedProducts.length; i++) {
                 if (!selectedProducts.includes(select[0])) {
-                    setSelectedProducts([...selectedProducts, select[0]] as BrandProductType[])
+                    setSelectedProducts([...selectedProducts, select[0]] as BrandCommonType[])
                 }
             }
         } else {
-            setSelectedProducts([...selectedProducts, select[0]] as BrandProductType[])
+            setSelectedProducts([...selectedProducts, select[0]] as BrandCommonType[])
         }
     }
 
@@ -89,7 +88,7 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
     const handleRemoveProduct = (e: React.MouseEvent, id: string) => {
         e.stopPropagation()
         setSelectedProducts(() => {
-            return selectedProducts.filter((product: BrandProductType) => {
+            return selectedProducts.filter((product: BrandCommonType) => {
                 return product._id !== id
             })
         })
@@ -233,14 +232,14 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
                         <div className="mt-5 mx-auto flex flex-col gap-2 px-2 bg-white rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
                             <div onClick={() => setProductState(!productState)} className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
                                 {selectedProducts.length <= 0 && <span className="bg-red-300 text-red-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm">Click to add a product</span>}
-                                {selectedProducts.map((product: BrandProductType) =>
+                                {selectedProducts.map((product: BrandCommonType) =>
                                     <span key={product._id} className="flex justify-center items-center bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm">
                                         {product.name}
                                         <CrossIcon onClick={(e: React.MouseEvent) => handleRemoveProduct(e, product._id)} iconClass="w-5 h-5 ml-1" />
                                     </span>)}
                             </div>
                             <div className={`mb-2 ${!productState && "hidden"}`}>
-                                {remainingProducts?.map((product: BrandProductType) => {
+                                {remainingProducts?.map((product: BrandCommonType) => {
                                     return <span key={product._id} onClick={() => handleSelectProduct(product._id)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
                                         <span className="mr-1 flex justify-between items-center w-full">
                                             {product.name}

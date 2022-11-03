@@ -1,17 +1,11 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
-import { CREATE_BRAND_MUTATION } from '../../../../gql/mutations/brandMutation';
 import { CREATE_CATEGORY_MUTATION } from '../../../../gql/mutations/categoryMutation';
-import SelectInput from '../../../shared/components/SelectInput';
+import { CategoryModalPropsType } from '../../../../types/dashboard/manageProducts.types';
 import TextInputField from '../../../shared/components/TextInputField';
-import { CrossIcon, PlusIcon } from '../../../shared/icons/icons';
 
 
-export type CategoryModalPropsType = {
-    modalId: string;
-    header: string;
-}
 
 const CreateCategoryModal = ({ modalId, header }: CategoryModalPropsType) => {
     // gql

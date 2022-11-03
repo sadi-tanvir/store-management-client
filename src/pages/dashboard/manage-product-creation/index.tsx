@@ -6,7 +6,7 @@ import CreateProductModal from "../../../components/Dashboard/manage-product-cre
 import CreateStockModal from "../../../components/Dashboard/manage-product-creation/create-stock/CreateStockModal";
 import { BrandIcon, CategoryIcon, ProductIcon, StockIcon, SupplierIcon } from "../../../components/shared/icons/icons";
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
-import { GET_BRANDS } from '../../../gql/queries/brandQueries';
+import { GET_BRANDS_2 } from '../../../gql/queries/brandQueries';
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
 import CreateBrandModal from '../../../components/Dashboard/manage-product-creation/create-brand/CreateBrandModal';
 import CreateCategoryModal from '../../../components/Dashboard/manage-product-creation/create-category/CreateCategoryModal';
@@ -17,8 +17,10 @@ const ProductCreation = () => {
     // gql queries
     const productResponse = useQuery(GET_PRODUCTS);
     const categoryResponse = useQuery(GET_CATEGORIES);
-    const brandResponse = useQuery(GET_BRANDS);
+    const brandResponse = useQuery(GET_BRANDS_2);
     const supplierResponse = useQuery(GET_SUPPLIERS);
+    console.log(`from root`, productResponse?.data);
+
 
 
     const ProductCreateList = [
@@ -30,8 +32,6 @@ const ProductCreation = () => {
                 header="Create Stock"
                 modalId="create-stock-modal"
                 products={productResponse?.data?.products}
-                categories={categoryResponse?.data?.categories}
-                brands={brandResponse?.data?.brands}
                 suppliers={supplierResponse?.data?.suppliers}
             />
         },
@@ -49,7 +49,7 @@ const ProductCreation = () => {
         {
             modalId: "create-brand-modal",
             label: 'Create Brand',
-            icon: <BrandIcon />,
+            icon: <BrandIcon iconClass="h-8 w-8 text-primary" />,
             modalComponent: <CreateBrandModal
                 header="Create Brand"
                 modalId="create-brand-modal"

@@ -8,6 +8,7 @@ import { ProductModalPropsType } from '../../../../types/dashboard/manageProduct
 import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
 import { CrossIcon } from '../../../shared/icons/icons';
 import { CREATE_SUPPLIER_MUTATION } from '../../../../gql/mutations/supplierMutation';
+import SingleSelectOption from '../../../shared/components/SingleSelectOption';
 
 export type SupplierBrandType = {
     _id: string;
@@ -27,7 +28,7 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
 
     // for brand state
     const [remainingBrand, setRemainingBrand] = useState<SupplierBrandType[]>([])
-    const [brandState, setBrandState] = useState(false)
+    const [brandVisibility, setBrandVisibility] = useState(false)
 
     // state
     const modalRef: React.MutableRefObject<any> = useRef()
@@ -55,7 +56,7 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
     }
 
     // handle select brand
-    const handleSelectProduct = (id: string) => {
+    const handleSelectBrand = (id: string) => {
         const select = brands.filter((brand) => {
             return brand._id === id
         })
@@ -64,9 +65,8 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
     }
 
     // handle remove from selected product
-    const handleRemoveProduct = (e: React.MouseEvent) => {
+    const handleRemoveBrand = (e: React.MouseEvent) => {
         e.stopPropagation()
-        // setSelectedBrands({})
         setSupplier({ ...supplier, brand: { id: "", name: "" } })
     }
 
@@ -158,24 +158,40 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
                             className="input-sm sm:input-md"
                         />
 
-                        <div className="mt-5 mx-auto flex flex-col gap-2 px-2 bg-white rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
-                            <div onClick={() => setBrandState(!brandState)} className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
+                        {/* <div className="mt-5 mx-auto flex flex-col gap-2 px-2 bg-white rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
+                            <div onClick={() => setBrandVisibility(!brandVisibility)} className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
                                 {supplier.brand.id === "" && <span className="bg-red-300 text-red-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm">Click to add a brand</span>}
                                 <span className={`${supplier.brand.id === "" && "hidden"} flex justify-center items-center bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm`}>
                                     {supplier.brand.name}
-                                    <CrossIcon onClick={(e: React.MouseEvent) => handleRemoveProduct(e)} iconClass="w-5 h-5 ml-1" />
+                                    <CrossIcon onClick={(e: React.MouseEvent) => handleRemoveBrand(e)} iconClass="w-5 h-5 ml-1" />
                                 </span>
                             </div>
-                            <div className={`mb-2 ${!brandState && "hidden"}`}>
+                            <div className={`mb-2 ${!brandVisibility && "hidden"}`}>
                                 {remainingBrand?.map((brand: SupplierBrandType) => {
-                                    return <span key={brand._id} onClick={() => handleSelectProduct(brand._id)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
+                                    return <span key={brand._id} onClick={() => handleSelectBrand(brand._id)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
                                         <span className="mr-1 flex justify-between items-center w-full">
                                             {brand.name}
                                         </span>
                                     </span>
                                 })}
                             </div>
-                        </div>
+                        </div> */}
+
+
+                        <SingleSelectOption
+                            header="Click here to add a brand"
+                            visibility={{
+                                visibility: brandVisibility,
+                                setVisibility: setBrandVisibility
+                            }}
+                            mainStateValue={{
+                                id: supplier.brand.id,
+                                name: supplier.brand.name
+                            }}
+                            remainingStateValue={remainingBrand}
+                            handleRemoveValue={handleRemoveBrand}
+                            handleSelectValue={handleSelectBrand}
+                        />
 
                         <button type="submit" className="btn btn-primary text-teal-700 font-bold btn-sm sm:btn-md w-full mx-auto mt-5 px-5">CREATE</button>
                     </form>

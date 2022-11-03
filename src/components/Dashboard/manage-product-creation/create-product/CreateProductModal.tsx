@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
-import DataListInputField from '../../../shared/components/DataListInputField';
-import { ProductModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { BrandCommonType, CategoryCommonType, ProductModalPropsType } from '../../../../types/dashboard/manageProducts.types';
 import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
+import SingleSelectOption from '../../../shared/components/SingleSelectOption';
 
 
 const CreateProductModal = ({ modalId, header, categories, brands }: ProductModalPropsType) => {
@@ -14,6 +14,13 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
         // refetchQueries: [GET_STOCKS],
     });
 
+    // for brand state
+    const [remainingBrand, setRemainingBrand] = useState<BrandCommonType[]>([])
+    const [brandVisibility, setBrandVisibility] = useState(false)
+
+    // for brand state
+    const [remainingCategory, setRemainingCategory] = useState<CategoryCommonType[]>([])
+    const [categoryVisibility, setCategoryVisibility] = useState(false)
     // state
     const modalRef: React.MutableRefObject<any> = useRef()
     const [product, setProduct] = useState({
@@ -21,10 +28,14 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
         description: "",
         unit: "",
         imageUrl: "",
-        categoryName: "",
-        categoryId: "",
-        brandName: "",
-        brandId: "",
+        brand: {
+            id: "",
+            name: ""
+        },
+        category: {
+            id: "",
+            name: ""
+        }
     })
 
     // handle text input change
@@ -37,10 +48,38 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
         setProduct({ ...product, [e.target.name]: e.target.value })
     }
 
+    // handle select brand
+    const handleSelectBrand = (id: string) => {
+        const select = brands.filter((brand) => {
+            return brand._id === id
+        })
+        setProduct({ ...product, brand: { id: select[0]["_id"], name: select[0]["name"] } })
+    }
+
+    // handle remove from selected product
+    const handleRemoveBrand = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setProduct({ ...product, brand: { id: "", name: "" } })
+    }
+
+    // handle select category
+    const handleSelectCategory = (id: string) => {
+        const select = categories.filter((category) => {
+            return category._id === id
+        })
+        setProduct({ ...product, category: { id: select[0]["_id"], name: select[0]["name"] } })
+    }
+
+    // handle remove from selected product
+    const handleRemoveCategory = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setProduct({ ...product, category: { id: "", name: "" } })
+    }
+
     // update User
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { name, description, unit, imageUrl, categoryId, categoryName, brandId, brandName } = product;
+        const { name, description, unit, imageUrl, brand, category } = product;
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Create it!' })
             .then((result) => {
                 if (result.isConfirmed) {
@@ -48,8 +87,8 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
                         variables: {
                             info: {
                                 name, description, unit, imageUrl,
-                                category: { id: categoryId, name: categoryName },
-                                brand: { id: brandId, name: brandName },
+                                category: { id: category.id, name: category.name },
+                                brand: { id: brand.id, name: brand.name },
                             }
                         }
                     })
@@ -60,6 +99,17 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
                 }
             })
     }
+
+
+    useEffect(() => {
+        setRemainingBrand(() => {
+            return brands?.filter((brand) => brand._id !== product.brand.id)
+        })
+
+        setRemainingCategory(() => {
+            return categories?.filter((category) => category._id !== product.category.id)
+        })
+    }, [product, product.brand, brands, categories, product.category])
 
     return (
         <>
@@ -102,77 +152,36 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
                             placeholder="Product Image"
                             className="input-sm sm:input-md"
                         />
-                        <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Category Name"
-                                name="categoryName"
-                                type="text"
-                                placeholder="Category Name"
-                                className="input-sm sm:input-md"
-                                dataListId='categoryName'
-                                dataList={
-                                    categories?.map((category) => {
-                                        return {
-                                            value: category?.name
-                                        }
-                                    })
-                                }
-                            />
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Category Id"
-                                name="categoryId"
-                                type="text"
-                                placeholder="Category Id"
-                                className="input-sm sm:input-md"
-                                dataListId='categoryId'
-                                dataList={
-                                    categories?.map((category) => {
-                                        return {
-                                            value: category?._id,
-                                            name: category?.name
-                                        }
-                                    })
-                                }
-                            />
-                        </div>
 
-                        <div className="form-control flex sm:flex-row justify-around items-center sm:space-x-2">
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Brand Name"
-                                name="brandName"
-                                type="text"
-                                placeholder="Brand Name"
-                                className="input-sm sm:input-md"
-                                dataListId='brandName'
-                                dataList={
-                                    brands?.map((brand) => {
-                                        return {
-                                            value: brand?.name
-                                        }
-                                    })
-                                }
-                            />
-                            <DataListInputField
-                                onChange={handleChange}
-                                label="Brand Id"
-                                name="brandId"
-                                type="text"
-                                placeholder="Brand Id"
-                                className="input-sm sm:input-md"
-                                dataListId='brandId'
-                                dataList={
-                                    brands?.map((brand) => {
-                                        return {
-                                            value: brand?._id,
-                                            name: brand?.name
-                                        }
-                                    })
-                                }
-                            />
-                        </div>
+                        <SingleSelectOption
+                            header="Click here to add a brand"
+                            visibility={{
+                                visibility: brandVisibility,
+                                setVisibility: setBrandVisibility
+                            }}
+                            mainStateValue={{
+                                id: product.brand.id,
+                                name: product.brand.name
+                            }}
+                            remainingStateValue={remainingBrand}
+                            handleRemoveValue={handleRemoveBrand}
+                            handleSelectValue={handleSelectBrand}
+                        />
+
+                        <SingleSelectOption
+                            header="Click here to add a category"
+                            visibility={{
+                                visibility: categoryVisibility,
+                                setVisibility: setCategoryVisibility
+                            }}
+                            mainStateValue={{
+                                id: product.category.id,
+                                name: product.category.name
+                            }}
+                            remainingStateValue={remainingCategory}
+                            handleRemoveValue={handleRemoveCategory}
+                            handleSelectValue={handleSelectCategory}
+                        />
 
                         <button type="submit" className="btn btn-primary text-teal-700 font-bold btn-sm sm:btn-md w-full mx-auto mt-5 px-5">CREATE</button>
                     </form>

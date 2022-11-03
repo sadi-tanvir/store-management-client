@@ -3,26 +3,46 @@ type commonType = {
     name: string;
 }
 
+export type BrandCommonType = {
+    _id: string;
+    name: string;
+}
+
+export type CategoryCommonType = {
+    _id: string;
+    name: string;
+}
+
+
 export type StockModalPropsType = {
     modalId: string;
     header: string;
-    products: {
-        _id: string;
-        name: string;
-        imageUrl: string;
-        brand: {
-            name: string
-        }
-    }[];
-    categories: commonType[];
-    brands: commonType[];
+    products: StockProductType[];
     suppliers: commonType[];
+}
+
+export type StockProductType = {
+    _id: string;
+    name: string;
+    imageUrl: string;
+    brand: {
+        id: {
+            _id: string;
+            name: string;
+        }
+    },
+    category: {
+        id: {
+            _id: string;
+            name: string;
+        }
+    }
 }
 
 export type ProductModalPropsType = {
     modalId: string;
     header: string;
-    categories: commonType[];
+    categories: CategoryCommonType[];
     brands: commonType[];
 }
 
@@ -32,13 +52,15 @@ export type BrandSupplierType = {
     email: string;
     contactNumber?: string;
 }
-export type BrandProductType = {
-    _id: string;
-    name: string;
-}
+
 export type BrandModalPropsType = {
     modalId: string;
     header: string;
-    products: BrandProductType[];
+    products: BrandCommonType[];
     suppliers: BrandSupplierType[];
+}
+
+export type CategoryModalPropsType = {
+    modalId: string;
+    header: string;
 }
