@@ -16,7 +16,7 @@ const TableHeader = ({ children, headers }: TablePropsType) => {
                             <thead>
                                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                                     {
-                                        headers.map((header, index) => <th key={index + 1} className="py-3 px-6 text-left">{header}</th>)
+                                        headers.map((header, index) => <th key={index} className="py-3 px-6 text-left">{header}</th>)
                                     }
                                 </tr>
                             </thead>

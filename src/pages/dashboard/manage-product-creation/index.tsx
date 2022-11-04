@@ -38,7 +38,7 @@ const ProductCreation = () => {
         {
             modalId: "create-product-modal",
             label: 'Create Product',
-            icon: <ProductIcon />,
+            icon: <ProductIcon iconClass="h-8 w-8 text-primary" />,
             modalComponent: <CreateProductModal
                 header="Create Product"
                 modalId="create-product-modal"
@@ -69,7 +69,7 @@ const ProductCreation = () => {
         {
             modalId: "create-supplier-modal",
             label: 'Create Supplier',
-            icon: <SupplierIcon />,
+            icon: <SupplierIcon iconClass="h-8 w-8 text-primary" />,
             modalComponent: <CreateSupplierModal
                 header="Create Supplier"
                 modalId="create-supplier-modal"

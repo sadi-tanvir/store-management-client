@@ -3,12 +3,22 @@ import React from 'react';
 import { GET_BRANDS_1 } from '../../../gql/queries/brandQueries';
 import TableHeader from "../../shared/components/TableHeader";
 import { BrandIcon, EmailIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../shared/icons/icons';
+import BrandDetailsModal from './BrandDetailsModal';
 
 
-type ManageBrandType = {
+export type ManageBrandType = {
     _id: string;
     name: string;
+    description: string;
     email: string;
+    phone: string;
+    website: string;
+    status: string;
+    location: string;
+    products: {
+        _id: string;
+        name: string;
+    }[];
     suppliers: {
         id: {
             name: string;
@@ -25,10 +35,10 @@ const ManageBrands = () => {
             <div className="w-full">
                 <TableHeader headers={["name", "email", "suppliers", "status", "actions"]}>
                     {
-                        brandResponse?.data.brandsWithReference.map((brand: ManageBrandType) => {
+                        brandResponse?.data?.brandsWithReference.map((brand: ManageBrandType, index: number) => {
                             return (
                                 <>
-                                    <tr>
+                                    <tr key={brand._id}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center">
                                                 <div className="mr-2">
@@ -52,7 +62,7 @@ const ManageBrands = () => {
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex items-center justify-center">
                                                 {brand.suppliers.map((supplier: any, index: any) => {
-                                                    return <img key={index} className="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src={supplier.id.imageUrl} />
+                                                    return <img key={index + 1} className="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src={supplier.id.imageUrl} />
                                                 })}
                                             </div>
                                         </td>
@@ -62,7 +72,9 @@ const ManageBrands = () => {
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-center">
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <EyesIcon />
+                                                    <label className="cursor-pointer" htmlFor={brand._id}>
+                                                        <EyesIcon />
+                                                    </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
                                                     <TableEditIcon />
@@ -73,6 +85,10 @@ const ManageBrands = () => {
                                             </div>
                                         </td>
                                     </tr>
+                                    <BrandDetailsModal
+                                        modalId={brand._id}
+                                        brand={brand}
+                                    />
                                 </>
                             )
                         })
@@ -80,6 +96,9 @@ const ManageBrands = () => {
 
                 </TableHeader>
             </div >
+
+
+
         </>
     );
 };
