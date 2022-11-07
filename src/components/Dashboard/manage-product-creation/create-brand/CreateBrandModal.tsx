@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Swal from "sweetalert2"
 import { CREATE_BRAND_MUTATION } from '../../../../gql/mutations/brandMutation';
 import { GET_BRANDS } from '../../../../gql/queries/brandQueries';
-import { CreateBrandModalPropsType, BrandCommonType, BrandSupplierType } from '../../../../types/dashboard/manageProducts.types';
+import { CreateBrandModalPropsType, BrandCommonType, BrandSupplierType } from '../../../../types/dashboard/productCreation.types';
 import TextInputField from '../../../shared/components/TextInputField';
 import { CrossIcon } from '../../../shared/icons/icons';
 

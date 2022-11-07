@@ -4,7 +4,7 @@ import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
 import DataListInputField from '../../../shared/components/DataListInputField';
-import { ProductModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { ProductModalPropsType } from '../../../../types/dashboard/productCreation.types';
 import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
 import { CrossIcon } from '../../../shared/icons/icons';
 import { CREATE_SUPPLIER_MUTATION } from '../../../../gql/mutations/supplierMutation';

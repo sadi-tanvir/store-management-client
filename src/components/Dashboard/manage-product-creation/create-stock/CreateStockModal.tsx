@@ -4,7 +4,7 @@ import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
 import DataListInputField from '../../../shared/components/DataListInputField';
-import { StockModalPropsType, StockProductType } from '../../../../types/dashboard/manageProducts.types';
+import { StockModalPropsType, StockProductType } from '../../../../types/dashboard/productCreation.types';
 import { CREATE_STOCK_MUTATION } from '../../../../gql/mutations/stockMutation';
 import { GET_STOCKS } from '../../../../gql/queries/stockQueries';
 import SingleSelectOption from '../../../shared/components/SingleSelectOption';

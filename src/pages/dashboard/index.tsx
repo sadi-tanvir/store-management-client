@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { DashBoardNav, DashListType } from '../../components/Dashboard/DashboardList';
-import { ActiveNavProps } from '../../components/navbar/StyleNav';
+import { ActiveNavProps, SidebarActiveProps } from '../../components/navbar/StyleNav';
 import { DrawerOpenIcon } from '../../components/shared/icons/icons';
 
 const Dashboard = () => {
@@ -24,7 +24,7 @@ const Dashboard = () => {
                         {DashBoardNav.map((link: DashListType) => {
                             return (
                                 <li className="mt-2" key={link.key}>
-                                    <NavLink to={link.path} style={ActiveNavProps}>
+                                    <NavLink to={link.path} style={SidebarActiveProps}>
                                         {link.title}
                                     </NavLink>
                                 </li>

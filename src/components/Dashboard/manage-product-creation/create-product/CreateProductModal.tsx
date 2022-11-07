@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
-import { BrandCommonType, CategoryCommonType, ProductModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { BrandCommonType, CategoryCommonType, ProductModalPropsType } from '../../../../types/dashboard/productCreation.types';
 import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
 import SingleSelectOption from '../../../shared/components/SingleSelectOption';
 

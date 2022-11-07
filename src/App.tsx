@@ -13,7 +13,8 @@ import Register from "./pages/Register/Register";
 import { useAppSelector, useAppDispatch } from './redux/hooks/hooks'
 import OwnerProfile from "./pages/owner-profile/OwnerProfile"
 import ProductCreation from "./pages/dashboard/manage-product-creation"
-import ManageBrands from "./components/Dashboard/manage-brand/ManageBrands";
+import ManageBrands from "./pages/dashboard/manage-brands/ManageBrands";
+import ManageProducts from "./pages/dashboard/mange-products/ManageProducts";
 
 function App() {
   // redux
@@ -59,6 +60,7 @@ function App() {
           <Route index element={<Users />} />
           <Route path="manage-product-creation" element={<ProductCreation />} />
           <Route path="manage-brands" element={<ManageBrands />} />
+          <Route path="manage-products" element={<ManageProducts />} />
         </Route>
         <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />

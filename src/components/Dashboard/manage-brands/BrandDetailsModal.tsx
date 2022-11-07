@@ -1,12 +1,9 @@
 import React from 'react';
+import { BrandModalPropsType } from '../../../types/dashboard/manageBrands.types';
 import { BrandIcon, ProductIcon, SupplierIcon } from '../../shared/icons/icons';
-import { ManageBrandType } from './ManageBrands';
 
 
-type BrandModalPropsType = {
-    modalId: string;
-    brand: ManageBrandType;
-}
+
 
 const BrandDetailsModal = ({ modalId, brand }: BrandModalPropsType) => {
 

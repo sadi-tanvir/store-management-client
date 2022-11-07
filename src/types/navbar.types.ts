@@ -4,7 +4,7 @@ export type LinkType = {
 }
 
 export interface ActiveStyleType {
-    color: string;
+    color?: string;
     margin?: string;
     backgroundColor?: string;
     padding?: string;
@@ -12,6 +12,7 @@ export interface ActiveStyleType {
     boxShadow?: string;
     transition?: string;
     fontWeight?: string;
+    textAline?: string;
 }
 
 export interface NavListType {

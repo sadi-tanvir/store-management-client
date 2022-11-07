@@ -1,41 +1,20 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
-import { CREATE_BRAND_MUTATION, UPDATE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
+import { UPDATE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
 import { GET_BRANDS } from '../../../gql/queries/brandQueries';
-import { useAppSelector } from '../../../redux/hooks/hooks';
+import { UpdateBrandModalPropsType } from '../../../types/dashboard/manageBrands.types';
 import SelectInput from '../../shared/components/SelectInput';
 import TextInputField from '../../shared/components/TextInputField';
 
 
-export type BrandSupplierType = {
-    id: string;
-    name: string;
-    email: string;
-    phone?: string;
-}
 
-export type BrandProductType = {
-    _id: string;
-    name: string;
-}
-
-export type UpdateBrandModalPropsType = {
-    modalId: string;
-    header: string;
-    products: BrandProductType[];
-    suppliers: BrandSupplierType[];
-    currentBrand: any;
-}
 
 const UpdateBrandModal = ({ modalId, header, currentBrand, products, suppliers }: UpdateBrandModalPropsType) => {
     // gql
     const [updateBrandMutation, { data, loading, error }] = useMutation(UPDATE_BRAND_MUTATION, {
         refetchQueries: [GET_BRANDS],
     });
-
-    // redux
-    // const brandReducer = useAppSelector(state => state.brandEditReducer);
 
     // state
     const modalRef: React.MutableRefObject<any> = useRef()

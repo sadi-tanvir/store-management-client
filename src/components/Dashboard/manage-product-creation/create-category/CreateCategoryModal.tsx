@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
 import { CREATE_CATEGORY_MUTATION } from '../../../../gql/mutations/categoryMutation';
-import { CategoryModalPropsType } from '../../../../types/dashboard/manageProducts.types';
+import { CategoryModalPropsType } from '../../../../types/dashboard/productCreation.types';
 import TextInputField from '../../../shared/components/TextInputField';
 
 

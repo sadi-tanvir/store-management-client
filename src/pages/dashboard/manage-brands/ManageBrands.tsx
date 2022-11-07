@@ -6,32 +6,14 @@ import { GET_BRANDS, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
 import { GET_PRODUCTS_FOR_REFERENCES } from '../../../gql/queries/productQueries';
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
-import TableHeader from "../../shared/components/TableHeader";
-import { BrandIcon, EmailIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../shared/icons/icons';
-import BrandDetailsModal from './BrandDetailsModal';
-import UpdateBrandModal from './UpdateBrandModal';
+import { ManageBrandType } from '../../../types/dashboard/manageBrands.types';
+import TableHeader from "../../../components/shared/components/TableHeader";
+import { BrandIcon, EmailIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
+import BrandDetailsModal from '../../../components/Dashboard/manage-brands/BrandDetailsModal';
+import UpdateBrandModal from '../../../components/Dashboard/manage-brands/UpdateBrandModal';
 
 
-export type ManageBrandType = {
-    _id: string;
-    name: string;
-    description: string;
-    email: string;
-    phone: string;
-    website: string;
-    status: string;
-    location: string;
-    products: {
-        _id: string;
-        name: string;
-    }[];
-    suppliers: {
-        id: {
-            name: string;
-            imageUrl: string
-        };
-    }[];
-}
+
 
 const ManageBrands = () => {
     // gql
