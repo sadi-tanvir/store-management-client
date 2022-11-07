@@ -22,3 +22,13 @@ export const GET_PRODUCTS = gql`
         }
     }
 `;
+
+
+export const GET_PRODUCTS_FOR_REFERENCES = gql`
+  query getProducts {
+          products {
+              _id
+              name
+          }
+    }
+`

@@ -12,3 +12,21 @@ export const CREATE_BRAND_MUTATION = gql`
             }
         }
 `;
+
+export const DELETE_BRAND_MUTATION = gql`
+    mutation deleteBrandById($id:ID!) {
+        deleteBrandById(id:$id){
+            status
+            message
+        }
+    }
+`;
+
+
+export const UPDATE_BRAND_MUTATION = gql`
+    mutation updateBrandById($id:ID!, $info:BrandUpdateInputData!) {
+        updateBrandById(id:$id, data:$info){
+            status
+            message
+        }
+}`;

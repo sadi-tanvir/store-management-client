@@ -67,6 +67,7 @@ const CreateStockModal = ({ modalId, header, products, suppliers }: StockModalPr
         const select = products.filter((product) => {
             return product._id === id
         })
+
         setStock({
             ...stock,
             productInfo: {

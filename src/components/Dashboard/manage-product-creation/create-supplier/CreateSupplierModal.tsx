@@ -73,7 +73,6 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
     // update User
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(supplier);
 
         const { name, email, contactNumber, presentAddress, permanentAddress, imageUrl, brand } = supplier
         // const { name, description, unit, imageUrl, categoryId, categoryName, brandId, brandName } = product;

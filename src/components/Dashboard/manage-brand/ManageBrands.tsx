@@ -1,9 +1,15 @@
-import { useQuery } from '@apollo/client';
-import React from 'react';
-import { GET_BRANDS_1 } from '../../../gql/queries/brandQueries';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import React, { useEffect } from 'react';
+import Swal from 'sweetalert2';
+import { DELETE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
+import { GET_BRANDS, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
+import { GET_PRODUCTS_FOR_REFERENCES } from '../../../gql/queries/productQueries';
+import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
+import { useAppDispatch } from '../../../redux/hooks/hooks';
 import TableHeader from "../../shared/components/TableHeader";
 import { BrandIcon, EmailIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../shared/icons/icons';
 import BrandDetailsModal from './BrandDetailsModal';
+import UpdateBrandModal from './UpdateBrandModal';
 
 
 export type ManageBrandType = {
@@ -28,7 +34,47 @@ export type ManageBrandType = {
 }
 
 const ManageBrands = () => {
-    const brandResponse = useQuery(GET_BRANDS_1);
+    // gql
+    const brandResponse = useQuery(GET_BRANDS);
+    const supplierResponse = useQuery(GET_SUPPLIERS);
+    const productResponse = useQuery(GET_PRODUCTS_FOR_REFERENCES);
+    const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
+    const [deleteBrandMutation] = useMutation(DELETE_BRAND_MUTATION, {
+        refetchQueries: [GET_BRANDS],
+    });
+
+    // redux
+    const dispatch = useAppDispatch();
+
+
+    // handle Delete Brand
+    const handleDeleteBrand = (id: string) => {
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    deleteBrandMutation({
+                        variables: {
+                            id: id
+                        }
+                    })
+                }
+            })
+    }
+
+    const handleEditBtn = (id: string) => {
+        getBrandByID({
+            variables: {
+                id: id
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (data?.getBrandWithId) {
+            dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
+        }
+    }, [data?.getBrandWithId])
+
 
     return (
         <>
@@ -61,8 +107,9 @@ const ManageBrands = () => {
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex items-center justify-center">
-                                                {brand.suppliers.map((supplier: any, index: any) => {
-                                                    return <img key={index + 1} className="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src={supplier.id.imageUrl} />
+                                                {brand?.suppliers?.map((supplier: any, index: any) => {
+
+                                                    return <img key={index + 1} className="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src={supplier?.id?.imageUrl} />
                                                 })}
                                             </div>
                                         </td>
@@ -72,22 +119,40 @@ const ManageBrands = () => {
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-center">
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <label className="cursor-pointer" htmlFor={brand._id}>
+                                                    <label className="cursor-pointer" htmlFor={`details-${brand._id}`}>
                                                         <EyesIcon />
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <TableEditIcon />
+                                                    <label onClick={() => handleEditBtn(brand._id)} className="cursor-pointer" htmlFor={`update-${brand._id}`}>
+                                                        <TableEditIcon />
+                                                    </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-red-500 hover:scale-110">
-                                                    <TableDeleteIcon />
+                                                    <label onClick={() => handleDeleteBrand(brand._id)} className="cursor-pointer">
+                                                        <TableDeleteIcon />
+                                                    </label>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     <BrandDetailsModal
-                                        modalId={brand._id}
+                                        modalId={`details-${brand._id}`}
                                         brand={brand}
+                                    />
+                                    <UpdateBrandModal
+                                        header="Update Brand"
+                                        modalId={`update-${brand._id}`}
+                                        currentBrand={brand}
+                                        products={productResponse?.data?.products}
+                                        suppliers={supplierResponse?.data?.suppliers?.map((supplier: any) => {
+                                            return {
+                                                id: supplier._id,
+                                                name: supplier.name,
+                                                email: supplier.email,
+                                                phone: supplier.contactNumber,
+                                            }
+                                        })}
                                     />
                                 </>
                             )

@@ -2,16 +2,17 @@ import { useMutation } from '@apollo/client';
 import React, { useState, useEffect, useRef } from 'react';
 import Swal from "sweetalert2"
 import { CREATE_BRAND_MUTATION } from '../../../../gql/mutations/brandMutation';
-import { BrandModalPropsType, BrandCommonType, BrandSupplierType } from '../../../../types/dashboard/manageProducts.types';
+import { GET_BRANDS } from '../../../../gql/queries/brandQueries';
+import { CreateBrandModalPropsType, BrandCommonType, BrandSupplierType } from '../../../../types/dashboard/manageProducts.types';
 import TextInputField from '../../../shared/components/TextInputField';
 import { CrossIcon } from '../../../shared/icons/icons';
 
 
 
-const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPropsType) => {
+const CreateBrandModal = ({ modalId, header, products, suppliers }: CreateBrandModalPropsType) => {
     // gql
     const [createBrandMutation, { data, loading, error }] = useMutation(CREATE_BRAND_MUTATION, {
-        // refetchQueries: [GET_STOCKS],
+        refetchQueries: [GET_BRANDS],
     });
 
 
@@ -33,7 +34,12 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
         website: "",
         location: "",
         products: [] as BrandCommonType[],
-        suppliers: [] as BrandSupplierType[]
+        suppliers: [{
+            name: "",
+            email: "",
+            phone: "",
+            id: ""
+        }] as BrandSupplierType[]
     })
 
     // handle text input change
@@ -44,8 +50,8 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
 
     // handle select supplier
     const handleSelectSupplier = (id: string) => {
-        const select = suppliers.filter((supplier) => {
-            return supplier._id === id
+        const select = suppliers.filter((supplier: BrandSupplierType) => {
+            return supplier.id === id
         })
         if (selectedSupplier.length > 0) {
             for (let i = 0; i < selectedSupplier.length; i++) {
@@ -63,7 +69,7 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
         e.stopPropagation()
         setSelectedSupplier(() => {
             return selectedSupplier.filter((supplier: BrandSupplierType) => {
-                return supplier._id !== id
+                return supplier.id !== id
             })
         })
     }
@@ -107,14 +113,7 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
                             info: {
                                 name, description, email, phone, website, location,
                                 products: products.map(product => product._id),
-                                suppliers: suppliers.map((supplier) => {
-                                    return {
-                                        name: supplier.name,
-                                        email: supplier.email,
-                                        phone: supplier.contactNumber,
-                                        id: supplier._id
-                                    }
-                                })
+                                suppliers
                             }
                         }
                     })
@@ -129,7 +128,7 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
 
     useEffect(() => {
         setRemainingSupplier(() => {
-            return suppliers?.filter((supplier) => {
+            return suppliers?.filter((supplier: BrandSupplierType) => {
                 return !selectedSupplier.includes(supplier)
             })
         })
@@ -212,15 +211,15 @@ const CreateBrandModal = ({ modalId, header, products, suppliers }: BrandModalPr
                         <div className="mt-5 mx-auto flex flex-col gap-2 px-2 bg-white rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
                             <div onClick={() => setSupplierState(!supplierState)} className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
                                 {selectedSupplier.length <= 0 && <span className="bg-red-300 text-red-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm">Click to add a supplier</span>}
-                                {selectedSupplier.map((element: BrandSupplierType) =>
-                                    <span key={element._id} className="flex justify-center items-center bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm">
-                                        {element.name}
-                                        <CrossIcon onClick={(e: React.MouseEvent) => handleRemoveSupplier(e, element._id)} iconClass="w-5 h-5 ml-1" />
+                                {selectedSupplier.map((supplier: BrandSupplierType) =>
+                                    <span key={supplier.id} className="flex justify-center items-center bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-full border border-gray-200 shadow-sm">
+                                        {supplier.name}
+                                        <CrossIcon onClick={(e: React.MouseEvent) => handleRemoveSupplier(e, supplier.id)} iconClass="w-5 h-5 ml-1" />
                                     </span>)}
                             </div>
                             <div className={`mb-2 ${!supplierState && "hidden"}`}>
                                 {remainingSupplier?.map((supplier: BrandSupplierType) => {
-                                    return <span key={supplier._id} onClick={() => handleSelectSupplier(supplier._id)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
+                                    return <span key={supplier.id} onClick={() => handleSelectSupplier(supplier.id)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
                                         <span className="mr-1">{supplier.name}</span> /
                                         <span className="ml-1">{supplier.email}</span>
                                     </span>

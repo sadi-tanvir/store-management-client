@@ -19,7 +19,6 @@ const ProductCreation = () => {
     const categoryResponse = useQuery(GET_CATEGORIES);
     const brandResponse = useQuery(GET_BRANDS_2);
     const supplierResponse = useQuery(GET_SUPPLIERS);
-    console.log(`from root`, productResponse?.data);
 
 
 
@@ -53,8 +52,20 @@ const ProductCreation = () => {
             modalComponent: <CreateBrandModal
                 header="Create Brand"
                 modalId="create-brand-modal"
-                products={productResponse?.data?.products}
-                suppliers={supplierResponse?.data?.suppliers}
+                products={productResponse?.data?.products.map((product: any) => {
+                    return {
+                        name: product.name,
+                        _id: product._id
+                    }
+                })}
+                suppliers={supplierResponse?.data?.suppliers?.map((supplier: any) => {
+                    return {
+                        id: supplier._id,
+                        name: supplier.name,
+                        email: supplier.email,
+                        phone: supplier.contactNumber,
+                    }
+                })}
             />
         },
         {

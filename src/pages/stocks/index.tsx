@@ -9,8 +9,6 @@ const Stock = () => {
     // gql
     const { loading, error, data } = useQuery(GET_STOCKS);
 
-    // console.log(`from stock`, data?.stocks);
-
 
     return (
         <>

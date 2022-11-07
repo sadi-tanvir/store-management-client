@@ -47,13 +47,13 @@ export type ProductModalPropsType = {
 }
 
 export type BrandSupplierType = {
-    _id: string;
+    id: string;
     name: string;
     email: string;
-    contactNumber?: string;
+    phone?: string;
 }
 
-export type BrandModalPropsType = {
+export type CreateBrandModalPropsType = {
     modalId: string;
     header: string;
     products: BrandCommonType[];

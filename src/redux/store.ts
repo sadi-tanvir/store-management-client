@@ -3,13 +3,15 @@ import authReducer from "./reducers/authReducer";
 import globalReducer from "./reducers/globalReducer";
 import counterReducer from "./reducers/counterReducer";
 import userEditReducer from "./reducers/userEditReducer";
+import brandEditReducer from "./reducers/brandEditReducer";
 
 export const store = configureStore({
     reducer: {
         authReducer,
         globalReducer,
         counterReducer,
-        userEditReducer
+        userEditReducer,
+        brandEditReducer
     },
 })
 
