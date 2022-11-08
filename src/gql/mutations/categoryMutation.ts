@@ -10,3 +10,12 @@ export const CREATE_CATEGORY_MUTATION = gql`
 `;
 
 
+export const UPDATE_CATEGORY_MUTATION = gql`
+    mutation updateCategoryById($id:ID!, $info:CategoryInputData!) {
+        updateCategoryById(id:$id, data:$info){
+            status
+            message
+        }
+}`;
+
+// deleteCategoryById

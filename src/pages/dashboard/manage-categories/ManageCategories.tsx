@@ -11,6 +11,7 @@ import UpdateProductModal from '../../../components/Dashboard/mange-products/Upd
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import CategoryDetailsModal from '../../../components/Dashboard/manage-categories/CategoryDetailsModal';
+import UpdateCategoryModal from '../../../components/Dashboard/manage-categories/UpdateCategoryModal';
 
 
 export type ManageCategoryType = {
@@ -118,13 +119,11 @@ const ManageCategories = () => {
                                     modalId={`details-${category._id}`}
                                     category={category}
                                 />
-                                {/* <UpdateProductModal
-                                    header="Update Product"
-                                    modalId={`update-${product._id}`}
-                                    currentProduct={product}
-                                    categories={categoryResponse?.data?.categories}
-                                    brands={brandResponse?.data?.brands}
-                                /> */}
+                                <UpdateCategoryModal
+                                    header="Update Category"
+                                    modalId={`update-${category._id}`}
+                                    currentCategory={category}
+                                />
                             </>
                         )
                     })
