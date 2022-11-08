@@ -1,14 +1,10 @@
 import React from 'react';
-import { ManageProductType } from '../../../pages/dashboard/mange-products/ManageProducts';
-import { BrandIcon, ProductIcon, SupplierIcon } from '../../shared/icons/icons';
+import { ProductModalPropsType } from '../../../types/dashboard/manageProduct.types';
 
 
-export type BrandModalPropsType = {
-    modalId: string;
-    product: ManageProductType
-}
 
-const ProductDetailsModal = ({ modalId, product }: BrandModalPropsType) => {
+
+const ProductDetailsModal = ({ modalId, product }: ProductModalPropsType) => {
 
     return (
         <>

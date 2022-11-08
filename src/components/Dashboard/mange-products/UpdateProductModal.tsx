@@ -1,29 +1,15 @@
 import { useMutation } from '@apollo/client';
 import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
-import { UPDATE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
 import { UPDATE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
-import { GET_BRANDS } from '../../../gql/queries/brandQueries';
-import { GET_PRODUCTS, GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
-import { UpdateBrandModalPropsType } from '../../../types/dashboard/manageBrands.types';
+import { GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
+import { UpdateProductModalPropsType } from '../../../types/dashboard/manageProduct.types';
 import DataListInputField from '../../shared/components/DataListInputField';
 import SelectInput from '../../shared/components/SelectInput';
 import TextInputField from '../../shared/components/TextInputField';
 
 
-export type UpdateProductModalPropsType = {
-    modalId: string;
-    header: string;
-    currentProduct: any;
-    categories: {
-        _id: string;
-        name: string;
-    }[];
-    brands: {
-        _id: string;
-        name: string;
-    }[];
-}
+
 
 const UpdateProductModal = ({ modalId, header, currentProduct, categories, brands }: UpdateProductModalPropsType) => {
     // gql

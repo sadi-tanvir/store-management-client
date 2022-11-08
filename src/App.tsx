@@ -15,6 +15,7 @@ import OwnerProfile from "./pages/owner-profile/OwnerProfile"
 import ProductCreation from "./pages/dashboard/manage-product-creation"
 import ManageBrands from "./pages/dashboard/manage-brands/ManageBrands";
 import ManageProducts from "./pages/dashboard/mange-products/ManageProducts";
+import ManageCategories from "./pages/dashboard/manage-categories/ManageCategories";
 
 function App() {
   // redux
@@ -61,6 +62,7 @@ function App() {
           <Route path="manage-product-creation" element={<ProductCreation />} />
           <Route path="manage-brands" element={<ManageBrands />} />
           <Route path="manage-products" element={<ManageProducts />} />
+          <Route path="manage-categories" element={<ManageCategories />} />
         </Route>
         <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />

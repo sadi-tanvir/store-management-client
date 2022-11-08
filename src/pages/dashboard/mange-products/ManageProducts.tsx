@@ -1,48 +1,24 @@
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { DELETE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
-import { GET_BRANDS, GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
-import { GET_PRODUCTS_FOR_REFERENCES, GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
-import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
+import { GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
+import { GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
-import { ManageBrandType } from '../../../types/dashboard/manageBrands.types';
 import TableHeader from "../../../components/shared/components/TableHeader";
-import { BrandIcon, EmailIcon, EyesIcon, ProductIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
-import BrandDetailsModal from '../../../components/Dashboard/manage-brands/BrandDetailsModal';
-import UpdateBrandModal from '../../../components/Dashboard/manage-brands/UpdateBrandModal';
+import { BrandIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
 import ProductDetailsModal from '../../../components/Dashboard/mange-products/ProductDetailsModal';
 import UpdateProductModal from '../../../components/Dashboard/mange-products/UpdateProductModal';
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
+import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
 
 
-export type ManageProductType = {
-    _id: string;
-    name: string;
-    description: string;
-    unit: string;
-    imageUrl: string;
-    category: {
-        id: {
-            _id: string;
-            name: string;
-            description: string;
-        }
-    };
-    brand: {
-        id: {
-            _id: string;
-            name: string;
-        }
-    };
-}
+
 
 
 const ManageProducts = () => {
     // gql
     const brandResponse = useQuery(GET_BRANDS_2);
-    const supplierResponse = useQuery(GET_SUPPLIERS);
     const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);

@@ -25,5 +25,10 @@ export const DashBoardNav: DashListType[] = [
         key: 4,
         title: 'manage products',
         path: '/dashboard/manage-products'
+    },
+    {
+        key: 5,
+        title: 'manage categories',
+        path: '/dashboard/manage-categories'
     }
 ]

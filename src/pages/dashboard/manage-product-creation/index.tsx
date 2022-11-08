@@ -71,7 +71,7 @@ const ProductCreation = () => {
         {
             modalId: "create-category-modal",
             label: 'Create Category',
-            icon: <CategoryIcon />,
+            icon: <CategoryIcon iconClass="h-8 w-8 text-primary" />,
             modalComponent: <CreateCategoryModal
                 header="Create Category"
                 modalId="create-category-modal"
