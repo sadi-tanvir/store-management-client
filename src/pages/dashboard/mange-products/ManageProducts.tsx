@@ -2,7 +2,7 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { DELETE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
-import { GET_BRANDS, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
+import { GET_BRANDS, GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
 import { GET_PRODUCTS_FOR_REFERENCES, GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
@@ -12,6 +12,8 @@ import { BrandIcon, EmailIcon, EyesIcon, ProductIcon, TableDeleteIcon, TableEdit
 import BrandDetailsModal from '../../../components/Dashboard/manage-brands/BrandDetailsModal';
 import UpdateBrandModal from '../../../components/Dashboard/manage-brands/UpdateBrandModal';
 import ProductDetailsModal from '../../../components/Dashboard/mange-products/ProductDetailsModal';
+import UpdateProductModal from '../../../components/Dashboard/mange-products/UpdateProductModal';
+import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 
 
 export type ManageProductType = {
@@ -21,19 +23,27 @@ export type ManageProductType = {
     unit: string;
     imageUrl: string;
     category: {
-        name: string;
+        id: {
+            _id: string;
+            name: string;
+            description: string;
+        }
     };
     brand: {
-        name: string;
+        id: {
+            _id: string;
+            name: string;
+        }
     };
 }
 
 
 const ManageProducts = () => {
     // gql
-    const brandResponse = useQuery(GET_BRANDS);
+    const brandResponse = useQuery(GET_BRANDS_2);
     const supplierResponse = useQuery(GET_SUPPLIERS);
     const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
+    const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteBrandMutation] = useMutation(DELETE_BRAND_MUTATION, {
         refetchQueries: [GET_BRANDS],
@@ -42,7 +52,7 @@ const ManageProducts = () => {
     // redux
     const dispatch = useAppDispatch();
 
-    console.log(`from manage product`, productResponse?.data?.products);
+    console.log(`from manage product`, productResponse?.data?.products?.id);
 
 
 
@@ -87,7 +97,11 @@ const ManageProducts = () => {
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center">
                                                 <div className="mr-2">
-                                                    <ProductIcon iconClass="h-5 w-5 text-primary" />
+                                                    <img
+                                                        className="w-8 h-8 rounded-full shadow-lg mr-2"
+                                                        src={product.imageUrl}
+                                                        alt="User"
+                                                    />
                                                 </div>
                                                 <span className="font-medium">
                                                     {product.name.length > 15 ? `${product.name.substring(0, 15)}..` : product.name}
@@ -100,7 +114,7 @@ const ManageProducts = () => {
                                                     <BrandIcon iconClass="h-5 w-5 text-primary" />
                                                 </div>
                                                 <span>
-                                                    {product.brand.name.length > 25 ? `${product.brand.name.substring(0, 10)} ...` : product.brand.name}
+                                                    {product.brand.id.name.length > 25 ? `${product.brand.id.name.substring(0, 10)} ...` : product.brand.id.name}
                                                 </span>
                                             </div>
                                         </td>
@@ -136,19 +150,12 @@ const ManageProducts = () => {
                                         modalId={`details-${product._id}`}
                                         product={product}
                                     />
-                                    <UpdateBrandModal
-                                        header="Update Brand"
+                                    <UpdateProductModal
+                                        header="Update Product"
                                         modalId={`update-${product._id}`}
-                                        currentBrand={product}
-                                        products={productResponse?.data?.products}
-                                        suppliers={supplierResponse?.data?.suppliers?.map((supplier: any) => {
-                                            return {
-                                                id: supplier._id,
-                                                name: supplier.name,
-                                                email: supplier.email,
-                                                phone: supplier.contactNumber,
-                                            }
-                                        })}
+                                        currentProduct={product}
+                                        categories={categoryResponse?.data?.categories}
+                                        brands={brandResponse?.data?.brands}
                                     />
                                 </>
                             )

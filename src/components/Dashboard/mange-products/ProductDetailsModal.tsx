@@ -1,5 +1,5 @@
 import React from 'react';
-// import { ManageProductType } from '../../../pages/dashboard/mange-products/ManageProducts';
+import { ManageProductType } from '../../../pages/dashboard/mange-products/ManageProducts';
 import { BrandIcon, ProductIcon, SupplierIcon } from '../../shared/icons/icons';
 
 
@@ -8,19 +8,6 @@ export type BrandModalPropsType = {
     product: ManageProductType
 }
 
-export type ManageProductType = {
-    _id: string;
-    name: string;
-    description: string;
-    unit: string;
-    imageUrl: string;
-    category: {
-        name: string;
-    };
-    brand: {
-        name: string;
-    };
-}
 const ProductDetailsModal = ({ modalId, product }: BrandModalPropsType) => {
 
     return (
@@ -35,7 +22,7 @@ const ProductDetailsModal = ({ modalId, product }: BrandModalPropsType) => {
                             <img
                                 className="w-8 h-8 rounded-full shadow-lg mr-2"
                                 src={product.imageUrl}
-                                alt="User image"
+                                alt="User"
                             />
                             {product.name}
                         </h3>
@@ -46,12 +33,12 @@ const ProductDetailsModal = ({ modalId, product }: BrandModalPropsType) => {
 
                     <div className="flex items-center">
                         <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Brand</h5>
-                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.brand.name}</p>
+                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.brand.id.name}</p>
                     </div>
 
                     <div className="flex items-center">
                         <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Category</h5>
-                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.category.name}</p>
+                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.category.id.name}</p>
                     </div>
 
                     <div className="flex items-center">

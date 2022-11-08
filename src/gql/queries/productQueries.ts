@@ -10,10 +10,17 @@ export const GET_PRODUCTS_WITH_DETAILS = gql`
       unit
       imageUrl
       category {
-        name
+        id {
+          _id
+          name
+          description
+        }
       }
       brand {
-        name
+        id {
+          _id
+          name
+        }
       }
     }
   }`;

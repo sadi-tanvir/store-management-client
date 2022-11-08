@@ -29,7 +29,7 @@ export type UpdateBrandModalPropsType = {
     header: string;
     products: BrandProductType[];
     suppliers: BrandSupplierType[];
-    currentBrand: any;
+    currentBrand: ManageBrandType;
 }
 
 export type BrandSupplierType = {

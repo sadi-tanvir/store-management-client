@@ -12,3 +12,10 @@ export const CREATE_PRODUCT_MUTATION = gql`
 
 
 
+export const UPDATE_PRODUCT_MUTATION = gql`
+    mutation updateProductById($id:ID!, $info:ProductInputData!) {
+        updateProductById(id:$id, data:$info){
+            status
+            message
+        }
+}`;
