@@ -6,12 +6,13 @@ import Swal from "sweetalert2"
 import { BrandCommonType, CategoryCommonType, ProductModalPropsType } from '../../../../types/dashboard/productCreation.types';
 import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
 import SingleSelectOption from '../../../shared/components/SingleSelectOption';
+import { GET_PRODUCTS_WITH_DETAILS } from '../../../../gql/queries/productQueries';
 
 
 const CreateProductModal = ({ modalId, header, categories, brands }: ProductModalPropsType) => {
     // gql
     const [createProductMutation, { data, loading, error }] = useMutation(CREATE_PRODUCT_MUTATION, {
-        // refetchQueries: [GET_STOCKS],
+        refetchQueries: [GET_PRODUCTS_WITH_DETAILS],
     });
 
     // for brand state

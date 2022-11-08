@@ -9,8 +9,14 @@ export const CREATE_PRODUCT_MUTATION = gql`
         }
 `;
 
-
-
+export const DELETE_PRODUCT_MUTATION = gql`
+    mutation deleteProductById($id:ID!) {
+        deleteProductById(id:$id){
+            status
+            message
+        }
+    }
+`;
 
 export const UPDATE_PRODUCT_MUTATION = gql`
     mutation updateProductById($id:ID!, $info:ProductInputData!) {

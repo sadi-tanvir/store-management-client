@@ -14,6 +14,7 @@ import UpdateBrandModal from '../../../components/Dashboard/manage-brands/Update
 import ProductDetailsModal from '../../../components/Dashboard/mange-products/ProductDetailsModal';
 import UpdateProductModal from '../../../components/Dashboard/mange-products/UpdateProductModal';
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
+import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 
 
 export type ManageProductType = {
@@ -45,23 +46,20 @@ const ManageProducts = () => {
     const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
-    const [deleteBrandMutation] = useMutation(DELETE_BRAND_MUTATION, {
-        refetchQueries: [GET_BRANDS],
+    const [deleteProductMutation] = useMutation(DELETE_PRODUCT_MUTATION, {
+        refetchQueries: [GET_PRODUCTS_WITH_DETAILS],
     });
 
     // redux
     const dispatch = useAppDispatch();
 
-    console.log(`from manage product`, productResponse?.data?.products?.id);
-
-
 
     // handle Delete Brand
-    const handleDeleteBrand = (id: string) => {
+    const handleDeleteProduct = (id: string) => {
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    deleteBrandMutation({
+                    deleteProductMutation({
                         variables: {
                             id: id
                         }
@@ -139,7 +137,7 @@ const ManageProducts = () => {
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-red-500 hover:scale-110">
-                                                    <label onClick={() => handleDeleteBrand(product._id)} className="cursor-pointer">
+                                                    <label onClick={() => handleDeleteProduct(product._id)} className="cursor-pointer">
                                                         <TableDeleteIcon />
                                                     </label>
                                                 </div>
