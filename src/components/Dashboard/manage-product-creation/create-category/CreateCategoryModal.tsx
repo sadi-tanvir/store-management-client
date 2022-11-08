@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
 import { CREATE_CATEGORY_MUTATION } from '../../../../gql/mutations/categoryMutation';
+import { GET_CATEGORIES } from '../../../../gql/queries/categoryQueries';
 import { CategoryModalPropsType } from '../../../../types/dashboard/productCreation.types';
 import TextInputField from '../../../shared/components/TextInputField';
 
@@ -10,7 +11,7 @@ import TextInputField from '../../../shared/components/TextInputField';
 const CreateCategoryModal = ({ modalId, header }: CategoryModalPropsType) => {
     // gql
     const [createCategoryMutation, { data, loading, error }] = useMutation(CREATE_CATEGORY_MUTATION, {
-        // refetchQueries: [GET_STOCKS],
+        refetchQueries: [GET_CATEGORIES],
     });
 
 

@@ -3,12 +3,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
 import { UPDATE_CATEGORY_MUTATION } from '../../../gql/mutations/categoryMutation';
-import { UPDATE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
-import { GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
 import { ManageCategoryType } from '../../../pages/dashboard/manage-categories/ManageCategories';
-import { UpdateProductModalPropsType } from '../../../types/dashboard/manageProduct.types';
-import DataListInputField from '../../shared/components/DataListInputField';
-import SelectInput from '../../shared/components/SelectInput';
 import TextInputField from '../../shared/components/TextInputField';
 import { GET_CATEGORIES } from "../../../gql/queries/categoryQueries";
 

@@ -18,4 +18,12 @@ export const UPDATE_CATEGORY_MUTATION = gql`
         }
 }`;
 
-// deleteCategoryById
+
+export const DELETE_CATEGORY_MUTATION = gql`
+    mutation deleteCategoryById($id:ID!) {
+        deleteCategoryById(id:$id){
+            status
+            message
+        }
+    }
+`;

@@ -12,6 +12,7 @@ import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import CategoryDetailsModal from '../../../components/Dashboard/manage-categories/CategoryDetailsModal';
 import UpdateCategoryModal from '../../../components/Dashboard/manage-categories/UpdateCategoryModal';
+import { DELETE_CATEGORY_MUTATION } from '../../../gql/mutations/categoryMutation';
 
 
 export type ManageCategoryType = {
@@ -26,8 +27,8 @@ const ManageCategories = () => {
     const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
-    const [deleteProductMutation] = useMutation(DELETE_PRODUCT_MUTATION, {
-        refetchQueries: [GET_PRODUCTS_WITH_DETAILS],
+    const [deleteCategoryMutation] = useMutation(DELETE_CATEGORY_MUTATION, {
+        refetchQueries: [GET_CATEGORIES],
     });
 
     // redux
@@ -41,7 +42,7 @@ const ManageCategories = () => {
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    deleteProductMutation({
+                    deleteCategoryMutation({
                         variables: {
                             id: id
                         }
@@ -89,11 +90,10 @@ const ManageCategories = () => {
                                                 <BrandIcon iconClass="h-5 w-5 text-primary" />
                                             </div>
                                             <span>
-                                                {category.description.length > 25 ? `${category.description.substring(0, 10)} ...` : category.description}
+                                                {category.description.length > 25 ? `${category.description.substring(0, 20)} ...` : category.description}
                                             </span>
                                         </div>
                                     </td>
-
 
                                     <td className="py-3 px-6 text-center">
                                         <div className="flex item-center justify-start">
