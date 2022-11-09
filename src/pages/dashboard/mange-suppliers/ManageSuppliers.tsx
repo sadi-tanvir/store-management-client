@@ -13,6 +13,7 @@ import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation'
 import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
 import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
 import { DELETE_SUPPLIER_MUTATION } from '../../../gql/mutations/supplierMutation';
+import UpdateSupplierModal from '../../../components/Dashboard/mange-suppliers/UpdateSupplierModal';
 
 
 export type ManageSupplierType = {
@@ -152,13 +153,12 @@ const ManageSuppliers = () => {
                                         modalId={`details-${supplier._id}`}
                                         supplier={supplier}
                                     /> */}
-                                    {/* <UpdateProductModal
-                                        header="Update Product"
-                                        modalId={`update-${product._id}`}
-                                        currentProduct={product}
-                                        categories={categoryResponse?.data?.categories}
+                                    <UpdateSupplierModal
+                                        header="Update Supplier"
+                                        modalId={`update-${supplier._id}`}
+                                        currentSupplier={supplier}
                                         brands={brandResponse?.data?.brands}
-                                    /> */}
+                                    />
                                 </>
                             )
                         })
