@@ -11,16 +11,32 @@ import UpdateProductModal from '../../../components/Dashboard/mange-products/Upd
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
+import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
 
 
+export type ManageSupplierType = {
+    _id: string;
+    name: string;
+    email: string;
+    contactNumber: string;
+    presentAddress: string;
+    permanentAddress: string;
+    status: string;
+    imageUrl: string;
+    brand: {
+        id: {
+            _id: string;
+            name: string;
+        }
+    }
+}
 
 
-
-const ManageProducts = () => {
+const ManageSuppliers = () => {
     // gql
     const brandResponse = useQuery(GET_BRANDS_2);
-    const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
-    const categoryResponse = useQuery(GET_CATEGORIES);
+    const supplierResponse = useQuery(GET_SUPPLIERS_WITH_DETAILS);
+    // const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteProductMutation] = useMutation(DELETE_PRODUCT_MUTATION, {
         refetchQueries: [GET_PRODUCTS_WITH_DETAILS],
@@ -62,23 +78,27 @@ const ManageProducts = () => {
     return (
         <>
             <div className="w-full">
-                <TableHeader headers={["name", "brand", "description", "actions"]}>
+                <TableHeader headers={["name", "phone", "brand", "status", "actions"]}>
                     {
-                        productResponse?.data?.products.map((product: ManageProductType, index: number) => {
+                        supplierResponse?.data?.suppliers.map((supplier: ManageSupplierType, index: number) => {
                             return (
                                 <>
-                                    <tr key={product._id}>
+                                    <tr key={supplier._id}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center">
                                                 <div className="mr-2">
                                                     <img
                                                         className="w-8 h-8 rounded-full shadow-lg mr-2"
-                                                        src={product.imageUrl}
+                                                        src={supplier.imageUrl}
                                                         alt="User"
                                                     />
                                                 </div>
-                                                <span className="font-medium">
-                                                    {product.name.length > 15 ? `${product.name.substring(0, 15)}..` : product.name}
+                                                <span className="font-medium flex flex-col justify-start">
+                                                    {supplier.name.length > 15 ? `${supplier.name.substring(0, 15)}..` : supplier.name}
+                                                    <br />
+                                                    <span>
+                                                        {supplier.email.length > 15 ? `${supplier.email.substring(0, 15)}..` : supplier.email}
+                                                    </span>
                                                 </span>
                                             </div>
                                         </td>
@@ -88,14 +108,21 @@ const ManageProducts = () => {
                                                     <BrandIcon iconClass="h-5 w-5 text-primary" />
                                                 </div>
                                                 <span className='text-sm font-semibold'>
-                                                    {product.brand.id.name.length > 25 ? `${product.brand.id.name.substring(0, 10)} ...` : product.brand.id.name}
+                                                    {supplier.contactNumber.length > 12 ? `${supplier.contactNumber.substring(0, 10)} ...` : supplier.contactNumber}
                                                 </span>
                                             </div>
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex items-center justify-start">
                                                 <span className='text-sm font-semibold'>
-                                                    {product.description.length > 25 ? `${product.description.substring(0, 10)} ...` : product.description}
+                                                    {supplier.brand.id.name.length > 25 ? `${supplier.brand.id.name.substring(0, 10)} ...` : supplier.brand.id.name}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td className="py-3 px-6 text-center">
+                                            <div className="flex items-center justify-start">
+                                                <span className={`${supplier.status === 'active' ? 'bg-teal-200 text-teal-600' : 'bg-red-200 text-red-600'} font-semibold py-1 px-3 rounded-full text-xs`}>
+                                                    {supplier.status}
                                                 </span>
                                             </div>
                                         </td>
@@ -103,34 +130,34 @@ const ManageProducts = () => {
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-start">
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <label className="cursor-pointer" htmlFor={`details-${product._id}`}>
+                                                    <label className="cursor-pointer" htmlFor={`details-${supplier._id}`}>
                                                         <EyesIcon />
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <label onClick={() => handleEditBtn(product._id)} className="cursor-pointer" htmlFor={`update-${product._id}`}>
+                                                    <label onClick={() => handleEditBtn(supplier._id)} className="cursor-pointer" htmlFor={`update-${supplier._id}`}>
                                                         <TableEditIcon />
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-red-500 hover:scale-110">
-                                                    <label onClick={() => handleDeleteProduct(product._id)} className="cursor-pointer">
+                                                    <label onClick={() => handleDeleteProduct(supplier._id)} className="cursor-pointer">
                                                         <TableDeleteIcon />
                                                     </label>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <ProductDetailsModal
-                                        modalId={`details-${product._id}`}
-                                        product={product}
-                                    />
-                                    <UpdateProductModal
+                                    {/* <ProductDetailsModal
+                                        modalId={`details-${supplier._id}`}
+                                        supplier={supplier}
+                                    /> */}
+                                    {/* <UpdateProductModal
                                         header="Update Product"
                                         modalId={`update-${product._id}`}
                                         currentProduct={product}
                                         categories={categoryResponse?.data?.categories}
                                         brands={brandResponse?.data?.brands}
-                                    />
+                                    /> */}
                                 </>
                             )
                         })
@@ -145,4 +172,4 @@ const ManageProducts = () => {
     );
 };
 
-export default ManageProducts;
+export default ManageSuppliers;

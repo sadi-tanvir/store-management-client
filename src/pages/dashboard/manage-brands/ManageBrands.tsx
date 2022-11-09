@@ -82,7 +82,7 @@ const ManageBrands = () => {
                                                 <div className="mr-2">
                                                     <EmailIcon iconClass="h-5 w-5 text-primary" />
                                                 </div>
-                                                <span>
+                                                <span className='text-sm font-semibold'>
                                                     {brand.email.length > 25 ? `${brand.email.substring(0, 10)} ... @${brand.email.split('@')[1]}` : brand.email}
                                                 </span>
                                             </div>

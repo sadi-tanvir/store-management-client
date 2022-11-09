@@ -86,10 +86,10 @@ const ManageCategories = () => {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
+                                            {/* <div className="mr-2">
                                                 <BrandIcon iconClass="h-5 w-5 text-primary" />
-                                            </div>
-                                            <span>
+                                            </div> */}
+                                            <span className='text-sm font-semibold'>
                                                 {category.description.length > 25 ? `${category.description.substring(0, 20)} ...` : category.description}
                                             </span>
                                         </div>
@@ -126,8 +126,7 @@ const ManageCategories = () => {
                                 />
                             </>
                         )
-                    })
-                    }
+                    })}
 
                 </TableHeader>
             </div >

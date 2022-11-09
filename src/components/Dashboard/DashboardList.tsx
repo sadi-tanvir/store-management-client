@@ -30,5 +30,10 @@ export const DashBoardNav: DashListType[] = [
         key: 5,
         title: 'manage categories',
         path: '/dashboard/manage-categories'
+    },
+    {
+        key: 6,
+        title: 'manage suppliers',
+        path: '/dashboard/manage-suppliers'
     }
 ]
