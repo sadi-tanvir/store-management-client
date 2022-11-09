@@ -14,6 +14,7 @@ import { ManageProductType } from '../../../types/dashboard/manageProduct.types'
 import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
 import { DELETE_SUPPLIER_MUTATION } from '../../../gql/mutations/supplierMutation';
 import UpdateSupplierModal from '../../../components/Dashboard/mange-suppliers/UpdateSupplierModal';
+import SupplierDetailsModal from '../../../components/Dashboard/mange-suppliers/SupplierDetailsModal';
 
 
 export type ManageSupplierType = {
@@ -149,10 +150,10 @@ const ManageSuppliers = () => {
                                             </div>
                                         </td>
                                     </tr>
-                                    {/* <ProductDetailsModal
+                                    <SupplierDetailsModal
                                         modalId={`details-${supplier._id}`}
                                         supplier={supplier}
-                                    /> */}
+                                    />
                                     <UpdateSupplierModal
                                         header="Update Supplier"
                                         modalId={`update-${supplier._id}`}
