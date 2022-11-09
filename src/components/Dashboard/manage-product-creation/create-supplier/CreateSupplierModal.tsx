@@ -9,6 +9,7 @@ import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutati
 import { CrossIcon } from '../../../shared/icons/icons';
 import { CREATE_SUPPLIER_MUTATION } from '../../../../gql/mutations/supplierMutation';
 import SingleSelectOption from '../../../shared/components/SingleSelectOption';
+import { GET_SUPPLIERS_WITH_DETAILS } from '../../../../gql/queries/supplierQueries';
 
 export type SupplierBrandType = {
     _id: string;
@@ -23,7 +24,7 @@ export type SupplierModalPropsType = {
 const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType) => {
     // gql
     const [createSupplierMutation, { data, loading, error }] = useMutation(CREATE_SUPPLIER_MUTATION, {
-        // refetchQueries: [GET_STOCKS],
+        refetchQueries: [GET_SUPPLIERS_WITH_DETAILS],
     });
 
     // for brand state

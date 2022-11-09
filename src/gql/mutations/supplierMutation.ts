@@ -8,3 +8,12 @@ export const CREATE_SUPPLIER_MUTATION = gql`
         }
     }
 `;
+
+export const DELETE_SUPPLIER_MUTATION = gql`
+    mutation deleteSupplierById($id:ID!) {
+        deleteSupplierById(id:$id){
+            status
+            message
+        }
+    }
+`;

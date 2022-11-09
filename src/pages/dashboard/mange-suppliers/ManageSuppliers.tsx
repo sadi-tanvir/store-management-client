@@ -12,6 +12,7 @@ import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
 import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
+import { DELETE_SUPPLIER_MUTATION } from '../../../gql/mutations/supplierMutation';
 
 
 export type ManageSupplierType = {
@@ -38,8 +39,8 @@ const ManageSuppliers = () => {
     const supplierResponse = useQuery(GET_SUPPLIERS_WITH_DETAILS);
     // const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
-    const [deleteProductMutation] = useMutation(DELETE_PRODUCT_MUTATION, {
-        refetchQueries: [GET_PRODUCTS_WITH_DETAILS],
+    const [deleteSupplierMutation] = useMutation(DELETE_SUPPLIER_MUTATION, {
+        refetchQueries: [GET_SUPPLIERS_WITH_DETAILS],
     });
 
     // redux
@@ -47,11 +48,11 @@ const ManageSuppliers = () => {
 
 
     // handle Delete Brand
-    const handleDeleteProduct = (id: string) => {
+    const handleDeleteSupplier = (id: string) => {
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    deleteProductMutation({
+                    deleteSupplierMutation({
                         variables: {
                             id: id
                         }
@@ -140,7 +141,7 @@ const ManageSuppliers = () => {
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-red-500 hover:scale-110">
-                                                    <label onClick={() => handleDeleteProduct(supplier._id)} className="cursor-pointer">
+                                                    <label onClick={() => handleDeleteSupplier(supplier._id)} className="cursor-pointer">
                                                         <TableDeleteIcon />
                                                     </label>
                                                 </div>
