@@ -95,14 +95,15 @@ export default function Cart() {
 
 
     useEffect(() => {
+        // cart state
         setOpen(cartState)
 
-        const priceArray = Object.values(cart).map((item: any) => {
+        // calculate total cart price
+        const priceList = Object.values(cart).map((item: any) => {
             return item.price * item.qty
         })
-        console.log(priceArray);
         setSubTotal(() => {
-            return priceArray.reduce((pre, curr) => pre + curr, 0)
+            return priceList.reduce((pre, curr) => pre + curr, 0)
         })
     }, [cartState, cart])
     return (

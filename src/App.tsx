@@ -18,6 +18,7 @@ import ManageProducts from "./pages/dashboard/mange-products/ManageProducts";
 import ManageCategories from "./pages/dashboard/manage-categories/ManageCategories";
 import ManageSuppliers from "./pages/dashboard/mange-suppliers/ManageSuppliers";
 import Cart from "./components/cart/Cart";
+import ManageStock from "./pages/dashboard/manage-stock/ManageStock";
 
 function App() {
   // redux
@@ -48,6 +49,11 @@ function App() {
         }
       }
 
+      // reload cart data
+      if (localStorage.getItem('cart')) {
+        dispatch({ type: 'reloadCart', payload: JSON.parse(localStorage.getItem('cart') || '') });
+      }
+
       // dispatch darkMode setting
       if (localStorage.getItem('darkMode')) {
         dispatch({ type: 'setDarkMode', payload: JSON.parse(localStorage.getItem('darkMode') || '') });
@@ -63,6 +69,7 @@ function App() {
         <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<Users />} />
+          <Route path="manage-stocks" element={<ManageStock />} />
           <Route path="manage-product-creation" element={<ProductCreation />} />
           <Route path="manage-brands" element={<ManageBrands />} />
           <Route path="manage-products" element={<ManageProducts />} />

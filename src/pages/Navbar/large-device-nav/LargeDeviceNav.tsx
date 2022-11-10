@@ -12,7 +12,10 @@ import NotificationNav from "../../../components/navbar/NotificationNav";
 const LargeDeviceNav = () => {
     // redux
     const { isAuthenticate } = useAppSelector(state => state.authReducer);
+    const { cart } = useAppSelector(state => state.cartReducer);
     const dispatch = useAppDispatch()
+    console.log();
+
     return (
         <>
             <div className="navbar-end">
@@ -52,7 +55,13 @@ const LargeDeviceNav = () => {
 
                 {isAuthenticate && <>
                     <div onClick={() => dispatch({ type: 'setCart' })} className="indicator cursor-pointer">
-                        <span className="indicator-item badge badge-primary">8</span>
+                        <span className="indicator-item badge badge-primary">
+                            {
+                                Object.values(cart)
+                                    .map((item: any) => item.qty)
+                                    .reduce((a: number, b: number) => a + b, 0)
+                            }
+                        </span>
                         <CartIcon
                             iconClass="hover:scale-125 active:scale-100 transition-all cursor-pointer w-6 h-6 text-secondary"
                         />

@@ -24,4 +24,20 @@ export const UPDATE_STOCK_QUANTITY_MUTATION = gql`
     }
 `;
 
+export const UPDATE_STOCK_MUTATION = gql`
+    mutation updateStockById($id:ID!, $info:StockInputData!) {
+        updateStockById(id:$id, data:$info){
+            status
+            message
+        }
+    }
+`;
 
+export const DELETE_STOCK_MUTATION = gql`
+    mutation deleteStockById($id:ID!) {
+        deleteStockById(id:$id){
+            status
+            message
+        }
+    }
+`;

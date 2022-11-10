@@ -79,19 +79,22 @@ const StockCard = ({ stock }: { stock: StocksType }) => {
                             : stock.name}
                     </h2>
                     <div className="w-full flex justify-between pr-6">
-                        <p className="text-red-400 font-semibold">
+                        <p className="text-primary font-semibold">
                             BDT {stock?.price}
                         </p>
-                        <div className={`border border-gray-200 shadow-md badge px-4 py-[11px] font-semibold opacity-90 ${stock.status === 'in-stock' ? ' bg-teal-300 text-teal-600' : 'bg-red-300 text-red-500'}`}>
-                            {stock.status}
-                        </div>
+                        {
+                            stock.status === 'out-of-stock' ?
+                                <div className={`border border-gray-200 shadow-md badge px-4 py-[11px] font-semibold opacity-90 bg-red-300 text-red-500`}>
+                                    {stock.status}
+                                </div> : null
+                        }
                     </div>
                     {/* <div className={`${mousePointer ? "block" : "hidden"} flex flex-col justify-center items-center absolute right-5 top-16`}> */}
                     <div className={`${classes.productMenu} absolute right-5 bottom-5 border-2 border-secondary rounded px-1 py-3`}>
                         <div onClick={addToCart} className={`indicator ${stock.status === 'out-of-stock' ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
                             {/* <span className="indicator-item badge badge-primary">0</span> */}
                             <CartIcon
-                                iconClass={`hover:scale-125 active:scale-100 transition-all ${stock.status === 'out-of-stock' ? 'cursor-not-allowed' : 'cursor-pointer'} w-6 h-6 text-secondary`}
+                                iconClass={`hover:scale-125 active:scale-100 transition-all ${stock.status === 'out-of-stock' ? 'cursor-not-allowed text-slate-400' : 'cursor-pointer  text-secondary'} w-6 h-6`}
                             />
                         </div>
                         <div title="see details" className={`hover:scale-125 active:scale-100 transition-all indicator cursor-pointer`}>

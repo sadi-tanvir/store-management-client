@@ -60,8 +60,10 @@ const cartReducer = createReducer(initialState, {
     clearCart: (state, action) => {
         state.cart = {}
         localStorage.removeItem('cart')
+    },
+    reloadCart: (state, action: PayloadAction<any>) => {
+        state.cart = action.payload || {}
     }
-
 })
 
 export default cartReducer

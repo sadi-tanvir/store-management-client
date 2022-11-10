@@ -13,19 +13,20 @@ export const DashBoardNav: DashListType[] = [
     },
     {
         key: 2,
-        title: 'manage product creation',
-        path: '/dashboard/manage-product-creation'
+        title: 'manage stocks',
+        path: '/dashboard/manage-stocks'
     },
     {
         key: 3,
-        title: 'manage brands',
-        path: '/dashboard/manage-brands'
-    },
-    {
-        key: 4,
         title: 'manage products',
         path: '/dashboard/manage-products'
     },
+    {
+        key: 4,
+        title: 'manage brands',
+        path: '/dashboard/manage-brands'
+    },
+
     {
         key: 5,
         title: 'manage categories',
@@ -35,5 +36,10 @@ export const DashBoardNav: DashListType[] = [
         key: 6,
         title: 'manage suppliers',
         path: '/dashboard/manage-suppliers'
+    },
+    {
+        key: 7,
+        title: 'manage product creation',
+        path: '/dashboard/manage-product-creation'
     }
 ]

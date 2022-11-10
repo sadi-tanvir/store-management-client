@@ -21,5 +21,39 @@ export const GET_STOCKS = gql`
     }
 `;
 
+export const GET_STOCKS_WITH_DETAILS = gql`
+     query getStocksWithDetails {
+        getStocksWithDetails {
+            _id
+            name
+            description
+            price
+            imageUrl
+            status
+            unit
+            quantity
+            sellCount
+            category {
+              id {
+                _id
+                name
+              }
+            }
+            brand {
+               id {
+                _id
+                name
+              }
+            }
+          suppliedBy {
+            id {
+              _id
+              name
+            }
+          }
+        }
+    }
+`;
+
 
 
