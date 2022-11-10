@@ -2,197 +2,41 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
+import { MinusIconCart, PlusIconCart } from '../shared/icons/icons'
+import Swal from 'sweetalert2'
+import { useMutation, useQuery } from '@apollo/client'
+import { UPDATE_STOCK_QUANTITY_MUTATION } from '../../gql/mutations/stockMutation'
+import { GET_STOCKS } from '../../gql/queries/stockQueries'
 
-const products = [
-    {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    }, {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    },
-    // More products...
-]
+
+export type CartType = {
+    stockId: string,
+    name: string,
+    category: string,
+    brand: string,
+    imageUrl: string,
+    price: number,
+    qty: number,
+    unit: string
+}
 
 export default function Cart() {
     // redux
     const dispatch = useAppDispatch()
-    const { cart } = useAppSelector(state => state.globalReducer);
-    const [open, setOpen] = useState(cart)
+    const { cartState } = useAppSelector(state => state.globalReducer);
+    const { cart } = useAppSelector(state => state.cartReducer);
+    const [open, setOpen] = useState(cartState)
+
+    // gql
+    const [updateStockQuantityMutation, { data, loading, error }] = useMutation(UPDATE_STOCK_QUANTITY_MUTATION, {
+        refetchQueries: [GET_STOCKS],
+    });
+    const stockResponse = useQuery(GET_STOCKS);
+
+
+
+    // state
+    const [subTotal, setSubTotal] = useState(0)
 
     // close modal
     const handleCloseModal = () => {
@@ -200,9 +44,67 @@ export default function Cart() {
         dispatch({ type: 'setCart' })
     }
 
+    // handle remove item from cart
+    const handleRemoveItem = (id: string) => {
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch({ type: 'removeItemFromCart', payload: { stockId: id } })
+                }
+            })
+    }
+
+
+
+    // handle increase cart item quantity
+    const handleIncreaseCartItemQty = (cart: CartType) => {
+        const currStock = stockResponse?.data?.stocks.filter((stock: any) => {
+            return stock._id === cart.stockId
+        })
+        if (currStock[0].quantity <= 0) {
+            return;
+        } else {
+            dispatch({ type: 'addToCart', payload: cart })
+            updateStockQuantityMutation({ variables: { id: cart.stockId, info: { reference: 'decrease' } } })
+        }
+    }
+
+    // handle decrease cart item quantity
+    const handleDecreaseCartItemQty = (id: string) => {
+        let newCart: any = cart
+
+
+        if (newCart[id].qty <= 1) {
+            Swal.fire({ title: 'Are you sure?', text: "It will be deleted!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        dispatch({ type: 'removeFromCart', payload: { stockId: id } })
+
+                        // update stock quantity
+                        updateStockQuantityMutation({ variables: { id: id, info: { reference: 'increase' } } })
+                    }
+                })
+        } else {
+            dispatch({ type: 'removeFromCart', payload: { stockId: id } })
+            // update stock quantity
+            updateStockQuantityMutation({ variables: { id: id, info: { reference: 'increase' } } })
+        }
+
+
+    }
+
+
     useEffect(() => {
-        setOpen(cart)
-    }, [cart])
+        setOpen(cartState)
+
+        const priceArray = Object.values(cart).map((item: any) => {
+            return item.price * item.qty
+        })
+        console.log(priceArray);
+        setSubTotal(() => {
+            return priceArray.reduce((pre, curr) => pre + curr, 0)
+        })
+    }, [cartState, cart])
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[50]" onClose={() => {
@@ -254,41 +156,54 @@ export default function Cart() {
                                             <div className="mt-8">
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                                        {products.map((product) => (
-                                                            <li key={product.id} className="flex py-6">
-                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                    <img
-                                                                        src={product.imageSrc}
-                                                                        alt={product.imageAlt}
-                                                                        className="h-full w-full object-cover object-center"
-                                                                    />
-                                                                </div>
-
-                                                                <div className="ml-4 flex flex-1 flex-col">
-                                                                    <div>
-                                                                        <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                            <h3>
-                                                                                <a href={product.href}>{product.name}</a>
-                                                                            </h3>
-                                                                            <p className="ml-4">{product.price}</p>
-                                                                        </div>
-                                                                        <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                                        {
+                                                            Object.values(cart).map((cart: any) => (
+                                                                <li key={cart.stockId} className="flex py-6">
+                                                                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                        <img
+                                                                            src={cart.imageUrl}
+                                                                            alt={cart.name}
+                                                                            className="h-full w-full object-cover object-center"
+                                                                        />
                                                                     </div>
-                                                                    <div className="flex flex-1 items-end justify-between text-sm">
-                                                                        <p className="text-gray-500">Qty {product.quantity}</p>
 
-                                                                        <div className="flex">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="font-medium text-indigo-600 hover:text-indigo-500"
-                                                                            >
-                                                                                Remove
-                                                                            </button>
+                                                                    <div className="ml-4 flex flex-1 flex-col">
+                                                                        <div>
+                                                                            <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                                <h3>
+                                                                                    <a href="#">{cart.name}</a>
+                                                                                </h3>
+                                                                                <p className="ml-4"></p>
+                                                                            </div>
+                                                                            {/* <p className="mt-1 text-sm text-gray-500">category: {cart.category}</p> */}
+                                                                            <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                                <span className={`bg-teal-200 text-teal-600 font-semibold py-[5px] px-1 rounded text-xs`}>
+                                                                                    {cart.price.length > 15 ? `${cart.price.substring(0, 15)}..` : cart.price} BDT
+                                                                                </span>
+                                                                                <div>
+                                                                                    <div className="flex justify-center my-auto ml-auto items-center">
+                                                                                        <button onClick={() => handleDecreaseCartItemQty(cart.stockId)} className="">
+                                                                                            <MinusIconCart iconClass="w-7 h-7 text-accent style_btn" />
+                                                                                        </button>
+                                                                                        <p className="text-white px-3 font-bold rounded bg-secondary">{cart.qty}</p>
+                                                                                        <button onClick={() => handleIncreaseCartItemQty(cart)} className="">
+                                                                                            <PlusIconCart iconClass="w-7 h-7 text-primary style_btn" />
+                                                                                        </button>
+                                                                                        {/* {qty < 10 ? `0${qty}` : qty} */}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="flex flex-1 items-end justify-between text-sm">
+                                                                            <p className="text-gray-500">Qty {cart.qty}</p>
+
+                                                                            <div className="flex">
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-                                                        ))}
+                                                                </li>
+                                                            ))}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -297,7 +212,7 @@ export default function Cart() {
                                         <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                                 <p>Subtotal</p>
-                                                <p>$262.00</p>
+                                                <p>{subTotal.toFixed(2)} BDT</p>
                                             </div>
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">
@@ -309,7 +224,7 @@ export default function Cart() {
                                                 </a>
                                             </div>
                                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                                                <p>
+                                                {/* <p>
                                                     or
                                                     <button
                                                         type="button"
@@ -319,7 +234,7 @@ export default function Cart() {
                                                         Continue Shopping
                                                         <span aria-hidden="true"> &rarr;</span>
                                                     </button>
-                                                </p>
+                                                </p> */}
                                             </div>
                                         </div>
                                     </div>

@@ -48,7 +48,6 @@ const Home = () => {
                 <button onClick={() => dispatch({ type: 'increment' })} className="btn btn-primary">increment</button>
                 <button className="btn btn-secondary">filter</button>
             </div>
-            <Cart />
         </>
     );
 };

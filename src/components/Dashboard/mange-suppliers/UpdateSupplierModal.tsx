@@ -3,41 +3,14 @@ import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
 import { UPDATE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import { UPDATE_SUPPLIER_MUTATION } from '../../../gql/mutations/supplierMutation';
-import { GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
 import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
-// import { ManageSupplierType } from '../../../pages/dashboard/mange-suppliers/ManageSuppliers';
-import { UpdateProductModalPropsType } from '../../../types/dashboard/manageProduct.types';
+import { UpdateSupplierModalPropsType } from '../../../types/dashboard/manageSuppliers.types';
 import DataListInputField from '../../shared/components/DataListInputField';
 import SelectInput from '../../shared/components/SelectInput';
 import TextInputField from '../../shared/components/TextInputField';
 
 
-export type UpdateSupplierModalPropsType = {
-    modalId: string;
-    header: string;
-    currentSupplier: ManageSupplierType;
-    brands: {
-        _id: string;
-        name: string;
-    }[];
-}
 
-export type ManageSupplierType = {
-    _id: string;
-    name: string;
-    email: string;
-    contactNumber: string;
-    presentAddress: string;
-    permanentAddress: string;
-    status: string;
-    imageUrl: string;
-    brand: {
-        id: {
-            _id: string;
-            name: string;
-        }
-    }
-}
 
 const UpdateSupplierModal = ({ modalId, header, currentSupplier, brands }: UpdateSupplierModalPropsType) => {
     // gql

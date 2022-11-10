@@ -4,12 +4,12 @@ import type { RootState } from '../store'
 
 interface CounterState {
     darkMode: boolean;
-    cart: boolean;
+    cartState: boolean;
 }
 
 const initialState = {
     darkMode: false,
-    cart: false,
+    cartState: false,
 } as CounterState
 
 const globalReducer = createReducer(initialState, {
@@ -17,7 +17,7 @@ const globalReducer = createReducer(initialState, {
         state.darkMode = action.payload
     },
     setCart: (state, action) => {
-        state.cart = !state.cart
+        state.cartState = !state.cartState
     },
 })
 

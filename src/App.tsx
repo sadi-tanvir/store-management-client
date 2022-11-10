@@ -17,6 +17,7 @@ import ManageBrands from "./pages/dashboard/manage-brands/ManageBrands";
 import ManageProducts from "./pages/dashboard/mange-products/ManageProducts";
 import ManageCategories from "./pages/dashboard/manage-categories/ManageCategories";
 import ManageSuppliers from "./pages/dashboard/mange-suppliers/ManageSuppliers";
+import Cart from "./components/cart/Cart";
 
 function App() {
   // redux
@@ -56,6 +57,8 @@ function App() {
   return (
     <div className={`${darkMode && 'dark'}`}>
       <Navbar />
+      <Cart />
+
       <Routes>
         <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>

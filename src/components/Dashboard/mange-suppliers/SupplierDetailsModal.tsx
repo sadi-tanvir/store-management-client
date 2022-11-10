@@ -1,29 +1,7 @@
-import React from 'react';
-import { ProductModalPropsType } from '../../../types/dashboard/manageProduct.types';
+import { SupplierModalPropsType } from '../../../types/dashboard/manageSuppliers.types';
 import { BrandIcon } from '../../shared/icons/icons';
 
 
-export type ManageSupplierType = {
-    _id: string;
-    name: string;
-    email: string;
-    contactNumber: string;
-    presentAddress: string;
-    permanentAddress: string;
-    status: string;
-    imageUrl: string;
-    brand: {
-        id: {
-            _id: string;
-            name: string;
-        }
-    }
-}
-
-export type SupplierModalPropsType = {
-    modalId: string;
-    supplier: ManageSupplierType
-}
 
 const SupplierDetailsModal = ({ modalId, supplier }: SupplierModalPropsType) => {
 

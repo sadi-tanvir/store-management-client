@@ -3,9 +3,57 @@ import React, { useEffect, useState } from 'react';
 import classes from "../styles/product/product.module.css";
 import { CartIcon, EyeIcon, StarIcon } from '../shared/icons/icons';
 import { StocksType } from '../../types/stocks.types';
+import { useAppDispatch } from '../../redux/hooks/hooks';
+import { useMutation, useQuery } from '@apollo/client';
+import { UPDATE_STOCK_QUANTITY_MUTATION } from '../../gql/mutations/stockMutation';
+import { GET_STOCKS } from "../../gql/queries/stockQueries";
 
 const StockCard = ({ stock }: { stock: StocksType }) => {
     const [productName, setProductName] = useState<boolean>(false)
+    // redux
+    const dispatch = useAppDispatch()
+
+    // gql
+    const [updateStockQuantityMutation, { data, loading, error }] = useMutation(UPDATE_STOCK_QUANTITY_MUTATION, {
+        refetchQueries: [GET_STOCKS],
+    });
+    const stockResponse = useQuery(GET_STOCKS);
+
+    // add product to cart
+    const addToCart = () => {
+
+        const currStock = stockResponse?.data?.stocks.filter((elem: any) => {
+            return elem._id === stock._id
+        })
+        console.log('currStock', currStock);
+        if (currStock[0].quantity <= 0) {
+            return;
+        } else {
+            dispatch({
+                type: 'addToCart', payload: {
+                    stockId: stock._id,
+                    name: stock.name,
+                    category: stock.category.name,
+                    brand: stock.brand.name,
+                    imageUrl: stock.imageUrl,
+                    price: stock.price,
+                    unit: stock.unit,
+                    qty: 1,
+                }
+            })
+            updateStockQuantityMutation({ variables: { id: stock._id, info: { reference: 'decrease' } } })
+        }
+
+        // update stock quantity
+        updateStockQuantityMutation({
+            variables: {
+                id: stock._id,
+                info: {
+                    reference: 'decrease'
+                }
+            }
+        })
+    }
 
     return (
         <>
@@ -15,7 +63,7 @@ const StockCard = ({ stock }: { stock: StocksType }) => {
                 </figure>
                 <div className="card-body items-start text-start">
                     <div className="flex items-center">
-                        {[...Array(5)].map(() => <StarIcon />)}
+                        {[...Array(5)].map((elem, index) => <StarIcon key={index} />)}
                         <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                     </div>
                     <h2 className="card-title">
@@ -40,10 +88,10 @@ const StockCard = ({ stock }: { stock: StocksType }) => {
                     </div>
                     {/* <div className={`${mousePointer ? "block" : "hidden"} flex flex-col justify-center items-center absolute right-5 top-16`}> */}
                     <div className={`${classes.productMenu} absolute right-5 bottom-5 border-2 border-secondary rounded px-1 py-3`}>
-                        <div className={`indicator cursor-pointer`}>
+                        <div onClick={addToCart} className={`indicator ${stock.status === 'out-of-stock' ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
                             {/* <span className="indicator-item badge badge-primary">0</span> */}
                             <CartIcon
-                                iconClass="hover:scale-125 active:scale-100 transition-all cursor-pointer w-6 h-6 text-secondary"
+                                iconClass={`hover:scale-125 active:scale-100 transition-all ${stock.status === 'out-of-stock' ? 'cursor-not-allowed' : 'cursor-pointer'} w-6 h-6 text-secondary`}
                             />
                         </div>
                         <div title="see details" className={`hover:scale-125 active:scale-100 transition-all indicator cursor-pointer`}>

@@ -15,3 +15,13 @@ export const CREATE_STOCK_MUTATION = gql`
 `;
 
 
+export const UPDATE_STOCK_QUANTITY_MUTATION = gql`
+    mutation updateStockQuantity($id:ID!, $info:StockUpdateInfo!) {
+        updateStockQuantity(id:$id, data:$info){
+            status
+            message
+        }
+    }
+`;
+
+
