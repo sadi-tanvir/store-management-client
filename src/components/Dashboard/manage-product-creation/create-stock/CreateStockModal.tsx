@@ -6,7 +6,7 @@ import Swal from "sweetalert2"
 import DataListInputField from '../../../shared/components/DataListInputField';
 import { StockModalPropsType, StockProductType } from '../../../../types/dashboard/productCreation.types';
 import { CREATE_STOCK_MUTATION } from '../../../../gql/mutations/stockMutation';
-import { GET_STOCKS } from '../../../../gql/queries/stockQueries';
+import { GET_STOCKS, GET_STOCKS_WITH_DETAILS } from '../../../../gql/queries/stockQueries';
 import SingleSelectOption from '../../../shared/components/SingleSelectOption';
 
 
@@ -14,7 +14,7 @@ const CreateStockModal = ({ modalId, header, products, suppliers }: StockModalPr
 
     // gql
     const [createStockMutation, { data, loading, error }] = useMutation(CREATE_STOCK_MUTATION, {
-        refetchQueries: [GET_STOCKS],
+        refetchQueries: [GET_STOCKS_WITH_DETAILS, GET_STOCKS],
     });
 
     // for brand state
