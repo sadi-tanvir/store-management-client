@@ -27,22 +27,22 @@ const SupplierDetailsModal = ({ modalId, supplier }: SupplierModalPropsType) => 
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Email</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Email</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{supplier.email}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Phone</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Phone</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{supplier.contactNumber}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Present Address</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Present Address</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{supplier.presentAddress}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Permanent Address</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Permanent Address</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{supplier.permanentAddress}</p>
                     </div>
                     <div className="mt-5">

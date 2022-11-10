@@ -25,7 +25,7 @@ const CategoryDetailsModal = ({ modalId, category }: CategoryModalPropsType) => 
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Description</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center">Description</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{category.description}</p>
                     </div>
                 </div>

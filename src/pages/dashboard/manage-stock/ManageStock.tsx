@@ -13,6 +13,7 @@ import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation'
 import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
 import { GET_STOCKS, GET_STOCKS_WITH_DETAILS } from '../../../gql/queries/stockQueries';
 import { DELETE_STOCK_MUTATION } from '../../../gql/mutations/stockMutation';
+import StockDetailsModal from '../../../components/Dashboard/manage-stock/StockDetailsModal';
 
 export type StockCommonType = {
     id: {
@@ -156,10 +157,10 @@ const ManageStock = () => {
                                             </div>
                                         </td>
                                     </tr>
-                                    {/* <ProductDetailsModal
+                                    <StockDetailsModal
                                         modalId={`details-${stock._id}`}
                                         stock={stock}
-                                    /> */}
+                                    />
                                     {/* <UpdateProductModal
                                         header="Update Product"
                                         modalId={`update-${stock._id}`}

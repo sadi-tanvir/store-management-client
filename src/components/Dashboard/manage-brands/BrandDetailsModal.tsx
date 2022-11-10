@@ -25,27 +25,27 @@ const BrandDetailsModal = ({ modalId, brand }: BrandModalPropsType) => {
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Email</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Email</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{brand.email}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Phone</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Phone</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{brand.phone}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-semibold flex items-center">Website</h5>
-                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{brand.website}</p>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Website</h5>
+                        <p className="ml-1  mt-2 text-lg text-slate-600 font-bold flex items-center">{brand.website}</p>
                     </div>
 
                     <div className="flex my-2">
-                        <h5 className="mt-1 text-lg text-teal-700 badge badge-primary font-semibold flex items-center">Description</h5>
-                        <p className="ml-1 text-lg text-slate-600 font-semibold flex items-center">{brand.description}</p>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center">Location</h5>
+                        <p className="ml-1 text-lg text-slate-600 font-semibold flex items-center">{brand.location}</p>
                     </div>
 
                     <h5 className="text-lg text-teal-600 font-semibold flex items-center">
-                        {brand.location}
+                        {brand.description}
                     </h5>
 
                     {/* showing products */}

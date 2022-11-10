@@ -26,7 +26,7 @@ const ProductCreation = () => {
         {
             modalId: "create-stock-modal",
             label: 'Create Stock',
-            icon: <StockIcon />,
+            icon: <StockIcon iconClass="h-8 w-8 text-primary" />,
             modalComponent: <CreateStockModal
                 header="Create Stock"
                 modalId="create-stock-modal"

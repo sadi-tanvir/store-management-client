@@ -28,22 +28,22 @@ const ProductDetailsModal = ({ modalId, product }: ProductModalPropsType) => {
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Brand</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Brand</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.brand.id.name}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Category</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Category</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.category.id.name}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Unit Type</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Unit Type</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.unit}</p>
                     </div>
 
                     <div className="flex items-center">
-                        <h5 className="text-lg text-teal-700 badge badge-primary font-bold flex items-center">Description</h5>
+                        <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Description</h5>
                         <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.description}</p>
                     </div>
                 </div>
