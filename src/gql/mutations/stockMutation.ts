@@ -25,7 +25,7 @@ export const UPDATE_STOCK_QUANTITY_MUTATION = gql`
 `;
 
 export const UPDATE_STOCK_MUTATION = gql`
-    mutation updateStockById($id:ID!, $info:StockInputData!) {
+    mutation updateStockById($id:ID!, $info:StockUpdateInputData!) {
         updateStockById(id:$id, data:$info){
             status
             message

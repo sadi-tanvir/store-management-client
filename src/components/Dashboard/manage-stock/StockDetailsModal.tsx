@@ -1,33 +1,8 @@
 import React from 'react';
-import { BrandModalPropsType } from '../../../types/dashboard/manageBrands.types';
-import { BrandIcon, CategoryIcon, ProductIcon, StockIcon, SupplierIcon } from '../../shared/icons/icons';
+import { StockDetailsPropsType } from '../../../types/dashboard/manageStocks.types';
+import { BrandIcon, CategoryIcon, StockIcon, SupplierIcon } from '../../shared/icons/icons';
 
-export type StockCommonType = {
-    id: {
-        _id: string;
-        name: string;
-    }
-}
 
-export type ManageStockType = {
-    _id: string;
-    name: string;
-    description: string;
-    price: number;
-    imageUrl: string;
-    status: string;
-    unit: string;
-    quantity: number;
-    sellCount: number;
-    category: StockCommonType;
-    brand: StockCommonType;
-    suppliedBy: StockCommonType;
-}
-
-export type StockDetailsPropsType = {
-    modalId: string;
-    stock: ManageStockType;
-}
 
 const StockDetailsModal = ({ modalId, stock }: StockDetailsPropsType) => {
 

@@ -6,7 +6,7 @@ export type TextInputType = {
     type?: string;
     placeholder?: string;
     className?: string;
-    value?: string;
+    value?: string | number;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     rest?: any;
 }

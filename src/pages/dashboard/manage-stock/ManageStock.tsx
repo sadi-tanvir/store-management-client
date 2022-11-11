@@ -2,47 +2,25 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
-import { GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
 import TableHeader from "../../../components/shared/components/TableHeader";
-import { BrandIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
-import ProductDetailsModal from '../../../components/Dashboard/mange-products/ProductDetailsModal';
-import UpdateProductModal from '../../../components/Dashboard/mange-products/UpdateProductModal';
+import { EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
-import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
-import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
 import { GET_STOCKS, GET_STOCKS_WITH_DETAILS } from '../../../gql/queries/stockQueries';
 import { DELETE_STOCK_MUTATION } from '../../../gql/mutations/stockMutation';
 import StockDetailsModal from '../../../components/Dashboard/manage-stock/StockDetailsModal';
+import UpdateStockModal from '../../../components/Dashboard/manage-stock/UpdateStockModal';
+import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
+import { ManageStockType } from '../../../types/dashboard/manageStocks.types';
 
-export type StockCommonType = {
-    id: {
-        _id: string;
-        name: string;
-    }
-}
 
-export type ManageStockType = {
-    _id: string;
-    name: string;
-    description: string;
-    price: number;
-    imageUrl: string;
-    status: string;
-    unit: string;
-    quantity: number;
-    sellCount: number;
-    category: StockCommonType;
-    brand: StockCommonType;
-    suppliedBy: StockCommonType;
-}
 
 
 
 const ManageStock = () => {
     // gql
     const brandResponse = useQuery(GET_BRANDS_2);
-    const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
+    const supplierResponse = useQuery(GET_SUPPLIERS);
     const stockResponse = useQuery(GET_STOCKS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
@@ -52,8 +30,6 @@ const ManageStock = () => {
 
     // redux
     const dispatch = useAppDispatch();
-
-    console.log(`stockResponse`, stockResponse?.data?.getStocksWithDetails);
 
 
     // handle Delete Stock
@@ -78,11 +54,11 @@ const ManageStock = () => {
         })
     }
 
-    useEffect(() => {
-        if (data?.getBrandWithId) {
-            dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-        }
-    }, [data?.getBrandWithId])
+    // useEffect(() => {
+    //     if (data?.getBrandWithId) {
+    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
+    //     }
+    // }, [data?.getBrandWithId])
 
 
     return (
@@ -161,13 +137,29 @@ const ManageStock = () => {
                                         modalId={`details-${stock._id}`}
                                         stock={stock}
                                     />
-                                    {/* <UpdateProductModal
-                                        header="Update Product"
+                                    <UpdateStockModal
+                                        header="Update Stock"
                                         modalId={`update-${stock._id}`}
-                                        currentProduct={stock}
-                                        categories={categoryResponse?.data?.categories}
-                                        brands={brandResponse?.data?.brands}
-                                    /> */}
+                                        currentStock={stock}
+                                        categories={categoryResponse?.data?.categories?.map((category: any) => {
+                                            return {
+                                                id: category._id,
+                                                name: category.name,
+                                            }
+                                        })}
+                                        brands={brandResponse?.data?.brands?.map((brand: any) => {
+                                            return {
+                                                id: brand._id,
+                                                name: brand.name,
+                                            }
+                                        })}
+                                        suppliers={supplierResponse?.data?.suppliers?.map((supplier: any) => {
+                                            return {
+                                                id: supplier._id,
+                                                name: supplier.name,
+                                            }
+                                        })}
+                                    />
                                 </>
                             )
                         })

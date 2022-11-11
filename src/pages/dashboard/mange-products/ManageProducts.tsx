@@ -52,11 +52,11 @@ const ManageProducts = () => {
         })
     }
 
-    useEffect(() => {
-        if (data?.getBrandWithId) {
-            dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-        }
-    }, [data?.getBrandWithId])
+    // useEffect(() => {
+    //     if (data?.getBrandWithId) {
+    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
+    //     }
+    // }, [data?.getBrandWithId])
 
 
     return (
