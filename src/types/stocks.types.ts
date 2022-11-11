@@ -1,8 +1,9 @@
 
 
-export type StocksType = {
+export type StockCardPropsType = {
     _id: string,
     name: string;
+    description: string;
     price: number;
     status: string;
     imageUrl: string;

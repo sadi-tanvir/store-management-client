@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import classes from "../styles/product/product.module.css";
 import { CartIcon, EyeIcon, StarIcon } from '../shared/icons/icons';
-import { StocksType } from '../../types/stocks.types';
+import { StockCardPropsType } from '../../types/stocks.types';
 import { useAppDispatch } from '../../redux/hooks/hooks';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_STOCK_QUANTITY_MUTATION } from '../../gql/mutations/stockMutation';
 import { GET_STOCKS } from "../../gql/queries/stockQueries";
+import StockDetailsModal from './StockDetailsModal';
 
-const StockCard = ({ stock }: { stock: StocksType }) => {
+const StockCard = ({ stock }: { stock: StockCardPropsType }) => {
     const [productName, setProductName] = useState<boolean>(false)
     // redux
     const dispatch = useAppDispatch()
@@ -98,13 +99,21 @@ const StockCard = ({ stock }: { stock: StocksType }) => {
                             />
                         </div>
                         <div title="see details" className={`hover:scale-125 active:scale-100 transition-all indicator cursor-pointer`}>
-                            <EyeIcon
-                                iconClass="w-6 h-6 mt-3 text-red-500 font-bold"
-                            />
+                            <label className="cursor-pointer" htmlFor={`details-${stock._id}`}>
+                                <EyeIcon
+                                    iconClass="w-6 h-6 mt-3 text-red-500 font-bold"
+                                />
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <StockDetailsModal
+                modalId={`details-${stock._id}`}
+                stock={stock}
+                addToCart={addToCart}
+            />
         </>
     );
 };

@@ -6,6 +6,7 @@ export const GET_STOCKS = gql`
         stocks {
             _id
             name
+            description
             price
             imageUrl
             status

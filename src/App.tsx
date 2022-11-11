@@ -19,6 +19,7 @@ import ManageCategories from "./pages/dashboard/manage-categories/ManageCategori
 import ManageSuppliers from "./pages/dashboard/mange-suppliers/ManageSuppliers";
 import Cart from "./components/cart/Cart";
 import ManageStock from "./pages/dashboard/manage-stock/ManageStock";
+import CheckOut from "./pages/checkout/CheckOut";
 
 function App() {
   // redux
@@ -76,6 +77,7 @@ function App() {
           <Route path="manage-categories" element={<ManageCategories />} />
           <Route path="manage-suppliers" element={<ManageSuppliers />} />
         </Route>
+        <Route path="/order/checkout" element={<CheckOut />} />
         <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />
         <Route path="/user-profile" element={<RequireAuth><OwnerProfile /></RequireAuth>} />

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import StockCard from '../../components/stocks/StockCard';
 import { GET_STOCKS } from '../../gql/queries/stockQueries';
-import { StocksType } from '../../types/stocks.types';
+import { StockCardPropsType } from '../../types/stocks.types';
 
 
 const Stock = () => {
@@ -15,7 +15,7 @@ const Stock = () => {
             <div className="w-full min-h-screen">
                 <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-4 px-3 sm:px-5 mt-10">
                     {
-                        data?.stocks.map((stock: StocksType, index: number) => <StockCard key={index} stock={stock} />)
+                        data?.stocks.map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
                     }
                 </div>
             </div>

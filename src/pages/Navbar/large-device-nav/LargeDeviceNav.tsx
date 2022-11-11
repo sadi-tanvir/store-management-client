@@ -14,7 +14,9 @@ const LargeDeviceNav = () => {
     const { isAuthenticate } = useAppSelector(state => state.authReducer);
     const { cart } = useAppSelector(state => state.cartReducer);
     const dispatch = useAppDispatch()
-    console.log();
+    const sss: any = Object.values(cart).filter((item: any) => item.stockId === '636028334a45db09751c72b7')
+    console.log(sss[0]?.qty);
+
 
     return (
         <>
