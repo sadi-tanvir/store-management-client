@@ -13,7 +13,7 @@ import UpdateStockModal from '../../../components/Dashboard/manage-stock/UpdateS
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
 import { ManageStockType } from '../../../types/dashboard/manageStocks.types';
 import { GET_ORDERS } from '../../../gql/queries/orderQueries';
-import OrderDetailsModal from '../../../../../xtra-info/OrderDetailsModal';
+import OrderDetailsModal from '../../../components/Dashboard/manage-orders/OrderDetailsModal';
 
 
 
