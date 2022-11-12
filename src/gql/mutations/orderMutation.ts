@@ -8,3 +8,12 @@ export const CREATE_ORDER_MUTATION = gql`
         }
     }
 `;
+
+export const DELETE_ORDER_MUTATION = gql`
+    mutation deleteOrderById($id:ID!) {
+        deleteOrderById(id:$id){
+            status
+            message
+        }
+    }
+`;

@@ -14,6 +14,7 @@ import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
 import { ManageStockType } from '../../../types/dashboard/manageStocks.types';
 import { GET_ORDERS } from '../../../gql/queries/orderQueries';
 import OrderDetailsModal from '../../../components/Dashboard/manage-orders/OrderDetailsModal';
+import { DELETE_ORDER_MUTATION } from '../../../gql/mutations/orderMutation';
 
 
 
@@ -51,21 +52,19 @@ const ManageOrders = () => {
     // gql
     const orderResponse = useQuery(GET_ORDERS);
     const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
-    const [deleteStockMutation] = useMutation(DELETE_STOCK_MUTATION, {
-        refetchQueries: [GET_STOCKS_WITH_DETAILS, GET_STOCKS],
+    const [deleteOrderMutation] = useMutation(DELETE_ORDER_MUTATION, {
+        refetchQueries: [GET_ORDERS],
     });
 
     // redux
     const dispatch = useAppDispatch();
 
-
-
     // handle Delete Stock
-    const handleDeleteStock = (id: string) => {
+    const handleDeleteOrder = (id: string) => {
         Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Delete it!' })
             .then((result) => {
                 if (result.isConfirmed) {
-                    deleteStockMutation({
+                    deleteOrderMutation({
                         variables: {
                             id: id
                         }
@@ -161,7 +160,7 @@ const ManageOrders = () => {
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-red-500 hover:scale-110">
-                                                    <label onClick={() => handleDeleteStock(order._id)} className="cursor-pointer">
+                                                    <label onClick={() => handleDeleteOrder(order._id)} className="cursor-pointer">
                                                         <TableDeleteIcon />
                                                     </label>
                                                 </div>
