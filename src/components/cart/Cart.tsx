@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
-import { MinusIconCart, PlusIconCart } from '../shared/icons/icons'
+import { CurrencyBDIcon, MinusIconCart, PlusIconCart } from '../shared/icons/icons'
 import Swal from 'sweetalert2'
 import { useMutation, useQuery } from '@apollo/client'
 import { UPDATE_STOCK_QUANTITY_MUTATION } from '../../gql/mutations/stockMutation'
@@ -179,8 +179,9 @@ export default function Cart() {
                                                                             </div>
                                                                             {/* <p className="mt-1 text-sm text-gray-500">category: {cart.category}</p> */}
                                                                             <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                                <span className={`bg-teal-200 text-teal-600 font-semibold py-[5px] px-1 rounded text-xs`}>
-                                                                                    {cart.price.length > 15 ? `${cart.price.substring(0, 15)}..` : cart.price} BDT
+                                                                                <span className={`flex items-center bg-teal-200 text-teal-600 font-semibold py-[5px] px-1 rounded text-md`}>
+                                                                                    <CurrencyBDIcon iconClass="w-6 h-6" />
+                                                                                    {cart.price.length > 15 ? `${cart.price.substring(0, 15)}..` : cart.price}
                                                                                 </span>
                                                                                 <div>
                                                                                     <div className="flex justify-center my-auto ml-auto items-center">
@@ -214,7 +215,10 @@ export default function Cart() {
                                         <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                                 <p>Subtotal</p>
-                                                <p>{subTotal.toFixed(2)} BDT</p>
+                                                <p className='flex'>
+                                                    <CurrencyBDIcon iconClass="w-6 h-6" />
+                                                    {subTotal.toFixed(2)}
+                                                </p>
                                             </div>
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">

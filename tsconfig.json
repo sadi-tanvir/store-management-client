@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "../xtra-info/OrderDetailsModal.tsx", "../xtra-info/OrderDetailsModal.tsx"  ]
 }

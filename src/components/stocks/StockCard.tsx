@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import classes from "../styles/product/product.module.css";
-import { CartIcon, EyeIcon, StarIcon } from '../shared/icons/icons';
+import { CartIcon, CurrencyBDIcon, EyeIcon, StarIcon } from '../shared/icons/icons';
 import { StockCardPropsType } from '../../types/stocks.types';
 import { useAppDispatch } from '../../redux/hooks/hooks';
 import { useMutation, useQuery } from '@apollo/client';
@@ -80,8 +80,10 @@ const StockCard = ({ stock }: { stock: StockCardPropsType }) => {
                             : stock.name}
                     </h2>
                     <div className="w-full flex justify-between pr-6">
-                        <p className="text-primary font-semibold">
-                            BDT {stock?.price}
+                        <p className="text-primary font-semibold flex">
+                            <CurrencyBDIcon iconClass="w-6 h-6" />
+
+                            {stock?.price}
                         </p>
                         {
                             stock.status === 'out-of-stock' ?

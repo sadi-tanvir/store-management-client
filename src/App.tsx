@@ -20,6 +20,7 @@ import ManageSuppliers from "./pages/dashboard/mange-suppliers/ManageSuppliers";
 import Cart from "./components/cart/Cart";
 import ManageStock from "./pages/dashboard/manage-stock/ManageStock";
 import CheckOut from "./pages/checkout/CheckOut";
+import ManageOrders from "./pages/dashboard/manage-orders/ManageOrders";
 
 function App() {
   // redux
@@ -70,6 +71,7 @@ function App() {
         <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<Users />} />
+          <Route path="manage-orders" element={<ManageOrders />} />
           <Route path="manage-stocks" element={<ManageStock />} />
           <Route path="manage-product-creation" element={<ProductCreation />} />
           <Route path="manage-brands" element={<ManageBrands />} />

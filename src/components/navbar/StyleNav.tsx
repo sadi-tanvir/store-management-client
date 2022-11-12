@@ -57,7 +57,7 @@ export let activeStyle: ActiveStyleType = {
 export let nonActiveStyle: ActiveStyleType = {
     fontWeight: 'bold',
     margin: '0px 0px',
-    padding: '5px 20px',
+    padding: '5px 15px',
     transition: 'all .07s ease'
 }
 
@@ -79,8 +79,8 @@ export let nonActiveStyleMobile: ActiveStyleType = {
 
 export let sidebarActiveStyle: ActiveStyleType = {
     fontWeight: 'bold',
-    margin: '0px 10px',
-    padding: '5px 20px',
+    margin: '0px 0px',
+    padding: '5px 15px',
     borderRadius: '5px',
     boxShadow: '0px 0px 6px -5px black',
     transition: 'all .07s ease',
