@@ -1,20 +1,13 @@
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
+import { GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
 import TableHeader from "../../../components/shared/components/TableHeader";
 import { CurrencyBDIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
-import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
-import { GET_STOCKS, GET_STOCKS_WITH_DETAILS } from '../../../gql/queries/stockQueries';
-import { DELETE_STOCK_MUTATION } from '../../../gql/mutations/stockMutation';
-import StockDetailsModal from '../../../components/Dashboard/manage-stock/StockDetailsModal';
-import UpdateStockModal from '../../../components/Dashboard/manage-stock/UpdateStockModal';
-import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
-import { ManageStockType } from '../../../types/dashboard/manageStocks.types';
 import { GET_ORDERS } from '../../../gql/queries/orderQueries';
 import OrderDetailsModal from '../../../components/Dashboard/manage-orders/OrderDetailsModal';
 import { DELETE_ORDER_MUTATION } from '../../../gql/mutations/orderMutation';
+import UpdateOrderModal from '../../../components/Dashboard/manage-orders/UpdateOrderModal';
 
 
 
@@ -167,33 +160,18 @@ const ManageOrders = () => {
                                             </div>
                                         </td>
                                     </tr>
-                                    {/* <StockDetailsModal
-                                        modalId={`details-${order._id}`}
-                                        order={order}
-                                    /> */}
-                                    {/* <UpdateStockModal
-                                        header="Update Stock"
+
+                                    <UpdateOrderModal
+                                        header="Update Order"
                                         modalId={`update-${order._id}`}
-                                        currentStock={order}
-                                        categories={categoryResponse?.data?.categories?.map((category: any) => {
-                                            return {
-                                                id: category._id,
-                                                name: category.name,
-                                            }
-                                        })}
-                                        brands={brandResponse?.data?.brands?.map((brand: any) => {
-                                            return {
-                                                id: brand._id,
-                                                name: brand.name,
-                                            }
-                                        })}
-                                        suppliers={supplierResponse?.data?.suppliers?.map((supplier: any) => {
-                                            return {
-                                                id: supplier._id,
-                                                name: supplier.name,
-                                            }
-                                        })}
-                                    /> */}
+                                        currentOrder={{
+                                            id: order._id,
+                                            paymentStatus: order.paymentStatus,
+                                            trxId: order.trxId,
+                                            orderStatus: order.orderStatus
+                                        }}
+                                    />
+
                                     <OrderDetailsModal
                                         modalId={`details-${order._id}`}
                                         order={order}

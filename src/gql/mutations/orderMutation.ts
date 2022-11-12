@@ -17,3 +17,14 @@ export const DELETE_ORDER_MUTATION = gql`
         }
     }
 `;
+
+
+
+export const UPDATE_ORDER_MUTATION = gql`
+    mutation updateOrderById($id:ID!, $info:OrderUpdateInputData!) {
+        updateOrderById(id:$id, data:$info){
+            status
+            message
+        }
+    }
+`;
