@@ -10,49 +10,54 @@ export type DashListType = {
 export const DashBoardNav: DashListType[] = [
     {
         key: 1,
-        title: 'Manage Users',
-        path: '/dashboard',
+        title: 'Running Batches',
+        path: '/dashboard/running-batches',
         icon: <UsersIcon iconClass="h-5 w-5" />
     },
     {
         key: 2,
+        title: 'Manage Users',
+        path: '/dashboard/manage-users',
+        icon: <UsersIcon iconClass="h-5 w-5" />
+    },
+    {
+        key: 3,
         title: 'Manage Orders',
         path: '/dashboard/manage-orders',
         icon: <StockIcon iconClass="h-5 w-5" />
     },
     {
-        key: 3,
+        key: 4,
         title: 'Manage Stocks',
         path: '/dashboard/manage-stocks',
         icon: <StockIcon iconClass="h-5 w-5" />
     },
     {
-        key: 4,
+        key: 5,
         title: 'Manage Products',
         path: '/dashboard/manage-products',
         icon: <ProductIcon iconClass="h-5 w-5" />
     },
     {
-        key: 5,
+        key: 6,
         title: 'Manage Brands',
         path: '/dashboard/manage-brands',
         icon: <BrandIcon iconClass="h-5 w-5" />
     },
-
     {
-        key: 6,
+        key: 7,
         title: 'Manage Categories',
         path: '/dashboard/manage-categories',
         icon: <CategoryIcon iconClass="h-5 w-5" />
     },
     {
-        key: 7,
+        key: 8,
         title: 'Manage Suppliers',
         path: '/dashboard/manage-suppliers',
         icon: <SupplierIcon iconClass="h-5 w-5" />
     },
     {
-        key: 8,
+        key: 9,
         title: 'Product Creation',
         path: '/dashboard/manage-product-creation',
         icon: <ProductIcon iconClass="h-5 w-5" />

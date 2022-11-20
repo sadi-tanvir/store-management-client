@@ -3,16 +3,10 @@ import { useMutation } from '@apollo/client';
 import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
 import { UPDATE_CATEGORY_MUTATION } from '../../../gql/mutations/categoryMutation';
-import { ManageCategoryType } from '../../../pages/dashboard/manage-categories/ManageCategories';
 import TextInputField from '../../shared/components/TextInputField';
 import { GET_CATEGORIES } from "../../../gql/queries/categoryQueries";
+import { UpdateCategoryModalPropsType } from '../../../types/dashboard/manageCategory.types';
 
-
-export type UpdateCategoryModalPropsType = {
-    modalId: string;
-    header: string;
-    currentCategory: ManageCategoryType;
-}
 
 
 const UpdateCategoryModal = ({ modalId, header, currentCategory }: UpdateCategoryModalPropsType) => {

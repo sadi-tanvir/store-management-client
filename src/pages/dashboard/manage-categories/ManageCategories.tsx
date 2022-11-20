@@ -1,41 +1,21 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { useEffect } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import Swal from 'sweetalert2';
-import { GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
-import { GET_PRODUCTS_WITH_DETAILS } from '../../../gql/queries/productQueries';
 import { useAppDispatch } from '../../../redux/hooks/hooks';
 import TableHeader from "../../../components/shared/components/TableHeader";
-import { BrandIcon, CategoryIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
-import ProductDetailsModal from '../../../components/Dashboard/mange-products/ProductDetailsModal';
-import UpdateProductModal from '../../../components/Dashboard/mange-products/UpdateProductModal';
+import { CategoryIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
-import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import CategoryDetailsModal from '../../../components/Dashboard/manage-categories/CategoryDetailsModal';
 import UpdateCategoryModal from '../../../components/Dashboard/manage-categories/UpdateCategoryModal';
 import { DELETE_CATEGORY_MUTATION } from '../../../gql/mutations/categoryMutation';
+import { ManageCategoryType } from '../../../types/dashboard/manageCategory.types';
 
-
-export type ManageCategoryType = {
-    _id: string;
-    name: string;
-    description: string;
-}
 
 const ManageCategories = () => {
     // gql
-    const brandResponse = useQuery(GET_BRANDS_2);
-    const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
-    const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteCategoryMutation] = useMutation(DELETE_CATEGORY_MUTATION, {
         refetchQueries: [GET_CATEGORIES],
     });
-
-    // redux
-    const dispatch = useAppDispatch();
-
-    console.log(categoryResponse?.data?.categories);
-
 
     // handle Delete Brand
     const handleDeleteProduct = (id: string) => {
@@ -50,21 +30,6 @@ const ManageCategories = () => {
                 }
             })
     }
-
-    const handleEditBtn = (id: string) => {
-        getBrandByID({
-            variables: {
-                id: id
-            }
-        })
-    }
-
-    // useEffect(() => {
-    //     if (data?.getBrandWithId) {
-    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-    //     }
-    // }, [data?.getBrandWithId])
-
 
     return (
         <>
@@ -103,7 +68,7 @@ const ManageCategories = () => {
                                                 </label>
                                             </div>
                                             <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                <label onClick={() => handleEditBtn(category._id)} className="cursor-pointer" htmlFor={`update-${category._id}`}>
+                                                <label className="cursor-pointer" htmlFor={`update-${category._id}`}>
                                                     <TableEditIcon />
                                                 </label>
                                             </div>

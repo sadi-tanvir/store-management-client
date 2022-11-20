@@ -1,15 +1,15 @@
 import { useMutation } from '@apollo/client';
 import React, { useState, useRef } from 'react';
 import Swal from "sweetalert2"
-import { UPDATE_ORDER_MUTATION } from '../../../gql/mutations/orderMutation';
-import { GET_ORDERS } from '../../../gql/queries/orderQueries';
-import { UpdateOrderModalPropsType } from '../../../types/dashboard/manageOrders.types';
-import SelectInput from '../../shared/components/SelectInput';
-import TextInputField from '../../shared/components/TextInputField';
+import { UPDATE_ORDER_MUTATION } from '../../gql/mutations/orderMutation';
+import { GET_ORDERS } from '../../gql/queries/orderQueries';
+import { UpdateOrderModalPropsType } from '../../types/ownerOrders.types';
+import SelectInput from '../shared/components/SelectInput';
+import TextInputField from '../shared/components/TextInputField';
 
 
 
-const UpdateOrderModal = ({ modalId, header, currentOrder }: UpdateOrderModalPropsType) => {
+const OwnerUpdateOrderModal = ({ modalId, header, currentOrder }: UpdateOrderModalPropsType) => {
     // gql
     const [updateStockMutation, { data, loading, error }] = useMutation(UPDATE_ORDER_MUTATION, {
         refetchQueries: [GET_ORDERS],
@@ -106,4 +106,4 @@ const UpdateOrderModal = ({ modalId, header, currentOrder }: UpdateOrderModalPro
     );
 };
 
-export default UpdateOrderModal;
+export default OwnerUpdateOrderModal;

@@ -1,4 +1,3 @@
-import React from 'react';
 
 const ProductButton = ({ children, label, modalId }: { children: any; label: string; modalId: string; }) => {
     return (

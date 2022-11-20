@@ -1,9 +1,9 @@
-import { OrderDetailsPropsType } from '../../../types/dashboard/manageOrders.types';
-import { CurrencyBDIcon, StockIcon, SupplierIcon } from '../../shared/icons/icons';
+import { OrderDetailsPropsType } from '../../types/ownerOrders.types';
+import { CurrencyBDIcon, StockIcon, SupplierIcon } from '../shared/icons/icons';
 
 
 
-const OrderDetailsModal = ({ modalId, order }: OrderDetailsPropsType) => {
+const OwnerOrderDetailsModal = ({ modalId, order }: OrderDetailsPropsType) => {
 
     return (
         <>
@@ -157,4 +157,4 @@ const OrderDetailsModal = ({ modalId, order }: OrderDetailsPropsType) => {
     );
 };
 
-export default OrderDetailsModal;
+export default OwnerOrderDetailsModal;

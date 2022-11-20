@@ -49,6 +49,7 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-1 p-2 shadow bg-base-100 dark:bg-darkPrimary rounded-b-2xl rounded-t-lg w-52">
                             <li onClick={() => navigate(`/user/${user?._id}`)}><a className="dark:text-darkNeutral">Details</a></li>
+                            <li onClick={() => navigate(`/create-batch-form/${user?._id}`)}><a className="dark:text-darkNeutral">Create New Batch</a></li>
                             <li onClick={handleDeleteUser}><a className="text-red-400">Delete</a></li>
                         </ul>
                     </div>

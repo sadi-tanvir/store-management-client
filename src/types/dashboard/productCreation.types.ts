@@ -64,3 +64,14 @@ export type CategoryModalPropsType = {
     modalId: string;
     header: string;
 }
+
+
+export type SupplierBrandType = {
+    _id: string;
+    name: string;
+}
+export type SupplierModalPropsType = {
+    modalId: string;
+    header: string;
+    brands: SupplierBrandType[];
+}

@@ -1,8 +1,6 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { useEffect } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import Swal from 'sweetalert2';
-import { GET_BRANDS_2, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
-import { useAppDispatch } from '../../../redux/hooks/hooks';
+import { GET_BRANDS_2 } from '../../../gql/queries/brandQueries';
 import TableHeader from "../../../components/shared/components/TableHeader";
 import { BrandIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
 import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
@@ -17,13 +15,9 @@ const ManageSuppliers = () => {
     // gql
     const brandResponse = useQuery(GET_BRANDS_2);
     const supplierResponse = useQuery(GET_SUPPLIERS_WITH_DETAILS);
-    const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteSupplierMutation] = useMutation(DELETE_SUPPLIER_MUTATION, {
         refetchQueries: [GET_SUPPLIERS_WITH_DETAILS],
     });
-
-    // redux
-    const dispatch = useAppDispatch();
 
     // handle Delete Brand
     const handleDeleteSupplier = (id: string) => {
@@ -38,21 +32,6 @@ const ManageSuppliers = () => {
                 }
             })
     }
-
-    const handleEditBtn = (id: string) => {
-        getBrandByID({
-            variables: {
-                id: id
-            }
-        })
-    }
-
-    // useEffect(() => {
-    //     if (data?.getBrandWithId) {
-    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-    //     }
-    // }, [data?.getBrandWithId])
-
 
     return (
         <>
@@ -113,7 +92,7 @@ const ManageSuppliers = () => {
                                                 </label>
                                             </div>
                                             <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                <label onClick={() => handleEditBtn(supplier._id)} className="cursor-pointer" htmlFor={`update-${supplier._id}`}>
+                                                <label className="cursor-pointer" htmlFor={`update-${supplier._id}`}>
                                                     <TableEditIcon />
                                                 </label>
                                             </div>
@@ -137,9 +116,7 @@ const ManageSuppliers = () => {
                                 />
                             </>
                         )
-                    })
-                    }
-
+                    })}
                 </TableHeader>
             </div >
 

@@ -32,8 +32,18 @@ const ProfileNav = () => {
                         </a>
                     </li>
                     <li>
-                        <NavLink to="/user-profile" style={ActiveMobileNavProps}>
-                            Profile
+                        <NavLink to="/owner-profile" style={ActiveMobileNavProps}>
+                            My Profile
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/owner-batches" style={ActiveMobileNavProps}>
+                            My Batches
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/owner-orders" style={ActiveMobileNavProps}>
+                            My Orders
                         </NavLink>
                     </li>
                     <li className="dark:text-darkNeutral"><a>Settings</a></li>

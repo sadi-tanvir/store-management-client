@@ -21,14 +21,9 @@ const ManageProducts = () => {
     const brandResponse = useQuery(GET_BRANDS_2);
     const productResponse = useQuery(GET_PRODUCTS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
-    const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteProductMutation] = useMutation(DELETE_PRODUCT_MUTATION, {
         refetchQueries: [GET_PRODUCTS_WITH_DETAILS],
     });
-
-    // redux
-    const dispatch = useAppDispatch();
-
 
     // handle Delete Brand
     const handleDeleteProduct = (id: string) => {
@@ -43,21 +38,6 @@ const ManageProducts = () => {
                 }
             })
     }
-
-    const handleEditBtn = (id: string) => {
-        getBrandByID({
-            variables: {
-                id: id
-            }
-        })
-    }
-
-    // useEffect(() => {
-    //     if (data?.getBrandWithId) {
-    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-    //     }
-    // }, [data?.getBrandWithId])
-
 
     return (
         <>
@@ -108,7 +88,7 @@ const ManageProducts = () => {
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <label onClick={() => handleEditBtn(product._id)} className="cursor-pointer" htmlFor={`update-${product._id}`}>
+                                                    <label className="cursor-pointer" htmlFor={`update-${product._id}`}>
                                                         <TableEditIcon />
                                                     </label>
                                                 </div>

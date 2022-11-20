@@ -23,13 +23,9 @@ const ManageStock = () => {
     const supplierResponse = useQuery(GET_SUPPLIERS);
     const stockResponse = useQuery(GET_STOCKS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
-    const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteStockMutation] = useMutation(DELETE_STOCK_MUTATION, {
         refetchQueries: [GET_STOCKS_WITH_DETAILS, GET_STOCKS],
     });
-
-    // redux
-    const dispatch = useAppDispatch();
 
 
     // handle Delete Stock
@@ -45,20 +41,6 @@ const ManageStock = () => {
                 }
             })
     }
-
-    const handleEditBtn = (id: string) => {
-        getBrandByID({
-            variables: {
-                id: id
-            }
-        })
-    }
-
-    // useEffect(() => {
-    //     if (data?.getBrandWithId) {
-    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-    //     }
-    // }, [data?.getBrandWithId])
 
 
     return (
@@ -121,7 +103,7 @@ const ManageStock = () => {
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <label onClick={() => handleEditBtn(stock._id)} className="cursor-pointer" htmlFor={`update-${stock._id}`}>
+                                                    <label className="cursor-pointer" htmlFor={`update-${stock._id}`}>
                                                         <TableEditIcon />
                                                     </label>
                                                 </div>

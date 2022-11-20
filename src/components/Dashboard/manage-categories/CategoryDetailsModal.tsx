@@ -1,12 +1,7 @@
 import React from 'react';
-import { ManageCategoryType } from '../../../pages/dashboard/manage-categories/ManageCategories';
+import { CategoryModalPropsType } from '../../../types/dashboard/manageCategory.types';
 import { CategoryIcon } from '../../shared/icons/icons';
 
-
-export type CategoryModalPropsType = {
-    modalId: string;
-    category: ManageCategoryType;
-}
 
 const CategoryDetailsModal = ({ modalId, category }: CategoryModalPropsType) => {
 

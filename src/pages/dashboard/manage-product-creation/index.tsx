@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import ProductButton from '../../../components/Dashboard/manage-product-creation/ProuductButton';
 import { GET_PRODUCTS } from '../../../gql/queries/productQueries';
-// import { ProductCreateList } from './productCreateList';
 import CreateProductModal from "../../../components/Dashboard/manage-product-creation/create-product/CreateProductModal";
 import CreateStockModal from "../../../components/Dashboard/manage-product-creation/create-stock/CreateStockModal";
 import { BrandIcon, CategoryIcon, ProductIcon, StockIcon, SupplierIcon } from "../../../components/shared/icons/icons";

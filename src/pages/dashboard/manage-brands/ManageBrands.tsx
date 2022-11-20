@@ -1,11 +1,9 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import React, { useEffect } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import Swal from 'sweetalert2';
 import { DELETE_BRAND_MUTATION } from '../../../gql/mutations/brandMutation';
-import { GET_BRANDS, GET_BRAND_BY_ID } from '../../../gql/queries/brandQueries';
+import { GET_BRANDS } from '../../../gql/queries/brandQueries';
 import { GET_PRODUCTS_FOR_REFERENCES } from '../../../gql/queries/productQueries';
 import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
-import { useAppDispatch } from '../../../redux/hooks/hooks';
 import { ManageBrandType } from '../../../types/dashboard/manageBrands.types';
 import TableHeader from "../../../components/shared/components/TableHeader";
 import { BrandIcon, EmailIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
@@ -20,14 +18,9 @@ const ManageBrands = () => {
     const brandResponse = useQuery(GET_BRANDS);
     const supplierResponse = useQuery(GET_SUPPLIERS);
     const productResponse = useQuery(GET_PRODUCTS_FOR_REFERENCES);
-    const [getBrandByID, { loading, error, data, refetch }] = useLazyQuery(GET_BRAND_BY_ID);
     const [deleteBrandMutation] = useMutation(DELETE_BRAND_MUTATION, {
         refetchQueries: [GET_BRANDS],
     });
-
-    // redux
-    const dispatch = useAppDispatch();
-
 
     // handle Delete Brand
     const handleDeleteBrand = (id: string) => {
@@ -42,21 +35,6 @@ const ManageBrands = () => {
                 }
             })
     }
-
-    const handleEditBtn = (id: string) => {
-        getBrandByID({
-            variables: {
-                id: id
-            }
-        })
-    }
-
-    // useEffect(() => {
-    //     if (data?.getBrandWithId) {
-    //         dispatch({ type: 'setBrandEdit', payload: data?.getBrandWithId });
-    //     }
-    // }, [data?.getBrandWithId])
-
 
     return (
         <>
@@ -106,7 +84,7 @@ const ManageBrands = () => {
                                                     </label>
                                                 </div>
                                                 <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
-                                                    <label onClick={() => handleEditBtn(brand._id)} className="cursor-pointer" htmlFor={`update-${brand._id}`}>
+                                                    <label className="cursor-pointer" htmlFor={`update-${brand._id}`}>
                                                         <TableEditIcon />
                                                     </label>
                                                 </div>

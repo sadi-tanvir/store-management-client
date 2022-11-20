@@ -1,5 +1,5 @@
 interface iconClassType {
-    iconClass: string;
+    iconClass?: string;
 }
 
 const NotificationIcon = ({ iconClass }: iconClassType) => {
@@ -240,6 +240,15 @@ const TableDeleteIcon = () => {
     );
 }
 
+
+const DeleteIcon = ({ iconClass }: iconClassType) => {
+    return (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#0ed3cf"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
+        </>
+    );
+}
+
 const PlusIconCart = ({ iconClass }: iconClassType) => {
     return (
         <>
@@ -266,8 +275,35 @@ const CurrencyBDIcon = ({ iconClass }: iconClassType) => {
     )
 }
 
+const NameIcon = ({ iconClass }: iconClassType) => {
+    return (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="20px"
+                viewBox="0 0 24 24" width="20px" fill="#64748b">
+                <g>
+                    <rect fill="none" height="24" width="24" />
+                </g>
+                <g>
+                    <path
+                        d="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M9,12c0.83,0,1.5,0.67,1.5,1.5S9.83,15,9,15s-1.5-0.67-1.5-1.5S8.17,12,9,12z M12,18H6v-0.75c0-1,2-1.5,3-1.5 s3,0.5,3,1.5V18z M13,9h-2V4h2V9z M18,16.5h-4V15h4V16.5z M18,13.5h-4V12h4V13.5z" />
+                </g>
+            </svg>
+        </>
+    )
+}
+
+const ViewIcon = ({ iconClass }: iconClassType) => {
+    return (
+        <>
+            <div className="mr-2" >
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#0ed3cf"><path d="M0 0h24v24H0z" fill="none" /><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
+            </div>
+        </>
+    )
+}
 
 
 
 
-export { NotificationIcon, BarIcon, DarkModeSunIcon, DarkModeMoonIcon, CartIcon, EyeIcon, ContactIcon, ExperienceIcon, EducationIcon, EditIcon, CheckCircleIcon, DrawerOpenIcon, CategoryIcon, BrandIcon, UsersIcon, ProductIcon, StockIcon, SupplierIcon, StarIcon, CrossIcon, PlusIcon, EmailIcon, EyesIcon, TableEditIcon, TableDeleteIcon, PlusIconCart, MinusIconCart, CurrencyBDIcon };
+
+export { NotificationIcon, BarIcon, DarkModeSunIcon, DarkModeMoonIcon, CartIcon, EyeIcon, ContactIcon, ExperienceIcon, EducationIcon, EditIcon, CheckCircleIcon, DrawerOpenIcon, CategoryIcon, BrandIcon, UsersIcon, ProductIcon, StockIcon, SupplierIcon, StarIcon, CrossIcon, PlusIcon, EmailIcon, EyesIcon, TableEditIcon, DeleteIcon, TableDeleteIcon, PlusIconCart, MinusIconCart, CurrencyBDIcon, NameIcon, ViewIcon };

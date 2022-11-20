@@ -1,25 +1,12 @@
 import { useMutation } from '@apollo/client';
 import React, { useState, useRef, useEffect } from 'react';
-import SelectInput from '../../../shared/components/SelectInput';
 import TextInputField from '../../../shared/components/TextInputField';
 import Swal from "sweetalert2"
-import DataListInputField from '../../../shared/components/DataListInputField';
-import { ProductModalPropsType } from '../../../../types/dashboard/productCreation.types';
-import { CREATE_PRODUCT_MUTATION } from '../../../../gql/mutations/productMutation';
-import { CrossIcon } from '../../../shared/icons/icons';
 import { CREATE_SUPPLIER_MUTATION } from '../../../../gql/mutations/supplierMutation';
 import SingleSelectOption from '../../../shared/components/SingleSelectOption';
 import { GET_SUPPLIERS_WITH_DETAILS } from '../../../../gql/queries/supplierQueries';
+import { SupplierBrandType, SupplierModalPropsType } from '../../../../types/dashboard/productCreation.types';
 
-export type SupplierBrandType = {
-    _id: string;
-    name: string;
-}
-export type SupplierModalPropsType = {
-    modalId: string;
-    header: string;
-    brands: SupplierBrandType[];
-}
 
 const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType) => {
     // gql

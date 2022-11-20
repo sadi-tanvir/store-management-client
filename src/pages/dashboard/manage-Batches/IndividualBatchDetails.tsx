@@ -9,10 +9,11 @@ import OrderDetailsModal from '../../../components/Dashboard/manage-orders/Order
 import { DELETE_ORDER_MUTATION } from '../../../gql/mutations/orderMutation';
 import UpdateOrderModal from '../../../components/Dashboard/manage-orders/UpdateOrderModal';
 import { ManageOrderType } from '../../../types/dashboard/manageOrders.types';
+import UserInfoCard from './UserInfoCard';
 
 
 
-const ManageOrders = () => {
+const IndividualBatchDetails = () => {
     // gql
     const orderResponse = useQuery(GET_ORDERS);
     const [deleteOrderMutation] = useMutation(DELETE_ORDER_MUTATION, {
@@ -38,7 +39,11 @@ const ManageOrders = () => {
 
     return (
         <>
-            <div className="w-full">
+            <div className="w-full mt-10">
+                <div className="flex justify-between mx-5">
+                    <UserInfoCard />
+                    <UserInfoCard />
+                </div>
                 <TableHeader headers={["email", "quantity", "Amount", "payment", "delivery", "actions"]}>
                     {
                         orderResponse?.data?.orders?.map((order: ManageOrderType, index: number) => {
@@ -143,11 +148,8 @@ const ManageOrders = () => {
 
                 </TableHeader>
             </div >
-
-
-
         </>
     );
 };
 
-export default ManageOrders;
+export default IndividualBatchDetails;

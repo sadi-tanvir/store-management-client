@@ -21,6 +21,13 @@ import Cart from "./components/cart/Cart";
 import ManageStock from "./pages/dashboard/manage-stock/ManageStock";
 import CheckOut from "./pages/checkout/CheckOut";
 import ManageOrders from "./pages/dashboard/manage-orders/ManageOrders";
+import OwnerOrders from "./pages/owner-orders/OwnerOrders";
+import DashboardHome from "./components/Dashboard/dhashboard-home/DhashboardHome";
+import OwnerBatches from "./pages/owner-batches/OwnerBatches";
+import OwnerIndividualBatchDetails from "./pages/owner-batches/OwnerIndividualBatchDetails";
+import ManageUsersBatches from "./pages/dashboard/manage-Batches/ManageUsersBatches";
+import IndividualBatchDetails from "./pages/dashboard/manage-Batches/IndividualBatchDetails";
+import CreateBatchForm from "./pages/dashboard/manage-Batches/CreateBatchForm";
 
 function App() {
   // redux
@@ -70,7 +77,9 @@ function App() {
       <Routes>
         <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
-          <Route index element={<Users />} />
+          <Route index element={<DashboardHome />} />
+          <Route path="running-batches" element={<ManageUsersBatches />} />
+          <Route path="manage-users" element={<Users />} />
           <Route path="manage-orders" element={<ManageOrders />} />
           <Route path="manage-stocks" element={<ManageStock />} />
           <Route path="manage-product-creation" element={<ProductCreation />} />
@@ -81,8 +90,13 @@ function App() {
         </Route>
         <Route path="/order/checkout" element={<CheckOut />} />
         <Route path="/user/:id" element={<UserProfile />} />
+        <Route path="/create-batch-form/:id" element={<CreateBatchForm />} />
+        <Route path="/individual-batch-details/:batchDetail" element={<IndividualBatchDetails />} />
         <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />
-        <Route path="/user-profile" element={<RequireAuth><OwnerProfile /></RequireAuth>} />
+        <Route path="/owner-profile" element={<RequireAuth><OwnerProfile /></RequireAuth>} />
+        <Route path="/owner-batches" element={<RequireAuth><OwnerBatches /></RequireAuth>} />
+        <Route path="/owner-batches/:batchDetail" element={<OwnerIndividualBatchDetails />} />
+        <Route path="/owner-orders" element={<RequireAuth><OwnerOrders /></RequireAuth>} />
         <Route path="/login" element={<CheckAuth><Login /></CheckAuth>} />
         <Route path="/register" element={<CheckAuth><Register /></CheckAuth>} />
       </Routes>
