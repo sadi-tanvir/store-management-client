@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from '@apollo/client';
 import { GET_USER_BY_ID } from '../../../gql/queries/userAuthQueries';
 import { CheckCircleIcon, ContactIcon, EditIcon, EducationIcon, ExperienceIcon } from '../../shared/icons/icons';
 import EditUser from './EditUser';
 import moment from "moment"
 import ProfilePicture from './ProfilePicture';
+import { GET_BATCHES_BY_USER_REF } from '../../../gql/queries/batchQueries';
+import Breadcrumbs from '../../shared/components/Breadcrumbs';
+import ReactHelmet from '../../shared/components/ReactHelmet';
 
 const UserProfile = () => {
-    // redux
-    // const editInfo = useAppSelector(state => state.userEditReducer);
-
     // redux
     const dispatch = useAppDispatch()
 
     // router
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
 
     // apollo server
     const { loading, error, data, refetch } = useQuery(GET_USER_BY_ID, {
+        variables: { id: id }
+    });
+    // gql
+    const batchResponse = useQuery(GET_BATCHES_BY_USER_REF, {
         variables: { id: id }
     });
 
@@ -29,7 +34,11 @@ const UserProfile = () => {
     // moment(parseInt(data?.user.createdAt)).format("DD MMM YYYY hh:mm a")
     return (
         <>
-            <div className="container mx-auto my-5 p-5">
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" secondPath="/dashboard/manage-users" secondName="Users" current="User's Profile" />
+                <ReactHelmet title={'User\'s Profile'} />
+            </div>
+            <div className="container mx-auto sm:my-5 sm:p-5">
                 <div className="md:flex no-wrap md:-mx-2 ">
                     {/* <!-- Left Side --> */}
                     <div className="w-full md:w-3/12 md:mx-2">
@@ -143,56 +152,38 @@ const UserProfile = () => {
 
                         <div className="my-4"></div>
 
-                        {/* <!-- Experience and education --> */}
+                        {/* <!-- Showing all batches --> */}
                         <div className="bg-white p-3 shadow-sm rounded-sm">
-
-                            <div className="grid grid-cols-2">
-                                <div>
-                                    <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                        <span className="text-primary">
-                                            <ExperienceIcon />
-                                        </span>
-                                        <span className="tracking-wide">Experience</span>
-                                    </div>
-                                    <ul className="list-inside space-y-2">
-                                        <li>
-                                            <div className="text-teal-600">Owner at Her Company Inc.</div>
-                                            <div className="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                        <li>
-                                            <div className="text-teal-600">Owner at Her Company Inc.</div>
-                                            <div className="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                        <li>
-                                            <div className="text-teal-600">Owner at Her Company Inc.</div>
-                                            <div className="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                        <li>
-                                            <div className="text-teal-600">Owner at Her Company Inc.</div>
-                                            <div className="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                        <span className="text-primary">
-                                            <EducationIcon />
-                                        </span>
-                                        <span className="tracking-wide">Education</span>
-                                    </div>
-                                    <ul className="list-inside space-y-2">
-                                        <li>
-                                            <div className="text-teal-600">Masters Degree in Oxford</div>
-                                            <div className="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                        <li>
-                                            <div className="text-teal-600">Bachelors Degreen in LPU</div>
-                                            <div className="text-gray-500 text-xs">March 2020 - Now</div>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <h1 className='text-2xl text-secondary font-bold'>All Batches</h1>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-3">
+                                {
+                                    batchResponse?.data?.getBatchesByUserRef?.map((batch: any) => {
+                                        return (
+                                            <>
+                                                <div onClick={() => navigate(`/individual-batch-details/${batch._id}_${batch.userId._id}`)} className="w-full mt-5 mx-auto flex flex-col gap-2 px-2 bg-white rounded-lg border border-gray-200 shadow-md justify-center items-center cursor-pointer">
+                                                    <div className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-start items-center cursor-pointer">
+                                                        <span className="flex w-full justify-center font-bold items-center bg-slate-300 text-slate-600 px-3 py-[3px] inline-block rounded border border-gray-200 shadow-sm">
+                                                            {batch.batchNo}
+                                                            <span className={`${batch.status === 'open' ? 'bg-teal-200 text-teal-700' : 'bg-rose-200 text-rose-600'} ml-3 rounded-full px-3 font-semibold`}>
+                                                                {batch.status === 'open' ? 'current' : 'closed'}
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )
+                                    })
+                                }
                             </div>
-                            {/* <!-- End of Experience and education grid --> */}
+                            {
+                                batchResponse?.data?.getBatchesByUserRef.length === 0 &&
+                                <div className="w-full min-h-[200px] flex justify-center items-center">
+                                    <span className="text-xl sm:text-2xl font-bold text-secondary opacity-70">
+                                        Batch Not Available
+                                    </span>
+                                </div>
+
+                            }
                         </div>
                     </div>
                 </div>

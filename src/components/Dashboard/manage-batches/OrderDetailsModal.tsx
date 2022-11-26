@@ -1,4 +1,4 @@
-import { OrderDetailsPropsType } from '../../../types/dashboard/manageOrders.types';
+import { OrderDetailsPropsType } from '../../../types/dashboard/manageBatch.types';
 import { CurrencyBDIcon, StockIcon, SupplierIcon } from '../../shared/icons/icons';
 
 
@@ -17,7 +17,7 @@ const OrderDetailsModal = ({ modalId, order }: OrderDetailsPropsType) => {
                             <StockIcon iconClass="h-6 w-6 text-primary mr-2" />
                             {order._id}
                         </h3>
-                        {/* <span className='text-lg bg-teal-200 text-teal-600 px-2 font-bold mr-5 rounded-full'>{order.batchRef.batchNo}</span> */}
+                        <span className='text-lg bg-teal-200 text-teal-600 px-2 font-bold mr-5 rounded-full'>{order.batchRef.batchNo}</span>
                     </div>
 
                     <div className="flex items-center">

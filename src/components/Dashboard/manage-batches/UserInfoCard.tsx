@@ -1,5 +1,5 @@
 import React from 'react';
-import { NameIcon } from '../../../components/shared/icons/icons';
+import { NameIcon } from '../../shared/icons/icons';
 import CountDownClock from './CountDownClock';
 import ProfilePhoto from './ProfilePhoto';
 

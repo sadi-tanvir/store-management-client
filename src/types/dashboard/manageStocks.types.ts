@@ -37,6 +37,7 @@ export type UpdateStockModalPropsType = {
     suppliers: {
         id: string;
         name: string;
+        brandName: string;
     }[];
 }
 

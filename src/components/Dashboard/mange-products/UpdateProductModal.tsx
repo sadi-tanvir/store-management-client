@@ -25,10 +25,10 @@ const UpdateProductModal = ({ modalId, header, currentProduct, categories, brand
         description: currentProduct.description,
         imageUrl: currentProduct.imageUrl,
         unit: currentProduct.unit,
-        categoryId: currentProduct.category.id._id,
-        categoryName: currentProduct.category.id.name,
-        brandId: currentProduct.brand.id._id,
-        brandName: currentProduct.brand.id.name,
+        categoryId: currentProduct.category?.id?._id,
+        categoryName: currentProduct.category?.id?.name,
+        brandId: currentProduct.brand?.id?._id,
+        brandName: currentProduct.brand?.id?.name,
     })
 
     // handle text input change

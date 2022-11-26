@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Swal from "sweetalert2"
 import { UPDATE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import { UPDATE_SUPPLIER_MUTATION } from '../../../gql/mutations/supplierMutation';
@@ -29,8 +29,8 @@ const UpdateSupplierModal = ({ modalId, header, currentSupplier, brands }: Updat
         permanentAddress: currentSupplier.permanentAddress,
         status: currentSupplier.status,
         imageUrl: currentSupplier.imageUrl,
-        brandId: currentSupplier.brand.id._id,
-        brandName: currentSupplier.brand.id.name
+        brandId: currentSupplier.brand?.id?._id,
+        brandName: currentSupplier.brand?.id?.name
     })
 
     // handle text input change
@@ -71,13 +71,23 @@ const UpdateSupplierModal = ({ modalId, header, currentSupplier, brands }: Updat
                             }
                         }
                     })
-                    Swal.fire('Updated!', 'Your product has been updated.', 'success')
-                        .then(() => {
-                            modalRef.current.checked = false;
-                        })
                 }
             })
     }
+
+    useEffect(() => {
+        if (error) {
+            Swal.fire('Failed!', 'Failed to update the Supplier.', 'error')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        } if (data) {
+            Swal.fire('Updated!', 'supplier has been updated.', 'success')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        }
+    }, [error, data])
 
 
     return (

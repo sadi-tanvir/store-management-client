@@ -138,13 +138,24 @@ const CreateStockModal = ({ modalId, header, products, suppliers }: StockModalPr
                             }
                         }
                     })
-                    Swal.fire('Created!', 'Your stock has been created.', 'success')
-                        .then(() => {
-                            modalRef.current.checked = false;
-                        })
+
                 }
             })
     }
+
+    useEffect(() => {
+        if (error?.message) {
+            Swal.fire('Failed!', error?.message, 'error')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        } if (data) {
+            Swal.fire('Created!', 'Your stock has been created.', 'success')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        }
+    }, [data, error?.message])
 
     return (
         <>
@@ -166,7 +177,15 @@ const CreateStockModal = ({ modalId, header, products, suppliers }: StockModalPr
                                 id: stock.productInfo.productId,
                                 name: stock.productInfo.name
                             }}
-                            remainingStateValue={remainingProducts}
+                            remainingStateValue={
+                                remainingProducts?.map((product) => {
+                                    return {
+                                        info_1: product._id,
+                                        info_2: product.name,
+                                        info_3: product.brand.id.name,
+                                    }
+                                })
+                            }
                             handleRemoveValue={handleRemoveProduct}
                             handleSelectValue={handleSelectProduct}
                         />
@@ -226,7 +245,8 @@ const CreateStockModal = ({ modalId, header, products, suppliers }: StockModalPr
                                 dataList={
                                     suppliers?.map((supplier) => {
                                         return {
-                                            value: supplier?.name
+                                            value: supplier?.name,
+                                            name: supplier?.brand?.id?.name
                                         }
                                     })
                                 }

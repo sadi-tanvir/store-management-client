@@ -11,6 +11,9 @@ import TextInputField from '../../shared/components/TextInputField';
 
 
 const UpdateStockModal = ({ modalId, header, currentStock, categories, brands, suppliers }: UpdateStockModalPropsType) => {
+    console.log(suppliers);
+
+
     // gql
     const [updateStockMutation, { data, loading, error }] = useMutation(UPDATE_STOCK_MUTATION, {
         refetchQueries: [GET_STOCKS, GET_STOCKS_WITH_DETAILS],
@@ -262,7 +265,8 @@ const UpdateStockModal = ({ modalId, header, currentStock, categories, brands, s
                                 dataList={
                                     suppliers?.map((supplier) => {
                                         return {
-                                            value: supplier?.name
+                                            value: supplier?.name,
+                                            name: supplier?.brandName
                                         }
                                     })}
                             />

@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import { GET_OPEN_BATCH_BY_USER_REF } from '../../gql/queries/batchQueries';
 import { useAppSelector } from '../../redux/hooks/hooks';
-import SingleSelectOption from '../shared/components/SingleSelectOption';
 import TextInputField from '../shared/components/TextInputField';
 
 

@@ -5,9 +5,9 @@ export type ManageProductType = {
     unit: string;
     imageUrl: string;
     category: {
-        id: {
-            _id: string;
-            name: string;
+        id?: {
+            _id?: string;
+            name?: string;
         }
     };
     brand: {

@@ -18,7 +18,15 @@ export type StockModalPropsType = {
     modalId: string;
     header: string;
     products: StockProductType[];
-    suppliers: commonType[];
+    suppliers: {
+        _id: string;
+        name: string;
+        brand: {
+            id: {
+                name: string;
+            }
+        }
+    }[];
 }
 
 export type StockProductType = {

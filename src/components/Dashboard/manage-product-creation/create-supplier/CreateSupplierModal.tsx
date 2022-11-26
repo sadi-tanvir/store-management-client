@@ -72,10 +72,7 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
                             info: { name, email, contactNumber, presentAddress, permanentAddress, imageUrl, brand }
                         }
                     })
-                    Swal.fire('Created!', 'Your product has been created.', 'success')
-                        .then(() => {
-                            modalRef.current.checked = false;
-                        })
+
                 }
             })
     }
@@ -85,6 +82,20 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
             return brands?.filter((brand) => brand._id !== supplier.brand.id)
         })
     }, [supplier, supplier.brand, brands])
+
+    useEffect(() => {
+        if (error?.message) {
+            Swal.fire('Failed!', 'Failed to create the product.', 'error')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        } if (data) {
+            Swal.fire('Created!', 'Your product has been created.', 'success')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        }
+    }, [data, error?.message])
 
     return (
         <>
@@ -116,7 +127,7 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
                             onChange={handleChange}
                             label="Contact Number"
                             name="contactNumber"
-                            type="number"
+                            type="string"
                             placeholder="Contact Number"
                             className="input-sm sm:input-md"
                         />
@@ -175,7 +186,14 @@ const CreateSupplierModal = ({ modalId, header, brands }: SupplierModalPropsType
                                 id: supplier.brand.id,
                                 name: supplier.brand.name
                             }}
-                            remainingStateValue={remainingBrand}
+                            remainingStateValue={
+                                remainingBrand?.map((brand) => {
+                                    return {
+                                        info_1: brand._id,
+                                        info_2: brand.name
+                                    }
+                                })
+                            }
                             handleRemoveValue={handleRemoveBrand}
                             handleSelectValue={handleSelectBrand}
                         />

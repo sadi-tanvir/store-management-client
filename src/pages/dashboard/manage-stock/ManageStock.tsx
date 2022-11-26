@@ -10,8 +10,10 @@ import { GET_STOCKS, GET_STOCKS_WITH_DETAILS } from '../../../gql/queries/stockQ
 import { DELETE_STOCK_MUTATION } from '../../../gql/mutations/stockMutation';
 import StockDetailsModal from '../../../components/Dashboard/manage-stock/StockDetailsModal';
 import UpdateStockModal from '../../../components/Dashboard/manage-stock/UpdateStockModal';
-import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
+import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
 import { ManageStockType } from '../../../types/dashboard/manageStocks.types';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 
 
@@ -20,7 +22,7 @@ import { ManageStockType } from '../../../types/dashboard/manageStocks.types';
 const ManageStock = () => {
     // gql
     const brandResponse = useQuery(GET_BRANDS_2);
-    const supplierResponse = useQuery(GET_SUPPLIERS);
+    const supplierResponse = useQuery(GET_SUPPLIERS_WITH_DETAILS);
     const stockResponse = useQuery(GET_STOCKS_WITH_DETAILS);
     const categoryResponse = useQuery(GET_CATEGORIES);
     const [deleteStockMutation] = useMutation(DELETE_STOCK_MUTATION, {
@@ -45,6 +47,10 @@ const ManageStock = () => {
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Stocks" />
+                <ReactHelmet title={'Manage Stocks'} />
+            </div>
             <div className="w-full">
                 <TableHeader headers={["name", "quantity", "sell Count", "category", "actions"]}>
                     {
@@ -139,6 +145,7 @@ const ManageStock = () => {
                                             return {
                                                 id: supplier._id,
                                                 name: supplier.name,
+                                                brandName: supplier.brand?.id?.name
                                             }
                                         })}
                                     />

@@ -1,12 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { activeStyle } from './StyleNav';
 
 
 const StockMenu = ({ style }: { style: { display: string; position: string; activeStyle: string; } }) => {
+
+    // router
+    const navigate = useNavigate();
+
     return (
         <>
             <div className={`dropdown dropdown-end ${style.display} ${style.activeStyle}`}>
-                <label tabIndex={0} className="">
+                <label onClick={() => navigate('/stocks')} tabIndex={0} className="">
                     {style.display.split(" ")[0] == 'hidden' ? <NavLink to='#' style={activeStyle}>
                         Stock
                     </NavLink> :

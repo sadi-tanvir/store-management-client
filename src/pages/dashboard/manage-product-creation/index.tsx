@@ -6,10 +6,12 @@ import CreateStockModal from "../../../components/Dashboard/manage-product-creat
 import { BrandIcon, CategoryIcon, ProductIcon, StockIcon, SupplierIcon } from "../../../components/shared/icons/icons";
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { GET_BRANDS_2 } from '../../../gql/queries/brandQueries';
-import { GET_SUPPLIERS } from '../../../gql/queries/supplierQueries';
+import { GET_SUPPLIERS_WITH_DETAILS } from '../../../gql/queries/supplierQueries';
 import CreateBrandModal from '../../../components/Dashboard/manage-product-creation/create-brand/CreateBrandModal';
 import CreateCategoryModal from '../../../components/Dashboard/manage-product-creation/create-category/CreateCategoryModal';
 import CreateSupplierModal from '../../../components/Dashboard/manage-product-creation/create-supplier/CreateSupplierModal';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 const ProductCreation = () => {
 
@@ -17,30 +19,27 @@ const ProductCreation = () => {
     const productResponse = useQuery(GET_PRODUCTS);
     const categoryResponse = useQuery(GET_CATEGORIES);
     const brandResponse = useQuery(GET_BRANDS_2);
-    const supplierResponse = useQuery(GET_SUPPLIERS);
+    const supplierResponse = useQuery(GET_SUPPLIERS_WITH_DETAILS);
 
 
 
     const ProductCreateList = [
         {
-            modalId: "create-stock-modal",
-            label: 'Create Stock',
-            icon: <StockIcon iconClass="h-8 w-8 text-primary" />,
-            modalComponent: <CreateStockModal
-                header="Create Stock"
-                modalId="create-stock-modal"
-                products={productResponse?.data?.products}
-                suppliers={supplierResponse?.data?.suppliers}
+            modalId: "create-category-modal",
+            label: 'Create Category',
+            icon: <CategoryIcon iconClass="h-8 w-8 text-primary" />,
+            modalComponent: <CreateCategoryModal
+                header="Create Category"
+                modalId="create-category-modal"
             />
         },
         {
-            modalId: "create-product-modal",
-            label: 'Create Product',
-            icon: <ProductIcon iconClass="h-8 w-8 text-primary" />,
-            modalComponent: <CreateProductModal
-                header="Create Product"
-                modalId="create-product-modal"
-                categories={categoryResponse?.data?.categories}
+            modalId: "create-supplier-modal",
+            label: 'Create Supplier',
+            icon: <SupplierIcon iconClass="h-8 w-8 text-primary" />,
+            modalComponent: <CreateSupplierModal
+                header="Create Supplier"
+                modalId="create-supplier-modal"
                 brands={brandResponse?.data?.brands}
             />
         },
@@ -68,28 +67,35 @@ const ProductCreation = () => {
             />
         },
         {
-            modalId: "create-category-modal",
-            label: 'Create Category',
-            icon: <CategoryIcon iconClass="h-8 w-8 text-primary" />,
-            modalComponent: <CreateCategoryModal
-                header="Create Category"
-                modalId="create-category-modal"
+            modalId: "create-product-modal",
+            label: 'Create Product',
+            icon: <ProductIcon iconClass="h-8 w-8 text-primary" />,
+            modalComponent: <CreateProductModal
+                header="Create Product"
+                modalId="create-product-modal"
+                categories={categoryResponse?.data?.categories}
+                brands={brandResponse?.data?.brands}
             />
         },
         {
-            modalId: "create-supplier-modal",
-            label: 'Create Supplier',
-            icon: <SupplierIcon iconClass="h-8 w-8 text-primary" />,
-            modalComponent: <CreateSupplierModal
-                header="Create Supplier"
-                modalId="create-supplier-modal"
-                brands={brandResponse?.data?.brands}
+            modalId: "create-stock-modal",
+            label: 'Create Stock',
+            icon: <StockIcon iconClass="h-8 w-8 text-primary" />,
+            modalComponent: <CreateStockModal
+                header="Create Stock"
+                modalId="create-stock-modal"
+                products={productResponse?.data?.products}
+                suppliers={supplierResponse?.data?.suppliers}
             />
         },
     ];
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Product Creation" />
+                <ReactHelmet title={'Product Creation'} />
+            </div>
             <div className="w-full min-h-screen dark:bg-darkPrimary">
                 <div className="w-full mx-auto grid sm:grid-cols-3 md:grid-cols-4 gap-4 px-3 sm:px-5 mt-20 lg:mt-10">
                     {

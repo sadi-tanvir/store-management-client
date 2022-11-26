@@ -22,12 +22,11 @@ import ManageStock from "./pages/dashboard/manage-stock/ManageStock";
 import CheckOut from "./pages/checkout/CheckOut";
 import ManageOrders from "./pages/dashboard/manage-orders/ManageOrders";
 import OwnerOrders from "./pages/owner-orders/OwnerOrders";
-import DashboardHome from "./components/Dashboard/dhashboard-home/DhashboardHome";
 import OwnerBatches from "./pages/owner-batches/OwnerBatches";
 import OwnerIndividualBatchDetails from "./pages/owner-batches/OwnerIndividualBatchDetails";
-import ManageUsersBatches from "./pages/dashboard/manage-Batches/ManageUsersBatches";
-import IndividualBatchDetails from "./pages/dashboard/manage-Batches/IndividualBatchDetails";
-import CreateBatchForm from "./pages/dashboard/manage-Batches/CreateBatchForm";
+import IndividualBatchDetails from "./pages/dashboard/manage-Batches/batch-details/IndividualBatchDetails";
+import CreateBatchForm from "./pages/dashboard/manage-Batches/create-batch-form/CreateBatchForm";
+import DashboardHome from "./pages/dashboard/dashboard-home/DashboardHome";
 
 function App() {
   // redux
@@ -78,7 +77,6 @@ function App() {
         <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<DashboardHome />} />
-          <Route path="running-batches" element={<ManageUsersBatches />} />
           <Route path="manage-users" element={<Users />} />
           <Route path="manage-orders" element={<ManageOrders />} />
           <Route path="manage-stocks" element={<ManageStock />} />

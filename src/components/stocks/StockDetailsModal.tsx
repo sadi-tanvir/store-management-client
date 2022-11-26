@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrandIcon, CartIcon, CategoryIcon, StockIcon, SupplierIcon } from '../shared/icons/icons';
+import { BrandIcon, CartIcon, CategoryIcon, StockIcon } from '../shared/icons/icons';
 import { StockCardPropsType } from '../../types/stocks.types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
 
@@ -16,7 +15,7 @@ const StockDetailsModal = ({ modalId, stock, addToCart }: StockDetailsPropsType)
     const dispatch = useAppDispatch()
 
     // current stock selected count
-    const sss: any = Object.values(cart).filter((item: any) => item.stockId === stock._id)
+    const currentStock: any = Object.values(cart).filter((item: any) => item.stockId === stock._id)
     return (
         <>
             {/* Put this part before </body> tag */}
@@ -30,7 +29,7 @@ const StockDetailsModal = ({ modalId, stock, addToCart }: StockDetailsPropsType)
                             {stock.name}
 
                             <div onClick={addToCart} className={`sm:hidden ml-5 indicator ${stock.status === 'out-of-stock' ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
-                                <span className={`indicator-item badge badge-primary ${stock.status === 'in-stock' ? "badge-primary" : "badge-secondary"}`}>{sss[0]?.qty}</span>
+                                <span className={`indicator-item badge badge-primary ${stock.status === 'in-stock' ? "badge-primary" : "badge-secondary"}`}>{currentStock[0]?.qty}</span>
                                 <CartIcon
                                     iconClass={`hover:scale-125 active:scale-100 transition-all ${stock.status === 'out-of-stock' ? 'cursor-not-allowed text-slate-400' : 'cursor-pointer  text-secondary'} w-6 h-6`}
                                 />
@@ -41,7 +40,7 @@ const StockDetailsModal = ({ modalId, stock, addToCart }: StockDetailsPropsType)
                         </h5>
                         <div>
                             <div onClick={addToCart} className={`hidden sm:block mr-10 indicator ${stock.status === 'out-of-stock' ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
-                                <span className={`indicator-item badge badge-primary ${stock.status === 'in-stock' ? "badge-primary" : "badge-secondary"}`}>{sss[0]?.qty}</span>
+                                <span className={`indicator-item badge badge-primary ${stock.status === 'in-stock' ? "badge-primary" : "badge-secondary"}`}>{currentStock[0]?.qty}</span>
                                 <CartIcon
                                     iconClass={`hover:scale-125 active:scale-100 transition-all ${stock.status === 'out-of-stock' ? 'cursor-not-allowed text-slate-400' : 'cursor-pointer  text-secondary'} w-6 h-6`}
                                 />

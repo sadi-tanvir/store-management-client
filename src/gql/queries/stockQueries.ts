@@ -22,6 +22,27 @@ export const GET_STOCKS = gql`
     }
 `;
 
+export const GET_STOCKS_BY_CATEGORY = gql`
+    query getStocksByCategory($category: String!) {
+  getStocksByCategory(category: $category) {
+            _id
+            name
+            description
+            price
+            imageUrl
+            status
+            unit
+            quantity
+            category {
+                name
+            }
+            brand {
+                name
+            }
+        }
+    }
+`;
+
 export const GET_STOCKS_WITH_DETAILS = gql`
      query getStocksWithDetails {
         getStocksWithDetails {

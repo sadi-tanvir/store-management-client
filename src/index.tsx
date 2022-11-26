@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from './redux/store';
 import { InMemoryCache, ApolloProvider, ApolloClient, createHttpLink, } from '@apollo/client/';
 import { setContext } from '@apollo/client/link/context';
+import { HelmetProvider } from "react-helmet-async";
 
 // graphql authentication setup
 const httpLink = createHttpLink({
@@ -35,15 +36,17 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </ApolloProvider>
-  </React.StrictMode>
+  <HelmetProvider>
+    <React.StrictMode>
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </ApolloProvider>
+    </React.StrictMode>
+  </HelmetProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

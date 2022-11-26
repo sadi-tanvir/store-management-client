@@ -8,6 +8,8 @@ import CategoryDetailsModal from '../../../components/Dashboard/manage-categorie
 import UpdateCategoryModal from '../../../components/Dashboard/manage-categories/UpdateCategoryModal';
 import { DELETE_CATEGORY_MUTATION } from '../../../gql/mutations/categoryMutation';
 import { ManageCategoryType } from '../../../types/dashboard/manageCategory.types';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 
 const ManageCategories = () => {
@@ -33,6 +35,10 @@ const ManageCategories = () => {
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Categories" />
+                <ReactHelmet title={'Manage Categories'} />
+            </div>
             <div className="w-full">
                 <TableHeader headers={["name", "description", "actions"]}>
                     {categoryResponse?.data?.categories.map((category: ManageCategoryType, index: number) => {

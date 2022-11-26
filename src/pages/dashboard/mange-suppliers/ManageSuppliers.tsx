@@ -8,6 +8,8 @@ import { DELETE_SUPPLIER_MUTATION } from '../../../gql/mutations/supplierMutatio
 import UpdateSupplierModal from '../../../components/Dashboard/mange-suppliers/UpdateSupplierModal';
 import SupplierDetailsModal from '../../../components/Dashboard/mange-suppliers/SupplierDetailsModal';
 import { ManageSupplierType } from '../../../types/dashboard/manageSuppliers.types';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 
 
@@ -35,6 +37,10 @@ const ManageSuppliers = () => {
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Suppliers" />
+                <ReactHelmet title={'Manage Suppliers'} />
+            </div>
             <div className="w-full">
                 <TableHeader headers={["name", "phone", "brand", "status", "actions"]}>
                     {supplierResponse?.data?.suppliers.map((supplier: ManageSupplierType, index: number) => {
@@ -72,7 +78,7 @@ const ManageSuppliers = () => {
                                     <td className="py-3 px-6 text-center">
                                         <div className="flex items-center justify-start">
                                             <span className='text-sm font-semibold'>
-                                                {supplier.brand.id.name.length > 25 ? `${supplier.brand.id.name.substring(0, 10)} ...` : supplier.brand.id.name}
+                                                {supplier?.brand?.id?.name.length > 25 ? `${supplier.brand?.id?.name.substring(0, 10)} ...` : supplier.brand?.id?.name}
                                             </span>
                                         </div>
                                     </td>
@@ -119,9 +125,6 @@ const ManageSuppliers = () => {
                     })}
                 </TableHeader>
             </div >
-
-
-
         </>
     );
 };

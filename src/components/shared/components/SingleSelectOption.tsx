@@ -1,6 +1,13 @@
 import React from 'react';
 import { CrossIcon } from '../icons/icons';
 
+
+type remainingStateType = {
+    info_1?: string;
+    info_2?: string;
+    info_3?: string;
+}
+
 type SingleSelectOptionType = {
     header: string;
     visibility: {
@@ -8,7 +15,7 @@ type SingleSelectOptionType = {
         setVisibility: any
     },
     mainStateValue: any,
-    remainingStateValue: any[],
+    remainingStateValue: remainingStateType[],
     handleRemoveValue: any,
     handleSelectValue: any,
 }
@@ -25,10 +32,13 @@ const SingleSelectOption = ({ header, visibility, mainStateValue, remainingState
                     </span>
                 </div>
                 <div className={`mb-2 ${!visibility.visibility && "hidden"}`}>
-                    {remainingStateValue?.map((value: any) => {
-                        return <span key={value._id} onClick={() => handleSelectValue(value._id)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
-                            <span className="mr-1 flex justify-between items-center w-full">
-                                {value.name}
+                    {remainingStateValue?.map((value: remainingStateType) => {
+                        console.log('value-1111', value);
+
+                        return <span key={value.info_1} onClick={() => handleSelectValue(value.info_1)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
+                            <span className="mr-1 flex flex-col justify-start items-start w-full">
+                                <span>{value.info_2}</span>
+                                <span>{value?.info_3}</span>
                             </span>
                         </span>
                     })}

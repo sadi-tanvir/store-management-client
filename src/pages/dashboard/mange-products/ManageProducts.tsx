@@ -11,6 +11,8 @@ import UpdateProductModal from '../../../components/Dashboard/mange-products/Upd
 import { GET_CATEGORIES } from '../../../gql/queries/categoryQueries';
 import { DELETE_PRODUCT_MUTATION } from '../../../gql/mutations/productMutation';
 import { ManageProductType } from '../../../types/dashboard/manageProduct.types';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 
 
@@ -41,6 +43,11 @@ const ManageProducts = () => {
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Products" />
+                <ReactHelmet title={'Manage Products'} />
+            </div>
+
             <div className="w-full">
                 <TableHeader headers={["name", "brand", "description", "actions"]}>
                     {
@@ -68,14 +75,14 @@ const ManageProducts = () => {
                                                     <BrandIcon iconClass="h-5 w-5 text-primary" />
                                                 </div>
                                                 <span className='text-sm font-semibold'>
-                                                    {product.brand.id.name.length > 25 ? `${product.brand.id.name.substring(0, 10)} ...` : product.brand.id.name}
+                                                    {product?.brand?.id?.name.length > 25 ? `${product.brand.id.name.substring(0, 10)} ...` : product?.brand?.id?.name}
                                                 </span>
                                             </div>
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex items-center justify-start">
                                                 <span className='text-sm font-semibold'>
-                                                    {product.description.length > 25 ? `${product.description.substring(0, 10)} ...` : product.description}
+                                                    {product?.description.length > 25 ? `${product?.description.substring(0, 10)} ...` : product?.description}
                                                 </span>
                                             </div>
                                         </td>

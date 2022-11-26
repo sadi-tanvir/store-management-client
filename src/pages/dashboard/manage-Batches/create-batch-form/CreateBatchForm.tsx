@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import DataListInputField from '../../../components/shared/components/DataListInputField';
-import SelectInput from '../../../components/shared/components/SelectInput';
-import TextInputField from '../../../components/shared/components/TextInputField';
-import { CREATE_BATCH_MUTATION } from '../../../gql/mutations/batchMutation';
-import { GET_BATCHES_BY_USER_REF, GET_OPEN_BATCH_BY_USER_REF } from '../../../gql/queries/batchQueries';
+import DataListInputField from '../../../../components/shared/components/DataListInputField';
+import TextInputField from '../../../../components/shared/components/TextInputField';
+import { CREATE_BATCH_MUTATION } from '../../../../gql/mutations/batchMutation';
+import { GET_ALL_ACTIVE_BATCHES, GET_BATCHES_BY_USER_REF, GET_OPEN_BATCH_BY_USER_REF } from '../../../../gql/queries/batchQueries';
+
 
 const CreateBatchForm = () => {
     // router
@@ -17,7 +17,7 @@ const CreateBatchForm = () => {
         variables: { id: id }
     });
     const [createBatchMutation, { data, loading, error }] = useMutation(CREATE_BATCH_MUTATION, {
-        refetchQueries: [GET_BATCHES_BY_USER_REF, GET_OPEN_BATCH_BY_USER_REF],
+        refetchQueries: [GET_BATCHES_BY_USER_REF, GET_OPEN_BATCH_BY_USER_REF, GET_ALL_ACTIVE_BATCHES],
     });
 
     // state
@@ -33,6 +33,17 @@ const CreateBatchForm = () => {
         const { name, value } = e.target;
         setBatch({ ...batch, [name]: value })
     }
+
+    useEffect(() => {
+        // showing error message
+        if (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.message,
+            })
+        }
+    }, [error])
 
     // create batch
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

@@ -9,6 +9,8 @@ import OrderDetailsModal from '../../../components/Dashboard/manage-orders/Order
 import { DELETE_ORDER_MUTATION } from '../../../gql/mutations/orderMutation';
 import UpdateOrderModal from '../../../components/Dashboard/manage-orders/UpdateOrderModal';
 import { ManageOrderType } from '../../../types/dashboard/manageOrders.types';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 
 
@@ -38,6 +40,10 @@ const ManageOrders = () => {
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Orders" />
+                <ReactHelmet title={'Manage Orders'} />
+            </div>
             <div className="w-full">
                 <TableHeader headers={["email", "quantity", "Amount", "payment", "delivery", "actions"]}>
                     {

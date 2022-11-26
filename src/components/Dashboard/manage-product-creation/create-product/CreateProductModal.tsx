@@ -93,10 +93,6 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
                             }
                         }
                     })
-                    Swal.fire('Created!', 'Your product has been created.', 'success')
-                        .then(() => {
-                            modalRef.current.checked = false;
-                        })
                 }
             })
     }
@@ -111,6 +107,21 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
             return categories?.filter((category) => category._id !== product.category.id)
         })
     }, [product, product.brand, brands, categories, product.category])
+
+    useEffect(() => {
+        if (error?.message) {
+            Swal.fire('Failed!', error?.message, 'error')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        } if (data) {
+            Swal.fire('Created!', 'Your product has been created.', 'success')
+                .then(() => {
+                    modalRef.current.checked = false;
+                })
+        }
+    }, [data, error?.message])
+
 
     return (
         <>
@@ -164,7 +175,14 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
                                 id: product.brand.id,
                                 name: product.brand.name
                             }}
-                            remainingStateValue={remainingBrand}
+                            remainingStateValue={
+                                remainingBrand?.map((brand) => {
+                                    return {
+                                        info_1: brand._id,
+                                        info_2: brand.name
+                                    }
+                                })
+                            }
                             handleRemoveValue={handleRemoveBrand}
                             handleSelectValue={handleSelectBrand}
                         />
@@ -179,7 +197,14 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
                                 id: product.category.id,
                                 name: product.category.name
                             }}
-                            remainingStateValue={remainingCategory}
+                            remainingStateValue={
+                                remainingCategory?.map((category) => {
+                                    return {
+                                        info_1: category._id,
+                                        info_2: category.name
+                                    }
+                                })
+                            }
                             handleRemoveValue={handleRemoveCategory}
                             handleSelectValue={handleSelectCategory}
                         />

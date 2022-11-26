@@ -52,7 +52,7 @@ const SupplierDetailsModal = ({ modalId, supplier }: SupplierModalPropsType) => 
                         </h3>
                         <div className="flex flex-wrap space-x-2 sm:flex-row">
                             <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">
-                                {supplier.brand.id.name}
+                                {supplier?.brand?.id?.name}
                             </h5>
                         </div>
                     </div>

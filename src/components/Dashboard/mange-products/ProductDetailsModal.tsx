@@ -29,12 +29,12 @@ const ProductDetailsModal = ({ modalId, product }: ProductModalPropsType) => {
 
                     <div className="flex items-center">
                         <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Brand</h5>
-                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.brand.id.name}</p>
+                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.brand?.id?.name}</p>
                     </div>
 
                     <div className="flex items-center">
                         <h5 className="text-lg text-slate-800 badge  bg-slate-300 py-3 font-semibold flex items-center mt-2">Category</h5>
-                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.category.id.name}</p>
+                        <p className="ml-1 text-lg text-slate-600 font-bold flex items-center">{product.category?.id?.name}</p>
                     </div>
 
                     <div className="flex items-center">

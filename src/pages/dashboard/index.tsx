@@ -9,9 +9,9 @@ const Dashboard = () => {
         <>
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center">
+                <div className="drawer-content flex flex-col items-start">
                     {/* <!-- Page content here --> */}
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden absolute left-2 top-[80px]">
+                    <label htmlFor="my-drawer-2" className="btn btn-sm btn-[secondary] bg-[#ef4444] drawer-button lg:hidden absolute right-1 opacity-70 top-[70px] z-40">
                         <DrawerOpenIcon />
                     </label>
 

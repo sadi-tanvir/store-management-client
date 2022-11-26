@@ -60,7 +60,7 @@ const StockCard = ({ stock }: { stock: StockCardPropsType }) => {
         <>
             <div className={`${classes.cardBody} card bg-base-100 shadow-xl`}>
                 <figure className="px-10 pt-10">
-                    <img src={stock.imageUrl} alt={stock.name} className="rounded-xl" />
+                    <img src={stock.imageUrl} alt={stock.name} className="rounded-xl shadow h-36 w-80" />
                 </figure>
                 <div className="card-body items-start text-start">
                     <div className="flex items-center">
@@ -87,7 +87,7 @@ const StockCard = ({ stock }: { stock: StockCardPropsType }) => {
                         </p>
                         {
                             stock.status === 'out-of-stock' ?
-                                <div className={`border border-gray-200 shadow-md badge px-4 py-[11px] font-semibold opacity-90 bg-red-300 text-red-500`}>
+                                <div className={`border border-gray-200 shadow-md badge px-2 py-[11px] font-semibold opacity-90 bg-red-300 text-red-500`}>
                                     {stock.status}
                                 </div> : null
                         }

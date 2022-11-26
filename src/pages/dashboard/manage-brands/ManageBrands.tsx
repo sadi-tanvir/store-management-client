@@ -9,6 +9,8 @@ import TableHeader from "../../../components/shared/components/TableHeader";
 import { BrandIcon, EmailIcon, EyesIcon, TableDeleteIcon, TableEditIcon } from '../../../components/shared/icons/icons';
 import BrandDetailsModal from '../../../components/Dashboard/manage-brands/BrandDetailsModal';
 import UpdateBrandModal from '../../../components/Dashboard/manage-brands/UpdateBrandModal';
+import Breadcrumbs from '../../../components/shared/components/Breadcrumbs';
+import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 
 
 
@@ -38,6 +40,11 @@ const ManageBrands = () => {
 
     return (
         <>
+            <div className="px-5">
+                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Brands" />
+                <ReactHelmet title={'Manage Brands'} />
+            </div>
+
             <div className="w-full">
                 <TableHeader headers={["name", "email", "suppliers", "status", "actions"]}>
                     {
