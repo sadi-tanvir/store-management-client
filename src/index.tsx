@@ -12,7 +12,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 // graphql authentication setup
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://store-management-server-api.up.railway.app/graphql',
 });
 const authLink = setContext((_, { headers }) => {
   const token = JSON.parse(localStorage.getItem('accessToken') as string);

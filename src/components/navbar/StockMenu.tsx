@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { activeStyle } from './StyleNav';
+import { ActiveNavProps, ActiveStockNavProps, activeStyle } from './StyleNav';
 
 
 const StockMenu = ({ style }: { style: { display: string; position: string; activeStyle: string; } }) => {
@@ -9,66 +9,38 @@ const StockMenu = ({ style }: { style: { display: string; position: string; acti
 
     return (
         <>
-            <div className={`dropdown dropdown-end ${style.display} ${style.activeStyle}`}>
-                <label onClick={() => navigate('/stocks')} tabIndex={0} className="">
-                    {style.display.split(" ")[0] == 'hidden' ? <NavLink to='#' style={activeStyle}>
-                        Stock
-                    </NavLink> :
-                        <NavLink to='#' style={{ color: '#475569', fontWeight: 'bold' }}>
-                            Stock
-                        </NavLink>
-                    }
-                </label>
-                <ul tabIndex={0} className={`border flex flex-row dark:bg-darkSecondary menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 rounded-b-2xl rounded-t-lg w-72 ${style.position}`}>
-                    <div>
+            <div className={`dropdown dropdown-end ${style.display}`}>
+                <NavLink to='/stocks' style={ActiveNavProps}>
+                    <label onClick={() => navigate('/stocks')} tabIndex={0} className="cursor-pointer">
+                        Stocks
+                    </label>
+                </NavLink>
+                <ul tabIndex={0} className={`border grid grid-cols-3 dark:bg-darkSecondary menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 rounded-b-2xl rounded-t-lg w-72 ${style.position}`}>
+                    <div className="grid grid-rows-1 content-center items-center content-center items-center">
                         <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
-                            <a className="text-secondary font-bold">
-                                Broiler Feed
-                            </a>
-                        </li>
-                        <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
-                            <a className="text-secondary font-bold">
-                                layer Feed
-                            </a>
-                        </li>
-                        <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
-                            <a className="text-secondary font-bold">
-                                Sonali Feed
-                            </a>
+                            <NavLink to='/stocks/medicine-stock' style={ActiveStockNavProps}>
+                                <a className="text-secondary font-bold">
+                                    Medicine
+                                </a>
+                            </NavLink>
                         </li>
                     </div>
-                    <div>
+                    <div className="grid grid-rows-1 content-center items-center">
                         <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
-                            <a className="text-secondary font-bold">
-                                Fish Feed
-                            </a>
-                        </li>
-                        <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
-                            <a className="text-secondary font-bold">
-                                Animal Feed
-                            </a>
-                        </li>
-                        <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
-                            <a className="text-secondary font-bold">
-                                Birds Feed
-                            </a>
+                            <NavLink to='/stocks/broiler-feed-stock' style={ActiveStockNavProps}>
+                                <a className="text-secondary font-bold">
+                                    Broiler Feed
+                                </a>
+                            </NavLink>
                         </li>
                     </div>
-                    <div>
+                    <div className="grid grid-rows-1 content-center items-center">
                         <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
-                            <a className="text-secondary font-bold">
-                                Medicines
-                            </a>
-                        </li>
-                        <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
-                            <a className="text-secondary font-bold">
-                                Vaccines
-                            </a>
-                        </li>
-                        <li className="bg-neutral mt-1 dark:bg-darkSecondary ">
-                            <a className="text-secondary font-bold">
-                                Others Products
-                            </a>
+                            <NavLink to='/stocks/layer-feed-stock' style={ActiveStockNavProps}>
+                                <a className="text-secondary font-bold">
+                                    Layer Feed
+                                </a>
+                            </NavLink>
                         </li>
                     </div>
                 </ul>

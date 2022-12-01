@@ -65,6 +65,8 @@ export const GET_BATCH_BY_ID = gql`
         status
         userId {
           _id
+          firstName
+          lastName
           email
         }
         createdAt

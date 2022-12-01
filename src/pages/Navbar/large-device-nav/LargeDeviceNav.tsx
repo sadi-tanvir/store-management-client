@@ -21,6 +21,13 @@ const LargeDeviceNav = () => {
     return (
         <>
             <div className="navbar-end">
+                <StockMenu
+                    style={{
+                        display: 'hidden md:block',
+                        position: '-mr-10',
+                        activeStyle: ''
+                    }}
+                />
 
                 <div className="hidden md:block">
                     {isAuthenticate ?
@@ -46,28 +53,20 @@ const LargeDeviceNav = () => {
                     }
 
                 </div>
-                <StockMenu
-                    style={{
-                        display: 'hidden md:block',
-                        position: '-mr-10',
-                        activeStyle: ''
-                    }}
-                />
 
-
+                <div onClick={() => dispatch({ type: 'setCart' })} className="indicator cursor-pointer">
+                    <span className="indicator-item badge badge-primary">
+                        {
+                            Object.values(cart)
+                                .map((item: any) => item.qty)
+                                .reduce((a: number, b: number) => a + b, 0)
+                        }
+                    </span>
+                    <CartIcon
+                        iconClass="hover:scale-125 active:scale-100 transition-all cursor-pointer w-6 h-6 text-secondary"
+                    />
+                </div>
                 {isAuthenticate && <>
-                    <div onClick={() => dispatch({ type: 'setCart' })} className="indicator cursor-pointer">
-                        <span className="indicator-item badge badge-primary">
-                            {
-                                Object.values(cart)
-                                    .map((item: any) => item.qty)
-                                    .reduce((a: number, b: number) => a + b, 0)
-                            }
-                        </span>
-                        <CartIcon
-                            iconClass="hover:scale-125 active:scale-100 transition-all cursor-pointer w-6 h-6 text-secondary"
-                        />
-                    </div>
 
                     <NotificationNav />
                     <ProfileNav />

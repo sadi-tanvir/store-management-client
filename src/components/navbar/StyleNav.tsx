@@ -15,6 +15,20 @@ export const ActiveNavProps = ({ isActive }: LinkType) => {
         }
 }
 
+export const ActiveStockNavProps = ({ isActive }: LinkType) => {
+    const { darkMode } = useAppSelector(state => state.globalReducer);
+    return isActive ?
+        {
+            ...activeStockStyle,
+            color: `${darkMode ? '#cbd5e1' : '#fff'}`,
+            backgroundColor: `${darkMode ? '#475569' : '#37cdbe'}`
+        }
+        : {
+            ...nonActiveStyle,
+            color: `${darkMode ? '#cbd5e1' : '#64748b'}`,
+        }
+}
+
 export const SidebarActiveProps = ({ isActive }: LinkType) => {
     const { darkMode } = useAppSelector(state => state.globalReducer);
     return isActive ?
@@ -48,6 +62,16 @@ export let activeStyle: ActiveStyleType = {
     fontWeight: 'bold',
     margin: '0px 10px',
     padding: '5px 30px',
+    borderRadius: '5px',
+    boxShadow: '0px 0px 6px -5px black',
+    transition: 'all .07s ease',
+    textAline: 'start'
+};
+
+export let activeStockStyle: ActiveStyleType = {
+    fontWeight: 'bold',
+    margin: '0px 10px',
+    padding: '5px 10px',
     borderRadius: '5px',
     boxShadow: '0px 0px 6px -5px black',
     transition: 'all .07s ease',

@@ -49,8 +49,8 @@ const SmallDeviceNav = () => {
                             <StockMenu
                                 style={{
                                     display: 'md:hidden',
-                                    activeStyle: 'bg-darkNeutral',
-                                    position: '-mr-20 mt-[256px]'
+                                    activeStyle: '',
+                                    position: '-mr-20 mt-[140px]'
                                 }}
                             />
                         </li>

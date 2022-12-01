@@ -14,6 +14,7 @@ import OrderDetailsModal from '../../../../components/Dashboard/manage-batches/O
 import { ManageOrderType } from '../../../../types/dashboard/manageBatch.types';
 import Breadcrumbs from '../../../../components/shared/components/Breadcrumbs';
 import ReactHelmet from '../../../../components/shared/components/ReactHelmet';
+import UserBatchCard from '../../../../components/Dashboard/manage-batches/UserBatchCard';
 
 
 const IndividualBatchDetails = () => {
@@ -52,26 +53,60 @@ const IndividualBatchDetails = () => {
             })
     }
 
-
-
     return (
         <>
-            <div className="px-5">
-                <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" secondPath={`/user/${userId}`} secondName="User's Profile" current="Batch Details" />
-                <ReactHelmet title={'Batch Details'} />
+            <div className="px-5 grid grid-cols-1 sm:grid-cols-2 items-center">
+                <div>
+                    <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" secondPath={`/user/${userId}`} secondName="User's Profile" current="Batch Details" />
+                    <ReactHelmet title={'Batch Details'} />
+                </div>
+                <div className="ml-auto w-full sm:w-64 flex flex-col gap-2 sm:px-2 rounded-lg justify-center items-center cursor-pointer">
+                    <div className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-start items-center cursor-pointer">
+                        <span className="flex w-full justify-center font-bold items-center bg-slate-300 text-slate-600 px-3 py-[3px] inline-block rounded border border-gray-200 shadow-sm">
+                            {batchResponse?.data?.getBatchById?.batchNo}
+                            <span className={`${batchResponse?.data?.getBatchById?.status === 'open' ? 'bg-teal-200 text-teal-700' : 'bg-rose-200 text-rose-600'} ml-3 rounded-full px-3 font-semibold`}>
+                                {batchResponse?.data?.getBatchById?.status === 'open' ? 'current' : 'closed'}
+                            </span>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div className="w-full mt-10">
-                <div className="px-5 w-full flex flex-col sm:flex-row justify-between items-center sm:items-start mx-auto">
-                    <UserInfoCard />
+                <div className="px-5 w-full grid grid-cols-1 sm:grid-cols-3 mx-auto">
+                    <UserBatchCard isThisCard={true} batch={batchResponse?.data?.getBatchById} />
 
-                    <div className="w-64 mt-5 flex flex-col gap-2 px-2  rounded-lg justify-center items-center cursor-pointer">
+                    <div className="sm:col-span-2 ml-auto w-full sm:w-72 mt-5 flex flex-col gap-2 sm:px-2 rounded-lg justify-center items-center cursor-pointer">
                         <div className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-start items-center cursor-pointer">
-                            <span className="flex w-full justify-center font-bold items-center bg-slate-300 text-slate-600 px-3 py-[3px] inline-block rounded border border-gray-200 shadow-sm">
-                                {batchResponse?.data?.getBatchById?.batchNo}
-                                <span className={`${batchResponse?.data?.getBatchById?.status === 'open' ? 'bg-teal-200 text-teal-700' : 'bg-rose-200 text-rose-600'} ml-3 rounded-full px-3 font-semibold`}>
-                                    {batchResponse?.data?.getBatchById?.status === 'open' ? 'current' : 'closed'}
+                            <div className="flex flex-col w-full justify-start font-bold items-start bg-slate-300 text-slate-600 px-3 py-[3px] inline-block rounded border border-gray-200 shadow-sm">
+                                <span className="flex items-center">
+                                    <img
+                                        className="w-5 h-5 rounded-full shadow-lg mr-2"
+                                        src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX3ED1X-8PRTBBgdbgkiLYZQwYN0IUKtGISA&usqp=CAU`}
+                                        alt="User"
+                                    />
+                                    Total Chicks: 1000pcs
                                 </span>
-                            </span>
+                                <span className="flex items-center">
+                                    <img
+                                        className="w-5 h-5 rounded-full shadow-lg mr-2"
+                                        src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsXklzmIGhnKcpEhzu1C8xFmDoky3doyMzKA&usqp=CAU`}
+                                        alt="User"
+                                    />
+                                    Total Feed: 10bag
+                                </span>
+                                <span className="flex items-center">
+                                    <img
+                                        className="w-5 h-5 rounded-full shadow-lg mr-2"
+                                        src={`https://www.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg`}
+                                        alt="User"
+                                    />
+                                    Total Medicine: 10pcs
+                                </span>
+                                <span className="flex items-center">
+                                    <CurrencyBDIcon iconClass="w-6 h-6" />
+                                    Total Amount: 200000 bdt
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

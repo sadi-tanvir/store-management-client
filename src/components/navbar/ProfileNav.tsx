@@ -46,8 +46,9 @@ const ProfileNav = () => {
                             My Orders
                         </NavLink>
                     </li>
-                    <li className="dark:text-darkNeutral"><a>Settings</a></li>
-                    <li onClick={handleLogout} className="dark:text-darkNeutral"><a>Logout</a></li>
+                    <li onClick={handleLogout} className="dark:text-darkNeutral">
+                        <span className="text-red-500 font-bold">Logout</span>
+                    </li>
                 </ul>
             </div>
         </>

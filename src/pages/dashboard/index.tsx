@@ -15,11 +15,12 @@ const Dashboard = () => {
                         <DrawerOpenIcon />
                     </label>
 
+                    {/* route outlet */}
                     <Outlet />
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 overflow-y-auto w-60 sm:w-64 bg-darkNeutral text-base-content">
+                    <ul className="menu p-4 overflow-y-auto w-60 sm:w-64 bg-slate-50 text-base-content">
                         {/* <!-- Sidebar content here --> */}
                         {DashBoardNav.map((link: DashListType) => {
                             return (

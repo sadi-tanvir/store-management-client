@@ -17,6 +17,11 @@ const Login = () => {
     // signIn mutation
     const [loginMutation, { data, loading, error }] = useMutation(USER_LOGIN_MUTATION);
 
+    console.log(`login error`, error);
+    console.log(`login data`, data);
+
+
+
     // handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

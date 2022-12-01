@@ -5,7 +5,7 @@ import UserProfile from "./components/Dashboard/manage-users/UserProfile";
 import Users from "./pages/dashboard/manage-users/Users";
 import Home from "./pages/home";
 import Navbar from "./pages/Navbar";
-import Stock from "./pages/stocks";
+import Stock from "./pages/stocks/Stock";
 import CheckAuth from "./components/authentication/CheckAuth";
 import RequireAuth from "./components/authentication/RequireAuth";
 import Login from "./pages/Login/Login";
@@ -27,6 +27,11 @@ import OwnerIndividualBatchDetails from "./pages/owner-batches/OwnerIndividualBa
 import IndividualBatchDetails from "./pages/dashboard/manage-Batches/batch-details/IndividualBatchDetails";
 import CreateBatchForm from "./pages/dashboard/manage-Batches/create-batch-form/CreateBatchForm";
 import DashboardHome from "./pages/dashboard/dashboard-home/DashboardHome";
+import StockSummary from "./pages/stocks/stock-summary/StockSummary";
+import MedicinesStock from "./pages/stocks/medicine-stock/MedicinesStock";
+import BroilerFeedStock from "./pages/stocks/broiler-feed/BroilerFeedStock";
+import LayerFeedStock from "./pages/stocks/layer-feed/LayerFeedStock";
+import Footer from "./pages/Footer/Footer";
 
 function App() {
   // redux
@@ -74,7 +79,7 @@ function App() {
       <Cart />
 
       <Routes>
-        <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
+        {/* <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} /> */}
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<DashboardHome />} />
           <Route path="manage-users" element={<Users />} />
@@ -86,11 +91,16 @@ function App() {
           <Route path="manage-categories" element={<ManageCategories />} />
           <Route path="manage-suppliers" element={<ManageSuppliers />} />
         </Route>
-        <Route path="/order/checkout" element={<CheckOut />} />
+        <Route path="/order/checkout" element={<RequireAuth><CheckOut /></RequireAuth>} />
         <Route path="/user/:id" element={<UserProfile />} />
         <Route path="/create-batch-form/:id" element={<CreateBatchForm />} />
         <Route path="/individual-batch-details/:batchDetail" element={<IndividualBatchDetails />} />
-        <Route path="/stocks" element={<RequireAuth><Stock /></RequireAuth>} />
+        <Route path="/stocks" element={<Stock />}>
+          <Route index element={<StockSummary />} />
+          <Route path="medicine-stock" element={<MedicinesStock />} />
+          <Route path="broiler-feed-stock" element={<BroilerFeedStock />} />
+          <Route path="layer-feed-stock" element={<LayerFeedStock />} />
+        </Route>
         <Route path="/owner-profile" element={<RequireAuth><OwnerProfile /></RequireAuth>} />
         <Route path="/owner-batches" element={<RequireAuth><OwnerBatches /></RequireAuth>} />
         <Route path="/owner-batches/:batchDetail" element={<OwnerIndividualBatchDetails />} />
@@ -98,6 +108,7 @@ function App() {
         <Route path="/login" element={<CheckAuth><Login /></CheckAuth>} />
         <Route path="/register" element={<CheckAuth><Register /></CheckAuth>} />
       </Routes>
+      <Footer />
     </div>
   );
 }
