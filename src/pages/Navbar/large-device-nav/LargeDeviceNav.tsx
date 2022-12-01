@@ -21,14 +21,6 @@ const LargeDeviceNav = () => {
     return (
         <>
             <div className="navbar-end">
-                <StockMenu
-                    style={{
-                        display: 'hidden md:block',
-                        position: '-mr-10',
-                        activeStyle: ''
-                    }}
-                />
-
                 <div className="hidden md:block">
                     {isAuthenticate ?
                         <>
@@ -51,8 +43,15 @@ const LargeDeviceNav = () => {
                             })}
                         </>
                     }
-
                 </div>
+
+                <StockMenu
+                    style={{
+                        display: 'hidden md:block',
+                        position: '-mr-10',
+                        activeStyle: ''
+                    }}
+                />
 
                 <div onClick={() => dispatch({ type: 'setCart' })} className="indicator cursor-pointer">
                     <span className="indicator-item badge badge-primary">

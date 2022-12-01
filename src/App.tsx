@@ -79,7 +79,7 @@ function App() {
       <Cart />
 
       <Routes>
-        {/* <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} /> */}
+        <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<DashboardHome />} />
           <Route path="manage-users" element={<Users />} />

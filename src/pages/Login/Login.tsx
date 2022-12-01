@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import { USER_LOGIN_MUTATION } from '../../gql/mutations/userAuthMutations';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
+import { useAppDispatch } from '../../redux/hooks/hooks';
 import Form from '../../components/shared/components/Form';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    // const {  } = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch()
 
     // state
@@ -16,10 +16,6 @@ const Login = () => {
 
     // signIn mutation
     const [loginMutation, { data, loading, error }] = useMutation(USER_LOGIN_MUTATION);
-
-    console.log(`login error`, error);
-    console.log(`login data`, data);
-
 
 
     // handle input change
@@ -44,7 +40,43 @@ const Login = () => {
     }
 
     useEffect(() => {
+        // error notification
+        if (error) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: false,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'error',
+                title: 'Failed to Sign in'
+            })
+        }
+
         if (data?.signInUser?.status) {
+            // success notification
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+            })
+
             // update local storage
             localStorage.setItem('accessToken', JSON.stringify(data.signInUser.token));
             localStorage.setItem('darkMode', JSON.stringify(data.signInUser.user.darkMode));
@@ -82,7 +114,7 @@ const Login = () => {
                 dispatch({ type: 'accessUser' });
             }
         }
-    }, [data, dispatch])
+    }, [data, dispatch, error])
 
     return (
         <>
