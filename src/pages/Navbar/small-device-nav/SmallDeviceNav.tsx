@@ -19,7 +19,7 @@ const SmallDeviceNav = () => {
                     <label tabIndex={0} className="btn btn-ghost btn-circle dark:bg-darkAccent">
                         <BarIcon iconClass="h-5 w-5 text-secondary dark:text-darkNeutral" />
                     </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 dark:bg-darkSecondary rounded-box w-52">
+                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 dark:bg-darkSecondary rounded-box w-52">
                         {isAuthenticate ?
                             <>
                                 {AuthorizedNavList.map((link: NavListType) => {

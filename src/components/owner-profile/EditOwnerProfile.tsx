@@ -73,7 +73,7 @@ const EditOwnerProfile = () => {
         <>
             {/* Put this part before </body> tag */}
             <input ref={modalRef} type="checkbox" id="Edit-sadi-Modal" className="modal-toggle" />
-            <div className="modal">
+            <div className="modal z-50 mt-14">
                 <div className="modal-box relative px-5 sm:px-10">
                     <label htmlFor="Edit-sadi-Modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold mb-5">Edit Information</h3>

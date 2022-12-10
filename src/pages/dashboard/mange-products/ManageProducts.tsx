@@ -45,7 +45,7 @@ const ManageProducts = () => {
         <>
             <div className="px-5">
                 <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Products" />
-                <ReactHelmet title={'Manage Products'} />
+                <ReactHelmet title={'Manage Products - Store Management'} />
             </div>
 
             <div className="w-full">

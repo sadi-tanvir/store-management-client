@@ -14,7 +14,7 @@ const TableHeader = ({ children, headers }: TablePropsType) => {
                     <div className="bg-white shadow-md rounded my-6">
                         <table className="min-w-max w-full table-auto">
                             <thead>
-                                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <tr className="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
                                     {
                                         headers.map((header, index) => <th key={index} className="py-3 px-6 text-left">{header}</th>)
                                     }

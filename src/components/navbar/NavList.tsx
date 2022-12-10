@@ -25,6 +25,11 @@ export const AuthorizedNavList: NavListType[] = [
 export const UnauthorizedNavList: NavListType[] = [
     {
         key: 1,
+        title: 'Home',
+        path: '/'
+    },
+    {
+        key: 1,
         title: 'Login',
         path: '/login'
     },

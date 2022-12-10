@@ -19,7 +19,7 @@ const Users = () => {
         <>
             <div className="px-5">
                 <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Users" />
-                <ReactHelmet title={'Manage Users'} />
+                <ReactHelmet title={'Manage Users - Store Management'} />
             </div>
             <div className="w-full min-h-screen dark:bg-darkPrimary">
                 <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-4 px-3 sm:px-5 mt-16 lg:mt-10">

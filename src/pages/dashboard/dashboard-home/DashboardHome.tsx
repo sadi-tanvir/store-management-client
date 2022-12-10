@@ -8,7 +8,7 @@ const DashboardHome = () => {
         <>
             <div className="px-3">
                 <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="dashboard" />
-                <ReactHelmet title={'Dashboard'} />
+                <ReactHelmet title={'Dashboard - Store Management'} />
             </div>
             <ManageUsersActiveBatches />
         </>

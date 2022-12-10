@@ -37,7 +37,7 @@ const ManageCategories = () => {
         <>
             <div className="px-5">
                 <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Categories" />
-                <ReactHelmet title={'Manage Categories'} />
+                <ReactHelmet title={'Manage Categories - Store Management'} />
             </div>
             <div className="w-full">
                 <TableHeader headers={["name", "description", "actions"]}>

@@ -4,6 +4,7 @@ import { USER_LOGIN_MUTATION } from '../../gql/mutations/userAuthMutations';
 import { useAppDispatch } from '../../redux/hooks/hooks';
 import Form from '../../components/shared/components/Form';
 import Swal from 'sweetalert2';
+import ReactHelmet from '../../components/shared/components/ReactHelmet';
 
 const Login = () => {
     const dispatch = useAppDispatch()
@@ -118,6 +119,7 @@ const Login = () => {
 
     return (
         <>
+            <ReactHelmet title={'Login - Store Management'} />
             <Form
                 title="Login"
                 forgotPassword={true}

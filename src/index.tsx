@@ -11,6 +11,8 @@ import { setContext } from '@apollo/client/link/context';
 import { HelmetProvider } from "react-helmet-async";
 
 // graphql authentication setup
+// http://localhost:4000/
+// https://store-management-server-api.up.railway.app/
 const httpLink = createHttpLink({
   uri: 'https://store-management-server-api.up.railway.app/graphql',
 });

@@ -8,9 +8,9 @@ const Form = ({ title, nameField, forgotPassword, doesHaveAccount, onChange, han
 
     return (
         <>
-            <div className="min-h-[90vh] bg-base-200" style={{ backgroundImage: `url(/login-bg.jpg)`, backgroundSize: 'cover' }}>
+            <div className="min-h-screen bg-base-200" style={{ backgroundImage: `url(/login-bg.jpg)`, backgroundSize: 'cover' }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 px-5 sm:px-0">
-                    <div className={`card w-full max-w-sm shadow-2xl bg-base-100 ${nameField ? 'sm:mt-20 mt-5 mb-10' : 'sm:mt-40 mt-16'} sm:ml-20`}>
+                    <div className={`mt-28 card w-full max-w-sm shadow-2xl bg-base-100 ${nameField ? 'sm:mt-20 mt-5 mb-10' : 'sm:mt-40 mt-16'} sm:ml-20`}>
                         <div className="card-body">
                             <h1 className="text-3xl font-bold text-primary">{title}</h1>
                             <form onSubmit={handleSubmit}>

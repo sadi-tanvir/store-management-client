@@ -70,3 +70,12 @@ export const UPDATE_OWNER_PROFILE = gql`
         }
     }
 `
+
+export const CHANGE_USER_PASSWORD = gql`
+    mutation changeUserPassword($id:ID!,$info:UserPasswordInput!) {
+        changeUserPassword(id:$id, data:$info){
+            status
+            message
+        }
+    }
+`

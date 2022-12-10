@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { USER_REGISTER_MUTATION } from '../../gql/mutations/userAuthMutations';
 import Form from '../../components/shared/components/Form';
+import ReactHelmet from '../../components/shared/components/ReactHelmet';
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -41,6 +42,7 @@ const Register = () => {
 
     return (
         <>
+            <ReactHelmet title={'Register - Store Management'} />
             <Form
                 title="Register"
                 nameField={true}

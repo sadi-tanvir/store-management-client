@@ -5,7 +5,8 @@ import ReactHelmet from '../../../components/shared/components/ReactHelmet';
 import StockCard from '../../../components/stocks/StockCard';
 import { GET_STOCKS_BY_CATEGORY } from '../../../gql/queries/stockQueries';
 import { StockCardPropsType } from '../../../types/stocks.types';
-
+import classes from "../../../components/styles/global-style/global.module.css"
+import Footer from '../../Footer/Footer';
 
 const StockSummary = () => {
     // gql
@@ -31,46 +32,51 @@ const StockSummary = () => {
 
     return (
         <>
-            <div className="w-full min-h-screen">
-                <div className="ml-5">
-                    <Breadcrumbs firstPath="/" firstName="Home" current="Stocks" />
-                    <ReactHelmet title={'Stocks - Store Management'} />
-                </div>
-                {/* medicine stocks */}
-                <div className='mt-7'>
-                    <div className='w-full flex justify-between'>
-                        <h1 className='ml-5 text-2xl text-secondary font-bold'>Medicines - ঔষধ</h1>
-                        <button onClick={() => navigate('/stocks/medicine-stock')} className='btn btn-sm btn-secondary px-5 mr-5'>view all</button>
+            <div className={`w-full min-h-screen ${classes.global_background}`}>
+                <div className={`relative w-full min-h-screen bg-slate-200 opacity-[0.70] pt-24 pb-[870px] md:pb-[460px] lg:pb-[480px]`}>
+                    <div className="ml-5">
+                        <Breadcrumbs firstPath="/" firstName="Home" current="Stocks" />
+                        <ReactHelmet title={'Stocks - Store Management'} />
                     </div>
-                    <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-4 px-3 sm:px-5">
-                        {
-                            medicineStocks?.data?.getStocksByCategory.slice(0, 4).map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
-                        }
+                    {/* medicine stocks */}
+                    <div className='mt-7'>
+                        <div className='w-full flex justify-between mb-2'>
+                            <h1 className='ml-5 text-2xl text-secondary font-bold'>Medicines - ঔষধ</h1>
+                            <button onClick={() => navigate('/stocks/medicine-stock')} className='btn btn-sm btn-secondary px-5 mr-5'>view all</button>
+                        </div>
+                        <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-4 px-3 sm:px-5">
+                            {
+                                medicineStocks?.data?.getStocksByCategory.slice(0, 4).map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
+                            }
+                        </div>
                     </div>
-                </div>
-                {/* broiler feed stocks */}
-                <div className='mt-10'>
-                    <div className='w-full flex justify-between'>
-                        <h1 className='ml-5 text-2xl text-secondary font-bold'>Broiler Feed - ব্রয়লার ফিড</h1>
-                        <button onClick={() => navigate('/stocks/broiler-feed-stock')} className='btn btn-sm btn-secondary px-5 mr-5'>view all</button>
+                    {/* broiler feed stocks */}
+                    <div className='mt-10'>
+                        <div className='w-full flex justify-between mb-2'>
+                            <h1 className='ml-5 text-2xl text-secondary font-bold'>Broiler Feed - ব্রয়লার ফিড</h1>
+                            <button onClick={() => navigate('/stocks/broiler-feed-stock')} className='btn btn-sm btn-secondary px-5 mr-5'>view all</button>
+                        </div>
+                        <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-4 px-3 sm:px-5">
+                            {
+                                broilerFeedStocks?.data?.getStocksByCategory.slice(0, 4).map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
+                            }
+                        </div>
                     </div>
-                    <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-4 px-3 sm:px-5">
-                        {
-                            broilerFeedStocks?.data?.getStocksByCategory.slice(0, 4).map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
-                        }
+                    {/* layer feed stocks */}
+                    <div className='mt-7'>
+                        <div className='w-full flex justify-between mb-2'>
+                            <h1 className='ml-5 text-2xl text-secondary font-bold'>Layer Feed - লেয়ার ফিড</h1>
+                            <button onClick={() => navigate('/stocks/layer-feed-stock')} className='btn btn-sm btn-secondary px-5 mr-5'>view all</button>
+                        </div>
+                        <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-4 px-3 sm:px-5">
+                            {
+                                layerFeedStocks?.data?.getStocksByCategory.slice(0, 4).map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
+                            }
+                        </div>
                     </div>
-                </div>
-                {/* layer feed stocks */}
-                <div className='mt-7'>
-                    <div className='w-full flex justify-between'>
-                        <h1 className='ml-5 text-2xl text-secondary font-bold'>Layer Feed - লেয়ার ফিড</h1>
-                        <button onClick={() => navigate('/stocks/layer-feed-stock')} className='btn btn-sm btn-secondary px-5 mr-5'>view all</button>
-                    </div>
-                    <div className="w-full mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-4 px-3 sm:px-5">
-                        {
-                            layerFeedStocks?.data?.getStocksByCategory.slice(0, 4).map((stock: StockCardPropsType, index: number) => <StockCard key={index} stock={stock} />)
-                        }
-                    </div>
+
+                    {/* footer section */}
+                    <Footer />
                 </div>
             </div>
         </>

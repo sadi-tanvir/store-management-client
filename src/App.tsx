@@ -74,12 +74,12 @@ function App() {
     }
   }, [])
   return (
-    <div className={`${darkMode && 'dark'}`}>
+    <div className={`relative ${darkMode && 'dark'}`}>
       <Navbar />
       <Cart />
 
       <Routes>
-        <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
           <Route index element={<DashboardHome />} />
           <Route path="manage-users" element={<Users />} />
@@ -108,7 +108,7 @@ function App() {
         <Route path="/login" element={<CheckAuth><Login /></CheckAuth>} />
         <Route path="/register" element={<CheckAuth><Register /></CheckAuth>} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

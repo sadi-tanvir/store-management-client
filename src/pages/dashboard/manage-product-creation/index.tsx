@@ -94,7 +94,7 @@ const ProductCreation = () => {
         <>
             <div className="px-5">
                 <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Product Creation" />
-                <ReactHelmet title={'Product Creation'} />
+                <ReactHelmet title={'Product Creation - Store Management'} />
             </div>
             <div className="w-full min-h-screen dark:bg-darkPrimary">
                 <div className="w-full mx-auto grid sm:grid-cols-3 md:grid-cols-4 gap-4 px-3 sm:px-5 mt-20 lg:mt-10">

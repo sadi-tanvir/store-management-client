@@ -42,7 +42,7 @@ const ManageOrders = () => {
         <>
             <div className="px-5">
                 <Breadcrumbs firstPath="/dashboard" firstName="Dashboard" current="Manage Orders" />
-                <ReactHelmet title={'Manage Orders'} />
+                <ReactHelmet title={'Manage Orders - Store Management'} />
             </div>
             <div className="w-full">
                 <TableHeader headers={["email", "quantity", "Amount", "payment", "delivery", "actions"]}>

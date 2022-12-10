@@ -1,42 +1,35 @@
-import React, { useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../redux/hooks/hooks'
-import Cart from '../../components/cart/Cart';
 import HeaderSlider from '../../components/home/header-slider/HeaderSlider';
-import SmallDeviceNav from '../Navbar/small-device-nav/SmallDeviceNav';
-import LargeDeviceNav from '../Navbar/large-device-nav/LargeDeviceNav';
-
+import ReactHelmet from '../../components/shared/components/ReactHelmet';
+import Footer from '../Footer/Footer';
+import classes from "../../components/styles/global-style/global.module.css"
+import BusinessOverview from '../../components/home/business-overview/BusinessOverview';
+import ProductOverview from '../../components/home/product-overview/ProductOverview';
 
 
 
 const Home = () => {
 
-    const { value } = useAppSelector(state => state.counterReducer);
-    const dispatch = useAppDispatch()
-
     return (
         <>
-            <div className="absolute z-50 opacity-70 navbar bg-base-100 dark:bg-darkSecondary">
-                <div className="navbar-start hidden md:block">
-                    <a className="btn btn-ghost normal-case text-xl">
-                        <img src="/logo.png" alt="site-logo" />
-                    </a>
-                </div>
-                <SmallDeviceNav />
-                <LargeDeviceNav />
-
-            </div>
-
-            <div className="w-full mx-auto text-center dark:bg-darkPrimary">
+            <ReactHelmet title={'Home - Store Management'} />
+            <div className="w-full min-h-screen mx-auto text-center dark:bg-darkPrimary">
+                {/* header slider */}
                 <HeaderSlider />
-            </div>
 
-            <style>
-                {`
-                    .navbar-global {
-                        display: none !important;
-                    }
-                `}
-            </style>
+                {/* home content */}
+                <div className={`${classes.global_background}`}>
+                    <div className={`relative bg-slate-200 opacity-[0.80] pt-6 pb-[870px] md:pb-[450px] lg:pb-[480px]`}>
+
+                        {/* product overview section */}
+                        <ProductOverview />
+
+                        <BusinessOverview />
+
+                        {/* footer section */}
+                        <Footer />
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
