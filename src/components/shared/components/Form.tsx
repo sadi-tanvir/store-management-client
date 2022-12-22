@@ -79,7 +79,7 @@ const Form = ({ title, nameField, forgotPassword, doesHaveAccount, onChange, han
                                     <input
                                         onChange={onChange}
                                         name='password'
-                                        type="text"
+                                        type="password"
                                         placeholder="password"
                                         className="input input-bordered"
                                     />

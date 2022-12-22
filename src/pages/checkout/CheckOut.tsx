@@ -7,6 +7,7 @@ import { CREATE_ORDER_MUTATION } from '../../gql/mutations/orderMutation';
 import { GET_OPEN_BATCH_BY_USER_REF } from '../../gql/queries/batchQueries';
 import { GET_ORDERS } from '../../gql/queries/orderQueries';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
+import classes from "../../components/styles/global-style/global.module.css";
 
 const CheckOut = () => {
     // redux
@@ -80,19 +81,23 @@ const CheckOut = () => {
     }, [ownerInfo, totalCartAmount, cart, batchResponse?.data?.getOpenBatchByUserRef])
     return (
         <>
-            <div className="flex flex-col sm:flex-row justify-between items-start mt-20">
-                {/* order summary */}
-                <OrderSummary
-                    totalCartAmount={totalCartAmount}
-                />
+            <div className={`w-full min-h-screen ${classes.global_background}`}>
+                <div className={`relative w-full min-h-screen bg-slate-200 opacity-[0.70] pt-24`}>
+                    <div className="flex flex-col sm:flex-row justify-between items-start mt-20">
+                        {/* order summary */}
+                        <OrderSummary
+                            totalCartAmount={totalCartAmount}
+                        />
 
-                {/* order checkout form */}
-                <CheckoutForm
-                    handleSubmit={handleSubmit}
-                    handleChange={handleChange}
-                    checkOut={checkOut}
-                    batch={batchResponse?.data?.getOpenBatchByUserRef?.batchNo}
-                />
+                        {/* order checkout form */}
+                        <CheckoutForm
+                            handleSubmit={handleSubmit}
+                            handleChange={handleChange}
+                            checkOut={checkOut}
+                            batch={batchResponse?.data?.getOpenBatchByUserRef?.batchNo}
+                        />
+                    </div>
+                </div>
             </div>
         </>
     );

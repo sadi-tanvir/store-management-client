@@ -22,9 +22,9 @@ const LayerFeedStock = () => {
     return (
         <>
             <div className={`w-full min-h-screen ${classes.global_background}`}>
-                <div className={`relative min-h-screen bg-slate-200 opacity-[0.70] pt-24 pb-[530px] md:pb-60`}>
+                <div className={`relative min-h-screen bg-slate-200 opacity-[0.70] pt-24 pb-[870px] md:pb-[460px] lg:pb-[480px]`}>
                     <div className="ml-5">
-                        <Breadcrumbs firstPath="/stocks" firstName="Stocks" current="Layer Feed" />
+                        <Breadcrumbs firstPath="/stocks" firstName="Stocks" current="Layer Feed - লেয়ার ফিড" />
                         <ReactHelmet title={'Layer Feed - Store Management'} />
                     </div>
                     {/* medicine stocks */}

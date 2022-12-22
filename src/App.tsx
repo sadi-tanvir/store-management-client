@@ -31,14 +31,14 @@ import StockSummary from "./pages/stocks/stock-summary/StockSummary";
 import MedicinesStock from "./pages/stocks/medicine-stock/MedicinesStock";
 import BroilerFeedStock from "./pages/stocks/broiler-feed/BroilerFeedStock";
 import LayerFeedStock from "./pages/stocks/layer-feed/LayerFeedStock";
-import Footer from "./pages/Footer/Footer";
+import BabyChickenStock from "./pages/stocks/baby-chicken/BabyChickenStock";
+import AnimalFeedStock from "./pages/stocks/animal-feed/AnimalFeedStock";
 
 function App() {
   // redux
   const dispatch = useAppDispatch()
 
   const { darkMode } = useAppSelector(state => state.globalReducer);
-  const { accessToken } = useAppSelector(state => state.authReducer);
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
@@ -80,7 +80,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<RequireAuth> <Dashboard /> </RequireAuth>}>
+        <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<DashboardHome />} />
           <Route path="manage-users" element={<Users />} />
           <Route path="manage-orders" element={<ManageOrders />} />
@@ -98,8 +98,10 @@ function App() {
         <Route path="/stocks" element={<Stock />}>
           <Route index element={<StockSummary />} />
           <Route path="medicine-stock" element={<MedicinesStock />} />
+          <Route path="baby-chicken-stock" element={<BabyChickenStock />} />
           <Route path="broiler-feed-stock" element={<BroilerFeedStock />} />
           <Route path="layer-feed-stock" element={<LayerFeedStock />} />
+          <Route path="animal-feed-stock" element={<AnimalFeedStock />} />
         </Route>
         <Route path="/owner-profile" element={<RequireAuth><OwnerProfile /></RequireAuth>} />
         <Route path="/owner-batches" element={<RequireAuth><OwnerBatches /></RequireAuth>} />

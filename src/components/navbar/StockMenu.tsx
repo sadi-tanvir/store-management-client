@@ -43,6 +43,24 @@ const StockMenu = ({ style }: { style: { display: string; position: string; acti
                             </NavLink>
                         </li>
                     </div>
+                    <div className="grid grid-rows-1 content-center items-center">
+                        <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
+                            <NavLink to='/stocks/baby-chicken-stock' style={ActiveStockNavProps}>
+                                <a className="text-secondary font-bold">
+                                    Baby Chicken
+                                </a>
+                            </NavLink>
+                        </li>
+                    </div>
+                    <div className="grid grid-rows-1 content-center items-center">
+                        <li className="dark:bg-darkSecondary bg-neutral mt-1  ">
+                            <NavLink to='/stocks/animal-feed-stock' style={ActiveStockNavProps}>
+                                <a className="text-secondary font-bold">
+                                    Animal Feed
+                                </a>
+                            </NavLink>
+                        </li>
+                    </div>
                 </ul>
             </div>
         </>

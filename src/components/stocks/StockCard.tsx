@@ -26,7 +26,6 @@ const StockCard = ({ stock }: { stock: StockCardPropsType }) => {
         const currStock = stockResponse?.data?.stocks.filter((elem: any) => {
             return elem._id === stock._id
         })
-        console.log('currStock', currStock);
         if (currStock[0].quantity <= 0) {
             return;
         } else {

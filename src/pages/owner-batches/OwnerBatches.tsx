@@ -29,17 +29,22 @@ const OwnerBatches = () => {
                     <div className={`w-full flex flex-col mt-5`}>
                         <h1 className="px-3 text-2xl text-secondary font-bold mx-auto">Manage My Batches </h1>
 
-                        <div className="w-full grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-3 px-3">
-                            {
-                                batchResponse?.data?.getBatchesByUserRef?.map((batch: any) => {
-                                    return (
-                                        <>
-                                            <BatchCard batch={batch} />
-                                        </>
-                                    )
-                                })
-                            }
-                        </div>
+                        {
+                            batchResponse?.data?.getBatchesByUserRef?.length <= 0 ?
+                                <h1 className="text-3xl font-bold text-center mt-20 uppercase opacity-70">batch not available</h1>
+                                :
+                                <div className="w-full grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-3 px-3">
+                                    {
+                                        batchResponse?.data?.getBatchesByUserRef?.map((batch: any) => {
+                                            return (
+                                                <>
+                                                    <BatchCard batch={batch} />
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </div>
+                        }
 
                         {/* <DetailsSection /> */}
                     </div>

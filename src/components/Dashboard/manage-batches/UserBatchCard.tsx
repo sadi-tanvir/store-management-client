@@ -2,12 +2,16 @@ import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MailIcon, NameIcon } from '../../../components/shared/icons/icons';
 import CountDownClock from '../../../components/Dashboard/manage-batches/CountDownClock';
+import { UserBatchCardProps } from '../../../types/dashboard/manageBatch.types';
 
-const UserBatchCard = ({ batch, isThisCard }: { batch: any, isThisCard?: boolean }) => {
+
+
+
+const UserBatchCard = ({ batch, isThisCard, closeBatchById, reOpenBatchById }: UserBatchCardProps) => {
     const navigate = useNavigate();
 
     // state
-    const fullName = batch?.userId?.firstName + batch?.userId?.lastName
+    const fullName = batch?.userId?.firstName + " " + batch?.userId?.lastName
 
     return (
         <>
@@ -17,7 +21,7 @@ const UserBatchCard = ({ batch, isThisCard }: { batch: any, isThisCard?: boolean
                         {batch?.batchNo}
                     </span>
                 }
-                <div className="flex flex-col space-y-4 px-5 pt-4 pb-2 text-gray-600">
+                <div className="flex flex-col space-y-4 px-5 pt-4 pb-2 text-gray-600 mb-8">
                     {batch?.status === 'open' &&
                         <div className='flex flex-row justify-between items-center'>
                             <CountDownClock createdAt={batch?.createdAt} />
@@ -30,7 +34,9 @@ const UserBatchCard = ({ batch, isThisCard }: { batch: any, isThisCard?: boolean
                             </span>
                             <span className="tooltip tooltip-secondary font-bold text-[16px] text-gray-500" data-tip={fullName}>
 
-                                {fullName.length > 15 ? `${fullName.substring(0, 15)}... ` : fullName}
+                                {
+                                    isThisCard ? fullName : fullName.length > 15 ? `${fullName.substring(0, 15)}... ` : fullName
+                                }
                             </span>
                         </div>
                         <div className="flex flex-row items-center text-sm">
@@ -44,11 +50,26 @@ const UserBatchCard = ({ batch, isThisCard }: { batch: any, isThisCard?: boolean
                     </div>
                 </div>
 
-                {isThisCard ||
-                    <span onClick={() => navigate(`/individual-batch-details/${batch._id}_${batch?.userId?._id}`)} className='w-full py-[2px] text-center text-teal-600 bg-teal-300 font-bold bottom-0 uppercase cursor-pointer text-sm'>
-                        details
-                    </span>
-                }
+
+                <div className='w-full flex  absolute bottom-0'>
+                    {
+                        batch?.status === 'open' ?
+                            <span onClick={() => closeBatchById(batch?._id)} className='w-full py-[2px] text-center text-red-600 bg-red-300 font-bold bottom-0 uppercase cursor-pointer text-sm'>
+                                close batch
+                            </span> :
+                            reOpenBatchById &&
+                            <span onClick={() => reOpenBatchById(batch?._id)} className='w-full py-[6px] text-center text-red-600 bg-red-300 font-bold bottom-0 uppercase cursor-pointer text-sm'>
+                                RE-Open batch
+                            </span>
+                    }
+
+                    {isThisCard ||
+                        <span onClick={() => navigate(`/individual-batch-details/${batch._id}_${batch?.userId?._id}`)} className='w-full py-[2px] text-center text-teal-600 bg-teal-300 font-bold bottom-0 uppercase cursor-pointer text-sm'>
+                            details
+                        </span>
+                    }
+                </div>
+
             </div>
         </>
     );

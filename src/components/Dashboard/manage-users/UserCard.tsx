@@ -58,7 +58,7 @@ const UserCard = ({ user }: { user: DashboardUserType }) => {
                 <div className="flex items-center -mt-5 pb-5">
                     <img
                         className="mb-3 w-12 h-12 rounded-full shadow-lg"
-                        src={`${ApiBaseUrl}/profile-pic/${user?.image}`}
+                        src={user.image ? `${ApiBaseUrl}/profile-pic/${user?.image}` : `https://t3.ftcdn.net/jpg/02/43/51/48/360_F_243514868_XDIMJHNNJYKLRST05XnnTj0MBpC4hdT5.jpg`}
                         alt="User image"
                     />
                     <div className="flex flex-col items-start ml-2">

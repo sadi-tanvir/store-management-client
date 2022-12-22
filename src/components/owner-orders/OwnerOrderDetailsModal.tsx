@@ -9,7 +9,7 @@ const OwnerOrderDetailsModal = ({ modalId, order }: OrderDetailsPropsType) => {
         <>
             {/* Put this part before </body> tag */}
             <input type="checkbox" id={modalId} className="modal-toggle" />
-            <div className="modal">
+            <div className="modal mt-20">
                 <div className="modal-box relative">
                     <label htmlFor={modalId} className="btn btn-primary btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <div className="flex justify-between items-center mb-4">

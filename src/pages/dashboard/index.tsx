@@ -1,19 +1,32 @@
-import { NavLink } from 'react-router-dom';
+import { useEffect } from "react"
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { DashBoardNav, DashListType } from '../../components/Dashboard/DashboardList';
 import { ActiveNavProps, SidebarActiveProps } from '../../components/navbar/StyleNav';
 import { BrandIcon, DrawerOpenIcon } from '../../components/shared/icons/icons';
 import classes from "../../components/styles/global-style/global.module.css"
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const Dashboard = () => {
+    const { isAuthenticate } = useAppSelector(state => state.authReducer);
+
+    // router
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticate) {
+            navigate('/login');
+        }
+    }, [isAuthenticate, navigate])
+
     return (
         <>
             <div className={`w-full min-h-screen ${classes.global_background}`}>
                 <div className="drawer drawer-mobile bg-slate-200 opacity-[0.70] pt-24">
                     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                    <div className="drawer-content flex flex-col items-start">
+                    <div className="drawer-content flex flex-col items-start pb-[100px] lg:pb-[20px]">
                         {/* <!-- Page content here --> */}
-                        <label htmlFor="my-drawer-2" className="btn btn-sm btn-[secondary] bg-[#ef4444] drawer-button lg:hidden absolute right-1 opacity-70 top-[70px] z-40">
+                        <label htmlFor="my-drawer-2" className="btn btn-sm btn-[secondary] bg-slate-700 drawer-button lg:hidden absolute right-1 opacity-70 top-[70px] z-40">
                             <DrawerOpenIcon />
                         </label>
 

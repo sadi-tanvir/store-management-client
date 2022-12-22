@@ -1,33 +1,7 @@
 import { NavListType } from "../../types/navbar.types";
 
 
-export const AuthorizedNavList: NavListType[] = [
-    {
-        key: 1,
-        title: 'Home',
-        path: '/'
-    },
-    {
-        key: 2,
-        title: 'Dashboard',
-        path: '/dashboard'
-    }
-
-    // {
-    //     key: 2,
-    //     title: 'About',
-    //     path: '/about'
-    // }
-]
-
-
-
 export const UnauthorizedNavList: NavListType[] = [
-    {
-        key: 1,
-        title: 'Home',
-        path: '/'
-    },
     {
         key: 1,
         title: 'Login',

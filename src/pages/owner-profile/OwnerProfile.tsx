@@ -110,7 +110,7 @@ const MyProfile = () => {
 
 
                             {/* <!-- Right Side --> */}
-                            <div className="w-full md:w-9/12 mx-2 h-64">
+                            <div className="w-full md:w-9/12 md:mx-2 h-64 mt-10 md:mt-0">
                                 {/* <!-- Profile tab --> */}
                                 {/* <!-- About Section --> */}
                                 <div className="bg-white p-3 shadow rounded-sm">

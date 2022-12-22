@@ -4,13 +4,13 @@ import { BarIcon } from '../../../components/shared/icons/icons';
 import { NavListType } from '../../../types/navbar.types';
 import { useAppSelector } from '../../../redux/hooks/hooks';
 import { Link } from 'react-router-dom';
-import { AuthorizedNavList, UnauthorizedNavList } from '../../../components/navbar/NavList';
+import { UnauthorizedNavList } from '../../../components/navbar/NavList';
 import { ActiveMobileNavProps } from '../../../components/navbar/StyleNav';
 import StockMenu from '../../../components/navbar/StockMenu';
 
 const SmallDeviceNav = () => {
     // redux
-    const { isAuthenticate } = useAppSelector(state => state.authReducer);
+    const { isAuthenticate, isAdmin, isManager } = useAppSelector(state => state.authReducer);
 
     return (
         <>
@@ -20,17 +20,15 @@ const SmallDeviceNav = () => {
                         <BarIcon iconClass="h-5 w-5 text-secondary dark:text-darkNeutral" />
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 dark:bg-darkSecondary rounded-box w-52">
+                        <NavLink to='/' style={ActiveMobileNavProps}>
+                            Home
+                        </NavLink>
                         {isAuthenticate ?
                             <>
-                                {AuthorizedNavList.map((link: NavListType) => {
-                                    return (
-                                        <li key={link.key}>
-                                            <NavLink to={link.path} style={ActiveMobileNavProps}>
-                                                {link.title}
-                                            </NavLink>
-                                        </li>
-                                    )
-                                })}
+                                {(isAdmin || isManager) && <NavLink to='/dashboard' style={ActiveMobileNavProps}>
+                                    Dashboard
+                                </NavLink>
+                                }
                             </>
                             :
                             <>

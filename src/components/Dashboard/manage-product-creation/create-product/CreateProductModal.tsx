@@ -127,7 +127,7 @@ const CreateProductModal = ({ modalId, header, categories, brands }: ProductModa
         <>
             {/* Put this part before </body> tag */}
             <input ref={modalRef} type="checkbox" id={modalId} className="modal-toggle" />
-            <div className="modal">
+            <div className="modal mt-16">
                 <div className="modal-box relative px-5 sm:px-10">
                     <label htmlFor={modalId} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold mb-5">{header}</h3>

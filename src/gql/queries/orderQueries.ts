@@ -34,6 +34,39 @@ export const GET_ORDERS = gql`
   }
 `;
 
+export const GET_ORDERS_BY_USER_ID = gql`
+    query ownerOrders($userId:ID!) {
+    ownerOrders(userId:$userId) {
+        _id
+        userId {
+          _id
+          email
+        }
+        email
+        phone
+        address
+        amount
+        paymentStatus
+        trxId
+        orderStatus
+        products {
+          _id
+          name
+          qty
+          price
+          imageUrl
+          category
+          brand
+          unit
+          stockId {
+            _id
+            name
+        }
+      }
+    }
+  }
+`;
+
 
 export const GET_ORDERS_BY_BATCH_AND_USER = gql`
     query getOrdersByBatchAndUserId($batchId:ID!, $userId:ID!) {

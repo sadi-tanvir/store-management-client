@@ -24,7 +24,7 @@ const MedicinesStock = () => {
             <div className={`w-full min-h-screen ${classes.global_background}`}>
                 <div className={`relative min-h-screen bg-slate-200 opacity-[0.70] pt-24 pb-[870px] md:pb-[460px] lg:pb-[480px]`}>
                     <div className="ml-5">
-                        <Breadcrumbs firstPath="/stocks" firstName="Stocks" current="Medicines" />
+                        <Breadcrumbs firstPath="/stocks" firstName="Stocks" current="Medicines - ঔষধ" />
                         <ReactHelmet title={'Medicines - Store Management'} />
                     </div>
 

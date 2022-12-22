@@ -8,3 +8,21 @@ export const CREATE_BATCH_MUTATION = gql`
         }
     }
 `;
+
+export const CLOSE_BATCH_MUTATION = gql`
+    mutation closeBatch($batchId:ID!) {
+        closeBatch(batchId:$batchId){
+            status
+            message
+        }
+    }
+`;
+
+export const RE_OPEN_BATCH_MUTATION = gql`
+    mutation reopenBatch($batchId:ID!) {
+        reopenBatch(batchId:$batchId){
+            status
+            message
+        }
+    }
+`;

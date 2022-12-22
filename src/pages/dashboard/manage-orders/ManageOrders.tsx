@@ -149,9 +149,6 @@ const ManageOrders = () => {
 
                 </TableHeader>
             </div >
-
-
-
         </>
     );
 };

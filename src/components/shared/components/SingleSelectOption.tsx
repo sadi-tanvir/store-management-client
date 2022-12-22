@@ -33,8 +33,6 @@ const SingleSelectOption = ({ header, visibility, mainStateValue, remainingState
                 </div>
                 <div className={`mb-2 ${!visibility.visibility && "hidden"}`}>
                     {remainingStateValue?.map((value: remainingStateType) => {
-                        console.log('value-1111', value);
-
                         return <span key={value.info_1} onClick={() => handleSelectValue(value.info_1)} className="w-full my-1 bg-teal-300 text-teal-600 px-3 py-[1px] inline-block rounded-md border border-gray-200 shadow-md text-start">
                             <span className="mr-1 flex flex-col justify-start items-start w-full">
                                 <span>{value.info_2}</span>

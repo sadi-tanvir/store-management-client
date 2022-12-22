@@ -46,3 +46,22 @@ export type OrderDetailsPropsType = {
     modalId: string;
     order: ManageOrderType;
 }
+
+
+export type UserBatchCardProps = {
+    batch: {
+        _id: string,
+        batchNo: string,
+        createdAt: string,
+        status: string,
+        userId: {
+            _id: string,
+            email: string,
+            firstName: string,
+            lastName: string,
+        }
+    };
+    isThisCard?: boolean;
+    closeBatchById: (batchId: string) => void;
+    reOpenBatchById?: (batchId: string) => void;
+}

@@ -9,13 +9,14 @@ import { DELETE_ORDER_MUTATION } from '../../../../gql/mutations/orderMutation';
 import UpdateOrderModal from '../../../../components/Dashboard/manage-orders/UpdateOrderModal';
 import UserInfoCard from '../../../../components/Dashboard/manage-batches/UserInfoCard';
 import { useParams } from 'react-router-dom';
-import { GET_BATCH_BY_ID } from '../../../../gql/queries/batchQueries';
+import { GET_ALL_ACTIVE_BATCHES, GET_BATCH_BY_ID } from '../../../../gql/queries/batchQueries';
 import OrderDetailsModal from '../../../../components/Dashboard/manage-batches/OrderDetailsModal';
 import { ManageOrderType } from '../../../../types/dashboard/manageBatch.types';
 import Breadcrumbs from '../../../../components/shared/components/Breadcrumbs';
 import ReactHelmet from '../../../../components/shared/components/ReactHelmet';
 import UserBatchCard from '../../../../components/Dashboard/manage-batches/UserBatchCard';
 import classes from "../../../../components/styles/global-style/global.module.css"
+import { CLOSE_BATCH_MUTATION, RE_OPEN_BATCH_MUTATION } from '../../../../gql/mutations/batchMutation';
 
 const IndividualBatchDetails = () => {
     // router
@@ -37,6 +38,63 @@ const IndividualBatchDetails = () => {
     const [deleteOrderMutation] = useMutation(DELETE_ORDER_MUTATION, {
         refetchQueries: [GET_ORDERS],
     });
+    const [closeBatchMutation] = useMutation(CLOSE_BATCH_MUTATION, {
+        refetchQueries: [GET_BATCH_BY_ID, GET_ALL_ACTIVE_BATCHES],
+    });
+    const [reOpenBatchMutation] = useMutation(RE_OPEN_BATCH_MUTATION, {
+        refetchQueries: [GET_BATCH_BY_ID, GET_ALL_ACTIVE_BATCHES],
+    });
+    const orders = orderResponse?.data?.getOrdersByBatchAndUserId
+
+    // total order amount
+    const orderExpandArr = orders?.map((order: any) => {
+        return order.products.map((product: any) => product.price)
+    })
+    const totalOrderAmount = orderExpandArr
+        ?.reduce((pre: number[], curr: number[]) => [...pre, ...curr], [])
+        .reduce((pre: number, curr: number) => pre + curr, 0)
+
+    // medicine quantity
+    let medicineQuantity = []
+    let totalMedicineQty = 0;
+    for (let i = 0; i < orders?.length; i++) {
+        for (let z = 0; z < orders[i].products.length; z++) {
+            if (orders[i].products[z].category === 'medicine') {
+                medicineQuantity.push(orders[i].products[z].qty)
+            }
+        }
+    }
+    for (let i = 0; i < medicineQuantity.length; i++) {
+        totalMedicineQty = totalMedicineQty + medicineQuantity[i]
+    }
+
+    // feed quantity
+    let feedQuantity = []
+    let totalFeedQty = 0;
+    for (let i = 0; i < orders?.length; i++) {
+        for (let z = 0; z < orders[i].products.length; z++) {
+            if (orders[i].products[z].category.split(" ")[1] === 'feed') {
+                feedQuantity.push(orders[i].products[z].qty)
+            }
+        }
+    }
+    for (let i = 0; i < feedQuantity.length; i++) {
+        totalFeedQty = totalFeedQty + feedQuantity[i]
+    }
+
+    // chicks quantity
+    let chicksQuantity = []
+    let totalChicksQty = 0;
+    for (let i = 0; i < orders?.length; i++) {
+        for (let z = 0; z < orders[i].products.length; z++) {
+            if (orders[i].products[z].category === 'newborn chicks') {
+                chicksQuantity.push(orders[i].products[z].qty)
+            }
+        }
+    }
+    for (let i = 0; i < chicksQuantity.length; i++) {
+        totalChicksQty = totalChicksQty + chicksQuantity[i]
+    }
 
 
     // handle Delete Stock
@@ -47,6 +105,34 @@ const IndividualBatchDetails = () => {
                     deleteOrderMutation({
                         variables: {
                             id: id
+                        }
+                    })
+                }
+            })
+    }
+
+    // close the batch
+    const closeBatchById = (batchId: string) => {
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Close it!' })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    closeBatchMutation({
+                        variables: {
+                            batchId: batchId
+                        }
+                    })
+                }
+            })
+    }
+
+    // Re-Open the batch
+    const reOpenBatchById = (batchId: string) => {
+        Swal.fire({ title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#14b8a6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Re-Open it!' })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    reOpenBatchMutation({
+                        variables: {
+                            batchId: batchId
                         }
                     })
                 }
@@ -75,38 +161,46 @@ const IndividualBatchDetails = () => {
                     </div>
                     <div className="w-full mt-10">
                         <div className="px-5 w-full grid grid-cols-1 sm:grid-cols-3 mx-auto">
-                            <UserBatchCard isThisCard={true} batch={batchResponse?.data?.getBatchById} />
+                            <UserBatchCard
+                                isThisCard={true}
+                                batch={batchResponse?.data?.getBatchById}
+                                closeBatchById={closeBatchById}
+                                reOpenBatchById={reOpenBatchById}
+                            />
 
                             <div className="sm:col-span-2 ml-auto w-full sm:w-72 mt-5 flex flex-col gap-2 sm:px-2 rounded-lg justify-center items-center cursor-pointer">
                                 <div className="my-3 w-full mx-auto flex flex-wrap gap-2 py-3 px-2 bg-white min-h-[50px] rounded-lg border border-gray-200 shadow-md justify-start items-center cursor-pointer">
                                     <div className="flex flex-col w-full justify-start font-bold items-start bg-slate-300 text-slate-600 px-3 py-[3px] inline-block rounded border border-gray-200 shadow-sm">
-                                        <span className="flex items-center">
-                                            <img
-                                                className="w-5 h-5 rounded-full shadow-lg mr-2"
-                                                src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX3ED1X-8PRTBBgdbgkiLYZQwYN0IUKtGISA&usqp=CAU`}
-                                                alt="User"
-                                            />
-                                            Total Chicks: 1000pcs
-                                        </span>
-                                        <span className="flex items-center">
-                                            <img
-                                                className="w-5 h-5 rounded-full shadow-lg mr-2"
-                                                src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsXklzmIGhnKcpEhzu1C8xFmDoky3doyMzKA&usqp=CAU`}
-                                                alt="User"
-                                            />
-                                            Total Feed: 10bag
-                                        </span>
-                                        <span className="flex items-center">
-                                            <img
-                                                className="w-5 h-5 rounded-full shadow-lg mr-2"
-                                                src={`https://www.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg`}
-                                                alt="User"
-                                            />
-                                            Total Medicine: 10pcs
-                                        </span>
+                                        {totalChicksQty > 0 &&
+                                            <span className="flex items-center">
+                                                <img
+                                                    className="w-5 h-5 rounded-full shadow-lg mr-2"
+                                                    src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX3ED1X-8PRTBBgdbgkiLYZQwYN0IUKtGISA&usqp=CAU`}
+                                                    alt="User"
+                                                />
+                                                Total Chicks: {totalChicksQty} pcs
+                                            </span>}
+                                        {totalFeedQty > 0 &&
+                                            <span className="flex items-center">
+                                                <img
+                                                    className="w-5 h-5 rounded-full shadow-lg mr-2"
+                                                    src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsXklzmIGhnKcpEhzu1C8xFmDoky3doyMzKA&usqp=CAU`}
+                                                    alt="User"
+                                                />
+                                                Total Feed: {totalFeedQty}bag
+                                            </span>}
+                                        {totalMedicineQty > 0 &&
+                                            <span className="flex items-center">
+                                                <img
+                                                    className="w-5 h-5 rounded-full shadow-lg mr-2"
+                                                    src={`https://www.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg`}
+                                                    alt="User"
+                                                />
+                                                Total Medicine: {totalMedicineQty}pcs
+                                            </span>}
                                         <span className="flex items-center">
                                             <CurrencyBDIcon iconClass="w-6 h-6" />
-                                            Total Amount: 200000 bdt
+                                            Total Amount: {totalOrderAmount} bdt
                                         </span>
                                     </div>
                                 </div>
@@ -114,12 +208,12 @@ const IndividualBatchDetails = () => {
                         </div>
                         <div>
                             {
-                                orderResponse?.data?.getOrdersByBatchAndUserId?.length <= 0 ?
+                                orders?.length <= 0 ?
                                     <h1 className="text-center text-2xl uppercase font-bold mt-10 text-secondary">No data available</h1>
                                     :
                                     <TableHeader headers={["email", "quantity", "Amount", "payment", "delivery", "actions"]}>
                                         {
-                                            orderResponse?.data?.getOrdersByBatchAndUserId?.map((order: ManageOrderType, index: number) => {
+                                            orders?.map((order: ManageOrderType, index: number) => {
                                                 return (
                                                     <>
                                                         <tr key={order._id}>
@@ -149,7 +243,7 @@ const IndividualBatchDetails = () => {
                                                                     <span className={`bg-slate-200 text-slate-600  font-semibold rounded-full border border-gray-200 shadow-sm dark:bg-darkSecondary dark:border-gray-700 px-3 flex items-center py-[1px] cursor-pointer`}>
                                                                         {
                                                                             order?.products
-                                                                                .map((product: any) => product.qty)
+                                                                                ?.map((product: any) => product.qty)
                                                                                 .reduce((pre: any, cur: any) => pre + cur, 0)
                                                                         } items
                                                                     </span>
@@ -185,11 +279,11 @@ const IndividualBatchDetails = () => {
                                                                             <EyesIcon />
                                                                         </label>
                                                                     </div>
-                                                                    <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
+                                                                    {/* <div className="w-4 mr-2 cursor-pointer transform hover:text-primary hover:scale-110">
                                                                         <label className="cursor-pointer" htmlFor={`update-${order._id}`}>
                                                                             <TableEditIcon />
                                                                         </label>
-                                                                    </div>
+                                                                    </div> */}
                                                                     <div className="w-4 mr-2 cursor-pointer transform hover:text-red-500 hover:scale-110">
                                                                         <label onClick={() => handleDeleteOrder(order._id)} className="cursor-pointer">
                                                                             <TableDeleteIcon />
